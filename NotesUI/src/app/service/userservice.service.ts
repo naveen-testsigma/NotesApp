@@ -8,8 +8,8 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class UserserviceService {
-private getURL = "http:8080//localhost:8080/get";
-private putURL = "http:8080//localhost:8080/put"
+private getURL = "http://localhost:8080/get";
+private putURL = "http://localhost:8080/put";
   constructor(private httpClient: HttpClient) { }
 
   getUser(username : string): Observable<Authlogin>{
