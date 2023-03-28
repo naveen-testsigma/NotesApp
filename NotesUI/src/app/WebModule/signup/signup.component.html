@@ -1,1 +1,29 @@
-<p>signup works!</p>
+<div class="container-fluid">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">
+      Name
+      </label>
+      <input type="text" name="username" id="name" [(ngModel)]="signup.name">
+    </div>
+    <div class="form-group">
+      <label for="email">
+       Email
+      </label>
+      <input type= "email" name="username" id="email" [(ngModel)]="signup.email">
+    </div>
+    <div class="form-group">
+      <label for="username">
+        UserName
+      </label>
+      <input type="text" name="username" id="username" [(ngModel)]="signup.username">
+    </div>
+    <div class="form-group">
+      <label for="password">
+        Password
+      </label>
+      <input type="password" name="password" id="password" [(ngModel)]="signup.password">
+    </div>
+    <button class="btn btn-outline-dark" type="submit">login</button>
+  </form>
+</div>
