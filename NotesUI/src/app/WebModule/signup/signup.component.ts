@@ -11,12 +11,12 @@ import {Router} from "@angular/router";
 export class SignupComponent {
 
 
-  signup : Authsignup ={email: "", name: "", password: "", username: ""};
+  signup : Authsignup ={emailId: "", name: "", password: ""};
 
   constructor(private userservice: UserserviceService, private router:Router) {
   }
   onSubmit(){
-   alert(this.userservice.postUser(this.signup));
+   this.userservice.postUser(this.signup);
    this.router.navigate(['/login'])
   }
 }

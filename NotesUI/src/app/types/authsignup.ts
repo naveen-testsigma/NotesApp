@@ -1,7 +1,6 @@
 export interface Authsignup{
    name : string;
-   username : string;
-   email : string;
+   emailId : string;
    password : string;
 
 }
