@@ -18,6 +18,9 @@ private putURL = "http://localhost:8080/user/add";
   }
   postUser(user: Authsignup) : Observable<Object>
   {
-    return this.httpClient.post<Authsignup>(this.putURL, user);
+    console.log("Reached here");
+    console.log(user);  
+    const userJson = JSON.stringify(user);
+    return this.httpClient.post<Authsignup>(this.putURL, userJson);
   }
 }
