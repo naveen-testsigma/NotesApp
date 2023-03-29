@@ -25,16 +25,17 @@ export class LoginComponent {
 
   onSubmit() {
 
-    this.userservice.getIDuser(this.login).subscribe();
-      // res=>{
-      // if(res == null)
-      //   alert("wrong username or password");
-      // else {
-      //   this.router.navigate(['/dashboard']);
-      //   // localStorage.setItem("user",String(this.checker.id));
-      // }
-      // localStorage.setItem("user",String(this.checker.id));
-    //}
+    this.userservice.getIDuser(this.login).subscribe(
+      res=>{
+      if(res == null)
+        alert("wrong username or password");
+      else {
+        console.log(res);
+        this.router.navigate(['/dashboard']);
+        // localStorage.setItem("user",String(this.checker.id));
+      }
+
+    });
 
 
     }

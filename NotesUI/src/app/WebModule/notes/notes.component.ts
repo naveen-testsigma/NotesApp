@@ -29,6 +29,7 @@ export class NotesComponent implements OnInit{
     console.log("add here noteservice : "+ this.notee.noteBody + this.notee.noteHeading + this.notee.userId + this.notee.id);
     this.noteservice.add(this.notee).subscribe(data =>{
       console.log(data);
+      window.location.reload();
     });
   }
 
