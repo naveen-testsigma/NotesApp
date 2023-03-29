@@ -1,5 +1,7 @@
 export interface Authlogin{
-
-  username : string;
+  name : string;
+  id : string;
+  emailId : string;
   password : string;
+
 }

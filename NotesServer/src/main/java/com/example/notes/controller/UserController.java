@@ -31,6 +31,7 @@ public class UserController {
     User addUser(@RequestBody User user)
     {
         System.out.println("Reached here");
+        System.out.println(user);
         return userService.addUser(user);
     }
 

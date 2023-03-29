@@ -15,12 +15,16 @@ export class LoginComponent {
   }
 
  login : Authlogin={
-   password: "", username: ""
+    id : "",name : "",
+   password: "", emailId: ""
 
+ }
+ userIDsender() : string{
+    return this.login.id;
  }
   onSubmit() {
 
-    this.userservice.getUser(this.login.username).subscribe(res=>{
+    this.userservice.getIDuser(this.login.emailId).subscribe(res=>{
       this.checker = res;
     });
     if(this.login.password == this.checker?.password){
@@ -30,5 +34,7 @@ export class LoginComponent {
     else {
       alert("wrong username/password");
     }
+    console.log( this.checker);
+
   }
 }
