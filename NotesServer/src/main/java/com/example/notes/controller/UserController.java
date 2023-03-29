@@ -32,7 +32,7 @@ public class UserController {
     {
         return userService.findByEmailId(email);
     }
-    @GetMapping("/check")
+    @PostMapping ("/check")
     LoggedInDto checking(@RequestBody LoginDto loginDto)
     {
         User currentUser=userService.findByEmailId(loginDto.getEmailId());
