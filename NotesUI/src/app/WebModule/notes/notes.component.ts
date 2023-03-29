@@ -3,7 +3,6 @@ import {NotesService} from "../../service/notes.service";
 import {Notes} from "../../types/notes";
 import {Router} from "@angular/router";
 import {LoginService} from "../../service/login.service";
-import {Observable} from "rxjs";
 import {Search} from "../../types/search";
 
 @Component({
@@ -78,7 +77,7 @@ export class NotesComponent implements OnInit{
        if(res.length==0)
          this.notFound = true;
        else {
-         this.notFound = false; 
+         this.notFound = false;
          this.serachNotes = res;
          this.isSearch = true;
        }
