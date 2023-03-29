@@ -25,17 +25,19 @@ public class NotesController {
     {
         return notesService.postNotes(notes);
     }
-    @GetMapping("/search")
+    @PostMapping("/search")
     List<Notes> searchNotes(@RequestBody SearchNotesDto searchDto)
     {
+        System.out.println("Here at search");
         return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
     }
     @GetMapping("/userid/{user_id}")
     List<Notes> getNotesById(@PathVariable("user_id") Long user_id)
     {
+
         return notesService.getNotesById(user_id);
     }
-    @GetMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody Notes notes )
     {
         return notesService.updateNotesById(id,notes);
