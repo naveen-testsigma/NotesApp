@@ -1,6 +1,6 @@
 export interface Notes{
   id : string;
-  userId : string;
+  userId : number;
   noteHeading : string;
   noteBody : string;
 }

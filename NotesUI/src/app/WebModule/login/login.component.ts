@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {Authlogin} from "../../types/authlogin";
 import {UserserviceService} from "../../service/userservice.service";
 
 import {Router} from "@angular/router";
+import {NotesComponent} from "../notes/notes.component";
+import {LoginService} from "../../service/login.service";
+
 
 @Component({
   selector: 'app-login',
@@ -11,30 +14,26 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
   checker : Authlogin|undefined;
+
   constructor(private userservice: UserserviceService,private router : Router) {
   }
 
  login : Authlogin={
-    id : "",name : "",
+    id : 0n,name : "",
    password: "", emailId: ""
 
  }
- userIDsender() : string{
-    return this.login.id;
- }
+
   onSubmit() {
 
     this.userservice.getIDuser(this.login.emailId).subscribe(res=>{
       this.checker = res;
+      console.log("on submit : "+ this.login.emailId);
+      localStorage.setItem("user",String(this.checker.id));
     });
-    if(this.login.password == this.checker?.password){
-      alert("login successfull");
-      this.router.navigate(['/dashboard']);
+
     }
-    else {
-      alert("wrong username/password");
-    }
-    console.log( this.checker);
 
   }
-}
+
+

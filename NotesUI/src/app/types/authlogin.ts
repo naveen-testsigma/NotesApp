@@ -1,6 +1,6 @@
 export interface Authlogin{
   name : string;
-  id : string;
+  id : bigint;
   emailId : string;
   password : string;
 
