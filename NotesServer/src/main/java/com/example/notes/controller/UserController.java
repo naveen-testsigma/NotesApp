@@ -38,7 +38,6 @@ public class UserController {
         User currentUser=userService.findByEmailId(loginDto.getEmailId());
         if(Objects.equals(currentUser.getPassword(), loginDto.getPassword()))
         {
-            System.out.println("Reached here ");
             return userMapper.userToUserDto(currentUser);
         }
         else {
