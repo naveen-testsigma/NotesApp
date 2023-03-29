@@ -5,6 +5,7 @@ import {UserserviceService} from "../../service/userservice.service";
 import {Router} from "@angular/router";
 import {NotesComponent} from "../notes/notes.component";
 import {LoginService} from "../../service/login.service";
+import { MainObject } from 'src/app/types/mainObject';
 
 
 @Component({
@@ -26,14 +27,13 @@ export class LoginComponent {
   onSubmit() {
 
     this.userservice.getIDuser(this.login).subscribe(
-      res=>{
+      (res:any)=>{
       if(res == null)
-        alert("wrong username or password");
-      else {
+        alert("Wrong username or password");
+      else {        
         this.router.navigate(['/dashboard']);
-        // localStorage.setItem("user",String(this.checker.id));
+        localStorage.setItem("user",String(res.id || null));
       }
-      //localStorage.setItem("user",String(this.checker.id));
     }
     );
 
