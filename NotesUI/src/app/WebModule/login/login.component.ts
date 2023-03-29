@@ -13,24 +13,29 @@ import {LoginService} from "../../service/login.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  checker : Authlogin|undefined;
+  checker : Authlogin | undefined;
 
   constructor(private userservice: UserserviceService,private router : Router) {
   }
 
  login : Authlogin={
-    id : 0n,name : "",
    password: "", emailId: ""
 
  }
 
   onSubmit() {
 
-    this.userservice.getIDuser(this.login.emailId).subscribe(res=>{
-      this.checker = res;
-      console.log("on submit : "+ this.login.emailId);
-      localStorage.setItem("user",String(this.checker.id));
-    });
+    this.userservice.getIDuser(this.login).subscribe();
+      // res=>{
+      // if(res == null)
+      //   alert("wrong username or password");
+      // else {
+      //   this.router.navigate(['/dashboard']);
+      //   // localStorage.setItem("user",String(this.checker.id));
+      // }
+      // localStorage.setItem("user",String(this.checker.id));
+    //}
+
 
     }
 
