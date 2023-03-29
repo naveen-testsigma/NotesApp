@@ -15,4 +15,6 @@ public interface NotesService {
     Notes postNotes(Notes notes);
 
     String updateNotesById(Long id, Notes notes);
+
+    List<Notes> searchNotes(String word,Long id);
 }

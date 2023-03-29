@@ -12,4 +12,6 @@ public interface TodoListService {
     String updateTodoListById(Long id, TodoList todoList);
 
     String deleteTodoListById(Long id);
+
+    List<TodoList> searchList(String todoData, Long userId);
 }

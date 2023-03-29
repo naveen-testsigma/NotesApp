@@ -1,7 +1,7 @@
 package com.example.notes.controller;
 
+import com.example.notes.dto.SearchNotesDto;
 import com.example.notes.enitity.Notes;
-import com.example.notes.enitity.User;
 import com.example.notes.service.NotesService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +23,11 @@ public class NotesController {
     Notes postNotes(@RequestBody Notes notes)
     {
         return notesService.postNotes(notes);
+    }
+    @GetMapping("/search")
+    List<Notes> searchNotes(@RequestBody SearchNotesDto searchDto)
+    {
+        return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
     }
     @GetMapping("/userid/{user_id}")
     List<Notes> getNotesById(@PathVariable("user_id") Long user_id)

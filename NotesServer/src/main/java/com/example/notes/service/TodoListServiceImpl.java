@@ -33,4 +33,9 @@ public class TodoListServiceImpl implements TodoListService{
          todoListRepository.deleteById(id);
          return "Deleted Successfully";
     }
+
+    @Override
+    public List<TodoList> searchList(String todoData, Long userId) {
+        return todoListRepository.findByTodoDataAndUserId(todoData,userId);
+    }
 }

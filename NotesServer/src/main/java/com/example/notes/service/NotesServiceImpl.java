@@ -33,4 +33,10 @@ public class NotesServiceImpl implements NotesService {
         notesRepository.save(temp);
        return  "Updated Successfully";
     }
+
+    @Override
+    public List<Notes> searchNotes(String word,Long id) {
+        return notesRepository.findByNoteHeadingAndUserId(word,id);
+    }
+
 }

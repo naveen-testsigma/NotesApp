@@ -1,5 +1,8 @@
 package com.example.notes.controller;
 
+import com.example.notes.dto.SearchListDto;
+import com.example.notes.dto.SearchNotesDto;
+import com.example.notes.enitity.Notes;
 import com.example.notes.enitity.TodoList;
 import com.example.notes.service.TodoListService;
 import lombok.AllArgsConstructor;
@@ -15,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/todolist")
-public class TodoLstController {
+public class TodoListController {
     @Autowired
     TodoListService todoListService;
     @PostMapping("/post")
@@ -32,6 +35,11 @@ public class TodoLstController {
     String updateTodoListById(@PathVariable("id") Long  id, @RequestBody TodoList todoList )
     {
         return todoListService.updateTodoListById(id,todoList);
+    }
+    @GetMapping("/search")
+    List<TodoList> searchList(@RequestBody SearchListDto searchListDto)
+    {
+        return todoListService.searchList(searchListDto.getTodoData(),searchListDto.getUserId());
     }
 
     @DeleteMapping("/delete/{id}")
