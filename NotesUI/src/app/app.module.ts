@@ -12,7 +12,7 @@ import { HomeComponent } from './WebModule/home/home.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NotesComponent } from './WebModule/notes/notes.component';
 import { TodolistComponent } from './WebModule/todolist/todolist.component';
-
+import {CommonModule} from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +28,10 @@ import { TodolistComponent } from './WebModule/todolist/todolist.component';
     [FormsModule,BrowserModule],
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [LoginComponent,NotesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

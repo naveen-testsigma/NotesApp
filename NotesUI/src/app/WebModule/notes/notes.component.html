@@ -1,11 +1,25 @@
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm" *ngFor="let note for notes">
-      <div class="card">
-        <div class="card-body">
-         <h4 class="card-title">{{note.noteHeading}}</h4>
-          <p class="card-text">{{note.noteBody}}</p>
+  <div class="row p-5">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <div class="card" >
+        <div class="card-body bg-secondary bg-opacity-25" >
+          <h4 class="card-title p-0 text-dark">title : <input type="text" [(ngModel)]="notee.noteHeading" ><hr></h4>
+          <p class="card-text text-black-50 p-4"><input type="text" [(ngModel)]="notee.noteBody" > </p>
+          <h2 class="card-footer">
+            <button (click)="add()" class="btn btn-primary">add</button></h2>
+        </div>
+      </div>
+      </div>
+    <div class="col-lg-3 col-md-3 col-sm-3"  *ngFor="let note of notes">
+      <div class="card" >
+        <div class="card-body bg-secondary bg-opacity-25" >
+         <h4 class="card-title p-0 text-dark">{{note.noteHeading}}
+         <div class="btn-group">
+           <button (click)="update(note.id)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>
+           <button (click)="delete(note.id)" class="btn btn-danger"><i class="bi bi-calendar2-x"></i></button>
+         </div>  <hr></h4>
+          <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>
         </div>
       </div>
     </div>
