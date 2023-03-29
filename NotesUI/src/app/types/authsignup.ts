@@ -1,6 +1,6 @@
-export interface Authsignup{
-   name : string;
-   emailId : string;
-   password : string;
+export class Authsignup{
+   name : string="";
+   emailId : string="";
+   password : string="";
 
 }

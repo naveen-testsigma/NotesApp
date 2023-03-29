@@ -20,18 +20,17 @@ public class NotesServiceImpl implements NotesService {
         notesRepository.deleteById(id);
         return "Deleted "+id;
     }
-//    @Override
-//    public String updateNotesById() {
-//        return notesRepository.saveOrUpdate();
-//    }
 
     @Override
     public Notes postNotes(Notes notes) {
         return notesRepository.save(notes);
     }
-    //TODO
     @Override
     public String updateNotesById(Long id, Notes notes) {
-        return "";
+        Notes temp=notesRepository.findById(id).get();
+        temp.setNoteHeading(notes.getNoteHeading());
+        temp.setNoteBody(notes.getNoteBody());
+        notesRepository.save(temp);
+       return  "Updated Successfully";
     }
 }

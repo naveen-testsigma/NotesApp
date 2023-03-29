@@ -1,22 +1,25 @@
 package com.example.notes.enitity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class TodoList {
     @Id
+    @GeneratedValue
     Long id;
-    Date created_date;
-    Date updated_date;
-    Long user_id;
-    String todo_data;
-    Date deadline;
+//    Date created_date;
+//    Date updated_date;
+//    Date deadline;
+    Long userId;
+    String todoData;
+
 }

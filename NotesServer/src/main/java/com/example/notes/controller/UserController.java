@@ -27,6 +27,8 @@ public class UserController {
     {
         return userService.findByEmailId(email);
     }
+//    @GetMapping("/check")
+
     @PostMapping("/add")
     User addUser(@RequestBody User user)
     {
