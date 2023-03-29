@@ -1,5 +1,7 @@
-export class Authlogin{
+export interface Authlogin{
+  name : string;
+  id : string;
+  emailId : string;
+  password : string;
 
-  username : string="";
-  password : string="";
 }

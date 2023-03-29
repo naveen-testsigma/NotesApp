@@ -11,12 +11,16 @@ export class UserserviceService {
 private getURL = "http://localhost:8080/get";
 private putURL = "http://localhost:8080/user/add";
   constructor(private httpClient: HttpClient) { }
-  
+
 
   getUser(username : string): Observable<Authlogin>{
     return this.httpClient.get<Authlogin>(`${this.getURL}`+`${username}`);
   }
-  postUser(user: Authsignup) : Observable<Object>
+
+  getIDuser(emailId : string) : Observable<Authlogin>{
+    return this.httpClient.get<Authlogin>(`http://localhost:8080/user/email/${emailId}`);
+  }
+  postUser(user: Authsignup) : Observable<Authsignup>
   {
     
     return this.httpClient.post<Authsignup>(this.putURL, user);
