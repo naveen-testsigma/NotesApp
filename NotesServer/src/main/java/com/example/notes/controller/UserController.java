@@ -36,6 +36,8 @@ public class UserController {
     LoggedInDto checking(@RequestBody LoginDto loginDto)
     {
         User currentUser=userService.findByEmailId(loginDto.getEmailId());
+        if(currentUser==null)
+            return null;
         if(Objects.equals(currentUser.getPassword(), loginDto.getPassword()))
         {
             return userMapper.userToUserDto(currentUser);
