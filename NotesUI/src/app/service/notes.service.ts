@@ -5,6 +5,7 @@ import {LoginComponent} from "../WebModule/login/login.component";
 import {Observable} from "rxjs";
 import {Authlogin} from "../types/authlogin";
 import {NotesComponent} from "../WebModule/notes/notes.component";
+import {Search} from "../types/search";
 
 
 @Injectable({
@@ -30,5 +31,17 @@ export class NotesService {
   add(notes : Notes) : Observable<Object> {
     console.log(notes);
     return this.http.post('http://localhost:8080/notes/post',notes);
+  }
+
+  update(notes : Notes) : Observable<Object> {
+   console.log(notes);
+  // @ts-ignore
+    return this.http.post(`http://localhost:8080/notes/update/${notes.id}`,notes);
+  }
+
+  search(searcher : Search) : Observable<Notes[]>{
+
+    return this.http.post<Notes[]>('http://localhost:8080/notes/search',searcher);
+
   }
 }

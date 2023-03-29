@@ -3,8 +3,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Authlogin} from "../types/authlogin";
 import {Authsignup} from "../types/authsignup";
 import {Observable} from "rxjs";
-import {LoginComponent} from "../WebModule/login/login.component";
-import {MainObject} from "../types/mainObject";
 
 @Injectable({
   providedIn: 'root'
