@@ -36,7 +36,7 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public List<Notes> searchNotes(String word,Long id) {
-        return notesRepository.findByNoteHeadingAndUserId(word,id);
+        return notesRepository.findByUserIdAndNoteHeadingLike(id,"%"+word+"%");
     }
 
 }
