@@ -18,10 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/todolist")
+@CrossOrigin("http://localhost:4200")
 public class TodoListController {
     @Autowired
     TodoListService todoListService;
-    @PostMapping("/post")
+    @PostMapping
     TodoList postTodoList(@RequestBody TodoList todoList)
     {
         return todoListService.postTodoList(todoList);
@@ -31,12 +32,12 @@ public class TodoListController {
     {
         return todoListService.getTodoListById(user_id);
     }
-    @GetMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     String updateTodoListById(@PathVariable("id") Long  id, @RequestBody TodoList todoList )
     {
         return todoListService.updateTodoListById(id,todoList);
     }
-    @GetMapping("/search")
+    @PostMapping("/search")
     List<TodoList> searchList(@RequestBody SearchListDto searchListDto)
     {
         return todoListService.searchList(searchListDto.getTodoData(),searchListDto.getUserId());

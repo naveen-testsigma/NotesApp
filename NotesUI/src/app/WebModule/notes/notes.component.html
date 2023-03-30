@@ -2,9 +2,11 @@
 <div class="container">
 
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searcher.noteHeading" >
-    <button class="btn btn-outline-success my-2 my-sm-0" (click)="searcherfunc()">Search</button>
-<div class="container">
-  <h1 class="bg-danger" *ngIf="notFound" >not found ! </h1>
+  <div class= "btn-group">
+  <button class="btn btn-outline-info my-2 my-sm-0" (click)="searcherfunc()">Search</button>
+  <button (click)="noteslist()" class="btn btn-outline-success">noteslist</button></div>
+<div class="container border-dark border-3 rounded">
+  <h5 class="bg-danger rounded bg-opacity-50" *ngIf="notFound" >not found ! </h5>
 </div>
   <div class="row p-5" *ngIf="isSearch">
     <div class="col-lg-3 col-md-3 col-sm-3"   *ngFor="let noter of serachNotes">
@@ -17,31 +19,32 @@
             </div>  <hr></h4>
           <p class="card-text text-black-50 p-4">{{noter.noteBody}}</p>
         </div>
+
       </div>
     </div>
   </div>
-  <div class="row p-5">
-    <div class="col-lg-3 col-md-3 col-sm-3">
-      <div class="card" >
-        <div class="card-body bg-secondary bg-opacity-25" >
-          <h4 class="card-title p-0 text-dark"><input type="text" class="input-group-text" [(ngModel)]="notee.noteHeading" ></h4>
-          <p class="card-text text-black-50 p-4"><textarea [(ngModel)]="notee.noteBody" class="input-group-text"> </textarea></p>
-          <h2 class="card-footer bg-secondary bg-opacity-25">
-            <button (click)="add()" class="btn btn-primary">add</button></h2>
-        </div>
-      </div>
-      </div>
-    <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="isVisible" >
-      <div class="card" >
-        <div class="card-body bg-secondary bg-opacity-25" >
-          <h4 class="card-title p-0 text-dark"><input type="text" class="input-group-text" [(ngModel)]="notee1.noteHeading" ></h4>
-          <p class="card-text text-black-50 p-4"><textarea [(ngModel)]="notee1.noteBody"> </textarea></p>
-          <h2 class="card-footer bg-secondary bg-opacity-25">
-            <button (click)="update()" class="btn btn-primary">Update</button></h2>
-        </div>
+  <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="isVisible" >
+    <div class="card" >
+      <div class="card-body bg-secondary bg-opacity-25" >
+        <h4 class="card-title p-0 text-dark"><input type="text" class="input-group-text" [(ngModel)]="notee1.noteHeading" ></h4>
+        <p class="card-text text-black-50 p-4"><textarea [(ngModel)]="notee1.noteBody"> </textarea></p>
+        <h2 class="card-footer bg-secondary bg-opacity-25">
+          <button (click)="update()" class="btn btn-primary">Update</button></h2>
       </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-3"  *ngFor="let note of notes">
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="adddisplay">
+    <div class="card" >
+      <div class="card-body bg-secondary bg-opacity-25" >
+        <h4 class="card-title p-0 text-dark"><input type="text" class="input-group-text" [(ngModel)]="notee.noteHeading" ></h4>
+        <p class="card-text text-black-50 p-4"><textarea [(ngModel)]="notee.noteBody" class="input-group-text"> </textarea></p>
+        <h2 class="card-footer bg-secondary bg-opacity-25">
+          <button (click)="add()" class="btn btn-primary">add</button></h2>
+      </div>
+    </div>
+  </div>
+  <div class="row p-5" *ngIf="notesdisplay">
+    <div class="col-lg-3 col-md-3 col-sm-3"  *ngFor="let note of notes" >
       <div class="card" >
         <div class="card-body bg-secondary bg-opacity-25" >
          <h4 class="card-title p-0 text-dark">{{note.noteHeading}}

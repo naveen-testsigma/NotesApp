@@ -15,11 +15,13 @@ export class NotesComponent implements OnInit{
   isVisible=false;
   isSearch = false;
   notFound = false;
+  notesdisplay = true;
   notes : Notes[] | undefined;
   serachNotes : Notes[] | undefined;
   notee : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
   notee1 : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
   searcher : Search ={noteHeading: "", userId: ""}
+  adddisplay = true;
   constructor(private noteservice : NotesService,private route : Router, private loginservie: LoginService) {
 
   }
@@ -27,7 +29,6 @@ export class NotesComponent implements OnInit{
    this.getting();
   }
   getting(){
-
     this.noteservice.findALl().subscribe(data =>{
       this.notes = data;
     })
@@ -57,6 +58,7 @@ export class NotesComponent implements OnInit{
   }
   setId(n : string)
   {
+    this.adddisplay = false;
     this.isVisible=true;
     this.notee1.id  =String(n);
 
@@ -70,6 +72,9 @@ export class NotesComponent implements OnInit{
   }
 
   searcherfunc() {
+    this.isVisible = false;
+    this.adddisplay = false;
+    this.notesdisplay = false;
     // @ts-ignore
     this.searcher.userId = localStorage.getItem("user");
     console.log(this.searcher);
@@ -85,5 +90,14 @@ export class NotesComponent implements OnInit{
      });
 
 
+  }
+
+  noteslist() {
+    this.notFound = false;
+    this.searcher.noteHeading="";
+    this.isVisible = false;
+    this.adddisplay = true;
+    this.notesdisplay = true;
+    this.isSearch = false;
   }
 }
