@@ -41,9 +41,10 @@ public class TodoListController {
         return todoListService.updateTodoListById(id,todoList);
     }
     @PostMapping("/search")
-    List<TodoList> searchList(@RequestBody SearchListDto searchListDto)
+    List<TodoList> searchList(@RequestBody SearchListRequest searchListRequest)
     {
-        return todoListService.searchList(searchListDto.getTodoData(),searchListDto.getUserId());
+
+        return todoListService.searchList(searchListRequest.getTodoData(),searchListRequest.getUserId());
     }
 
     @DeleteMapping("/delete/{id}")
