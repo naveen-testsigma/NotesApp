@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListRequest {
+    Long id;
     Long userId;
     String todoData;
 
