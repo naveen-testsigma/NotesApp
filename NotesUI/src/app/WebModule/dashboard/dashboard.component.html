@@ -1,6 +1,9 @@
+<button (click)="logoutChecker()" class="justify-content-end btn btn-danger" > <i class="bi bi-box-arrow-left"></i>logout</button>
+
 <div class="container-xxl p-5">
   <div class="btn-group">
-    <button [routerLink]="['/notes']" class="btn btn-lg btn-outline-success"> notes </button>
-    <button [routerLink]="['/todolist']" class="btn btn-lg btn-outline-dark"> todolist </button>
+    <button [routerLink]="['/dashboard/notes']" class="btn btn-lg btn-outline-success"> notes </button>
+    <button [routerLink]="['/dashboard/todolist']" class="btn btn-lg btn-outline-dark"> todolist </button>
   </div>
 </div>
+

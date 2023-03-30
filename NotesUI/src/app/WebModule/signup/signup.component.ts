@@ -17,6 +17,7 @@ export class SignupComponent {
   }
   onSubmit(){
     console.log( this.userservice.postUser(this.signup).subscribe()) ;
+    alert('registered successfully !');
    this.router.navigate(['/login'])
   }
 }

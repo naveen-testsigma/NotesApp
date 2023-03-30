@@ -6,14 +6,18 @@ import {DashboardComponent} from "./WebModule/dashboard/dashboard.component";
 import {HomeComponent} from "./WebModule/home/home.component";
 import {NotesComponent} from "./WebModule/notes/notes.component";
 import {TodolistComponent} from "./WebModule/todolist/todolist.component";
+import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
-  {path:'dashboard',component:DashboardComponent},
-  {path:'',component:HomeComponent},
-  {path:'notes',component: NotesComponent},
-  {path: 'todolist',component:TodolistComponent}
+  {path:'',component:HomeComponent,pathMatch:"full"},
+  {path:'',canActivate:[AuthGuard],children:[
+
+      {path:'dashboard',component:DashboardComponent},
+      {path: 'dashboard/todolist',component:TodolistComponent},
+      {path:'dashboard/notes',component: NotesComponent}
+      ]},
 ];
 
 @NgModule({
