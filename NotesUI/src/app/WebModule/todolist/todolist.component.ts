@@ -1,10 +1,97 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Todolist} from "../../types/todolist";
+import {TodolistService} from "../../service/todolist.service";
+
+import {Router, Routes} from "@angular/router";
 
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent {
+export class TodolistComponent implements OnInit{
+  notFoundshow = false;
+
+constructor(private todoservice : TodolistService,private routes : Router) {
+}
+todolist : Todolist[] | undefined;
+  showUpdate=  false;
+  idTodo :string ="";
+  textUpdate : string ="";
+  searchlist : Todolist[]|undefined;
+  todoUpdate : Todolist ={id: "", todoData: "", userId: ""}
+  addUpdate: string ="";
+  showAdd= false;
+  searcher: Todolist = {id: "", todoData: "", userId: ""};
+  mainTableShow = false;
+  searchTableshow= false;
+
+  ngOnInit(): void {
+    this.getting();
+  }
+ getting(){
+    this.notFoundshow = false;
+    this.mainTableShow = true;
+    this.searchTableshow = false;
+    this.todoservice.findAll().subscribe(res=>{
+      console.log("result" ,res);
+      this.todolist = res;
+      this.showAdd = false;
+      this.showUpdate = false;
+      console.log("todolist   " + this.todolist);
+    })
+ }
+
+
+  delete(id : string) {
+    this.todoservice.delete(id).subscribe(res=>
+    {
+      console.log(res);
+    });
+   window.location.reload();
+  }
+
+  update(id:string) {
+    this.showUpdate = true;
+    this.idTodo = id;
+    }
+
+  updateList() {
+    this.todoUpdate.id = this.idTodo;
+    this.todoUpdate.todoData = this.textUpdate;
+    this.todoservice.update(this.todoUpdate).subscribe(res=>{
+        console.log(res);
+      }
+    )
+   window.location.reload();
+  }
+
+  addListCall() {
+    this.showAdd = true;
+  }
+
+  addList() {
+    this.todoUpdate.todoData = this.addUpdate;
+
+    this.showUpdate = false;
+    this.todoservice.add(this.todoUpdate).subscribe(res=>{
+      console.log("result" + res);
+    })
+    window.location.reload();
+  }
+
+  searcherfunc() {
+  this.mainTableShow = false;
+  this.searchTableshow = true;
+  this.todoservice.search(this.searcher).subscribe(res=>{
+    this.searchlist = res;
+    if(this.searchlist.length == 0)
+    {
+      this.notFoundshow = true;
+      this.searchTableshow = false;
+    }
+  });
+  }
+
 
 }
