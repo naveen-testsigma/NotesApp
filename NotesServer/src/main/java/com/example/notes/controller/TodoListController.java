@@ -1,9 +1,9 @@
 package com.example.notes.controller;
 
-import com.example.notes.dto.SearchListDto;
-import com.example.notes.dto.SearchNotesDto;
-import com.example.notes.enitity.Notes;
-import com.example.notes.enitity.TodoList;
+import com.example.notes.mapper.ListMapper;
+import com.example.notes.request.ListRequest;
+import com.example.notes.request.SearchListRequest;
+import com.example.notes.entity.TodoList;
 import com.example.notes.service.TodoListService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +21,12 @@ import java.util.List;
 public class TodoListController {
     @Autowired
     TodoListService todoListService;
+    @Autowired
+    ListMapper listMapper;
     @PostMapping("/post")
-    TodoList postTodoList(@RequestBody TodoList todoList)
+    TodoList postTodoList(@RequestBody ListRequest listRequest)
     {
+        TodoList todoList=listMapper.listRequestToTodoList(listRequest);
         return todoListService.postTodoList(todoList);
     }
     @GetMapping("/userid/{user_id}")
@@ -32,12 +35,13 @@ public class TodoListController {
         return todoListService.getTodoListById(user_id);
     }
     @GetMapping("/update/{id}")
-    String updateTodoListById(@PathVariable("id") Long  id, @RequestBody TodoList todoList )
+    String updateTodoListById(@PathVariable("id") Long  id, @RequestBody ListRequest listRequest )
     {
+        TodoList todoList=listMapper.listRequestToTodoList(listRequest);
         return todoListService.updateTodoListById(id,todoList);
     }
     @GetMapping("/search")
-    List<TodoList> searchList(@RequestBody SearchListDto searchListDto)
+    List<TodoList> searchList(@RequestBody SearchListRequest searchListDto)
     {
         return todoListService.searchList(searchListDto.getTodoData(),searchListDto.getUserId());
     }

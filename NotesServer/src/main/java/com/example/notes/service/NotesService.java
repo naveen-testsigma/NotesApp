@@ -1,6 +1,6 @@
 package com.example.notes.service;
 
-import com.example.notes.enitity.Notes;
+import com.example.notes.entity.Notes;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

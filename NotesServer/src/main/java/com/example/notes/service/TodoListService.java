@@ -1,5 +1,5 @@
 package com.example.notes.service;
-import com.example.notes.enitity.TodoList;
+import com.example.notes.entity.TodoList;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

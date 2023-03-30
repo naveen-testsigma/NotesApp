@@ -1,4 +1,4 @@
-package com.example.notes.dto;
+package com.example.notes.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class LoginRequest {
     String emailId;
     String password;
 }

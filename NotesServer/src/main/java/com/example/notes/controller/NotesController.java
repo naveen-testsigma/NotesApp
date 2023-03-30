@@ -1,7 +1,9 @@
 package com.example.notes.controller;
 
-import com.example.notes.dto.SearchNotesDto;
-import com.example.notes.enitity.Notes;
+import com.example.notes.mapper.NotesMapper;
+import com.example.notes.request.NotesRequest;
+import com.example.notes.request.SearchNotesRequest;
+import com.example.notes.entity.Notes;
 import com.example.notes.service.NotesService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,13 +22,16 @@ import java.util.List;
 public class NotesController {
     @Autowired
     NotesService notesService;
+    @Autowired
+    NotesMapper notesMapper;
     @PostMapping("/post")
-    Notes postNotes(@RequestBody Notes notes)
+    Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
+        Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
     @PostMapping("/search")
-    List<Notes> searchNotes(@RequestBody SearchNotesDto searchDto)
+    List<Notes> searchNotes(@RequestBody SearchNotesRequest searchDto)
     {
         System.out.println("Here at search");
         return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
@@ -38,8 +43,9 @@ public class NotesController {
         return notesService.getNotesById(user_id);
     }
     @PostMapping("/update/{id}")
-    String updateNotesById(@PathVariable("id") Long  id, @RequestBody Notes notes )
+    String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
+        Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.updateNotesById(id,notes);
     }
 

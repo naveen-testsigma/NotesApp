@@ -1,9 +1,7 @@
 package com.example.notes.service;
 
-import com.example.notes.enitity.User;
+import com.example.notes.entity.User;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface UserService {
