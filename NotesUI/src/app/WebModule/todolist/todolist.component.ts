@@ -100,4 +100,8 @@ todolist : Todolist[] | undefined;
   }
 
 
+  logoutChecker() {
+    localStorage.clear();
+    this.routes.navigate(['']);
+  }
 }

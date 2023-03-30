@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     if(this.authservice.IsloggedIn()) {
-      alert("logged in successfully");
       return true;
     }
     alert("please log in to access");

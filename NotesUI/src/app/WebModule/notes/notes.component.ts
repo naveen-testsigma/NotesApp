@@ -112,4 +112,8 @@ export class NotesComponent implements OnInit{
     this.isSearch = false;
   }
 
+  logoutChecker() {
+    localStorage.clear();
+    this.route.navigate(['']);
+  }
 }
