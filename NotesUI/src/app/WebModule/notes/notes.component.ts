@@ -26,9 +26,11 @@ export class NotesComponent implements OnInit{
 
   }
   ngOnInit(): void {
+
    this.getting();
   }
   getting(){
+
     this.noteservice.findALl().subscribe(data =>{
       this.notes = data;
     })
@@ -40,7 +42,9 @@ export class NotesComponent implements OnInit{
     console.log("add here noteservice : "+ this.notee.noteBody + this.notee.noteHeading + this.notee.userId + this.notee.id);
     this.noteservice.add(this.notee).subscribe(data =>{
       console.log(data);
-      window.location.reload();
+      this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+        this.route.navigate(['/dashboard/notes']);
+      })
     });
   }
 
@@ -54,7 +58,9 @@ export class NotesComponent implements OnInit{
       console.log(data);
 
     });
-  window.location.reload();
+    this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+      this.route.navigate(['/dashboard/notes']);
+    })
   }
   setId(n : string)
   {
@@ -67,8 +73,13 @@ export class NotesComponent implements OnInit{
   delete(id: string) {
     console.log("delete was here : "+ id);
     this.noteservice.delete(id).subscribe((data: any) => {
+      console.log(data);
+
+    });
+    this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+      this.route.navigate(['/dashboard/notes']);
     })
-    window.location.reload();
+
   }
 
   searcherfunc() {
@@ -100,4 +111,5 @@ export class NotesComponent implements OnInit{
     this.notesdisplay = true;
     this.isSearch = false;
   }
+
 }

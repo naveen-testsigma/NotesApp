@@ -48,7 +48,9 @@ todolist : Todolist[] | undefined;
     {
       console.log(res);
     });
-   window.location.reload();
+    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+      this.routes.navigate(['/dashboard/todolist']);
+    })
   }
 
   update(id:string) {
@@ -63,7 +65,9 @@ todolist : Todolist[] | undefined;
         console.log(res);
       }
     )
-   window.location.reload();
+    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+      this.routes.navigate(['/dashboard/todolist']);
+    })
   }
 
   addListCall() {
@@ -77,7 +81,9 @@ todolist : Todolist[] | undefined;
     this.todoservice.add(this.todoUpdate).subscribe(res=>{
       console.log("result" + res);
     })
-    window.location.reload();
+    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+      this.routes.navigate(['/dashboard/todolist']);
+    })
   }
 
   searcherfunc() {
