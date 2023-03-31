@@ -18,7 +18,7 @@ export class TodolistService {
 
   }
 
-  delete(id : string) {
+  delete(id : string) :Observable<any>{
     return this.http.delete(`http://localhost:8080/todolist/delete/${id}`);
   }
 
@@ -33,7 +33,7 @@ export class TodolistService {
     // @ts-ignore
     todoUpdate.userId = localStorage.getItem("user");
     console.log("post here "+ todoUpdate.id + ' '+ todoUpdate.userId + ' '+todoUpdate.todoData);
-   return  this.http.post(`http://localhost:8080/todolist`,todoUpdate);
+   return  this.http.post(`http://localhost:8080/todolist/post`,todoUpdate);
   }
 
   search(searcher : Todolist) : Observable<Todolist[]> {
