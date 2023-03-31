@@ -9,18 +9,15 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
-    @Override
-    public User getUserById(long id) {
-        return userRepository.findById(id).get();
-    }
+
     @Override
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User findByEmailId(String email) {
-        return userRepository.findByEmailId(email);
+    public Long getUserIdFromEmailID(String emailId) {
+        return userRepository.findByEmailId(emailId).getId();
     }
 
 

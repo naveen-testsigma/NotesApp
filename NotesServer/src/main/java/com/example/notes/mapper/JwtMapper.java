@@ -1,8 +1,8 @@
 package com.example.notes.mapper;
 
 import com.example.notes.entity.User;
-import com.example.notes.model.JwtRequest;
-import com.example.notes.model.UserDTO;
+import com.example.notes.request.JwtRequest;
+import com.example.notes.dto.UserDTO;
 import com.example.notes.request.LoginRequest;
 
 public class JwtMapper {

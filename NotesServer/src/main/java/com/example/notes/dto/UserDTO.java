@@ -1,21 +1,7 @@
-package com.example.notes.model;
+package com.example.notes.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-
-@Entity
-@Table(name = "user_auth")
-public class UserAuth {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@Column
+public class UserDTO {
 	private String username;
-	@Column
-	@JsonIgnore
 	private String password;
 
 	public String getUsername() {
@@ -33,5 +19,4 @@ public class UserAuth {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }

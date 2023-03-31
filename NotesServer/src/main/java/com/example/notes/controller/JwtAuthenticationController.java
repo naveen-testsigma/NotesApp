@@ -4,9 +4,9 @@ package com.example.notes.controller;
 import com.example.notes.entity.User;
 import com.example.notes.jwt.JwtTokenUtil;
 import com.example.notes.mapper.JwtMapper;
-import com.example.notes.model.JwtRequest;
-import com.example.notes.model.JwtResponse;
-import com.example.notes.model.UserDTO;
+import com.example.notes.request.JwtRequest;
+import com.example.notes.dto.JwtResponse;
+import com.example.notes.dto.UserDTO;
 import com.example.notes.request.LoginRequest;
 import com.example.notes.service.JwtUserDetailsService;
 import com.example.notes.service.UserService;
@@ -43,6 +43,7 @@ public class JwtAuthenticationController {
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
+		System.out.println(userDetails.toString());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 

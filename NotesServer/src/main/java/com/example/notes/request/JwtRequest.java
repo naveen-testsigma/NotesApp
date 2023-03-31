@@ -1,4 +1,4 @@
-package com.example.notes.model;
+package com.example.notes.request;
 
 import java.io.Serializable;
 

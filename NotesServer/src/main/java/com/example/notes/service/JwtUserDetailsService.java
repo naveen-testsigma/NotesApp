@@ -1,10 +1,9 @@
 package com.example.notes.service;
 
 
-import com.example.notes.model.UserAuth;
-import com.example.notes.model.UserDTO;
+import com.example.notes.entity.UserAuth;
+import com.example.notes.dto.UserDTO;
 import com.example.notes.repository.UserDaoRepository;
-import com.example.notes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
