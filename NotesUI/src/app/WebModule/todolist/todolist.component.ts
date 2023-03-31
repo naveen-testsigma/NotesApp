@@ -19,10 +19,10 @@ todolist : Todolist[] | undefined;
   idTodo :string ="";
   textUpdate : string ="";
   searchlist : Todolist[]|undefined;
-  todoUpdate : Todolist ={id: "", todoData: "", userId: ""}
+  todoUpdate : Todolist ={id: "", todoData: "", userId: "" ,datecreated : "",datedeadline :''}
   addUpdate: string ="";
   showAdd= false;
-  searcher: Todolist = {id: "", todoData: "", userId: ""};
+  searcher: Todolist = {id: "", todoData: "", userId: "",datecreated: "" ,datedeadline:''};
   mainTableShow = false;
   searchTableshow= false;
 
@@ -44,13 +44,14 @@ todolist : Todolist[] | undefined;
 
 
   delete(id : string) {
-    this.todoservice.delete(id).subscribe(res=>
+    this.todoservice.delete(id).subscribe((res:any)=>
     {
       console.log(res);
     });
-    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-      this.routes.navigate(['/dashboard/todolist']);
-    })
+    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    //   this.routes.navigate(['/dashboard/todolist'])
+    // })
+    window.location.reload();
   }
 
   update(id:string) {
@@ -65,9 +66,10 @@ todolist : Todolist[] | undefined;
         console.log(res);
       }
     )
-    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-      this.routes.navigate(['/dashboard/todolist']);
-    })
+    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    //   this.routes.navigate(['/dashboard/todolist']);
+    // })
+    window.location.reload();
   }
 
   addListCall() {
@@ -81,6 +83,9 @@ todolist : Todolist[] | undefined;
     this.todoservice.add(this.todoUpdate).subscribe(res=>{
       console.log("result" + res);
     })
+    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    //   this.routes.navigate(['/dashboard/todolist']);
+    // })
     this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
       this.routes.navigate(['/dashboard/todolist']);
     })

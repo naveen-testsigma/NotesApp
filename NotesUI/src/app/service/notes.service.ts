@@ -24,7 +24,7 @@ export class NotesService {
     return this.http.get<Notes[]>( `${this.noteURL}${localStorage.getItem("user")}`)
   }
 
-  delete(id: string) {
+  delete(id: string) : Observable<any> {
     console.log("delete here noteservie : "+ id);
     return this.http.delete(`http://localhost:8080/notes/delete/${id}`);
   }

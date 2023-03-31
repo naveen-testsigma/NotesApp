@@ -72,14 +72,12 @@ export class NotesComponent implements OnInit{
 
   delete(id: string) {
     console.log("delete was here : "+ id);
-    this.noteservice.delete(id).subscribe((data: any) => {
-      console.log(data);
-
+    this.noteservice.delete(id).subscribe((res : any)=>{
+      console.log(res);
     });
-    this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    this.route.navigateByUrl("/",{skipLocationChange:true}).then(()=>{
       this.route.navigate(['/dashboard/notes']);
     })
-
   }
 
   searcherfunc() {

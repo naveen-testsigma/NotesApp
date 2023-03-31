@@ -10,6 +10,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListRequest {
+    Long id;
     Long userId;
     Date datecreated;
     Date datedeadline;
