@@ -1,13 +1,11 @@
 package com.example.notes.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 
+import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +14,8 @@ public class TodoList {
     @Id
     @GeneratedValue
     Long id;
-//    Date created_date;
-//    Date updated_date;
-//    Date deadline;
+    Date datecreated;
+    Date datedeadline;
     Long userId;
     String todoData;
 

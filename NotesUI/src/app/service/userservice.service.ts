@@ -19,7 +19,7 @@ private putURL = "http://localhost:8080/user/add";
 
   getIDuser(login: Authlogin){
     console.log(login);
-    return this.httpClient.post("http://localhost:8080/user/check",login);
+    return this.httpClient.post("http://localhost:8080/authenticate",login);
   }
   postUser(user: Authsignup) : Observable<Authsignup>
   {
