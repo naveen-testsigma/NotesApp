@@ -29,9 +29,10 @@ export class LoginComponent {
 
         alert("wrong username or password");
       else {
-        localStorage.setItem("user",res.id || null);
-        this.router.navigate(['/dashboard']);
-        localStorage.setItem("user",String(res.id || null));
+          localStorage.setItem("user",res);
+          console.log(res);
+          alert("logging in successful");
+          this.router.navigate(["/dashboard"]);
       }
     }
     );

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotesService} from "../../service/notes.service";
 import {Notes} from "../../types/notes";
 import {Router} from "@angular/router";
-import {LoginService} from "../../service/login.service";
+
 import {Search} from "../../types/search";
 
 @Component({
@@ -22,7 +22,7 @@ export class NotesComponent implements OnInit{
   notee1 : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
   searcher : Search ={noteHeading: "", userId: ""}
   adddisplay = true;
-  constructor(private noteservice : NotesService,private route : Router, private loginservie: LoginService) {
+  constructor(private noteservice : NotesService,private route : Router) {
 
   }
   ngOnInit(): void {

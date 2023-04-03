@@ -23,6 +23,6 @@ private putURL = "http://localhost:8080/user/add";
   }
   postUser(user: Authsignup) : Observable<Authsignup>
   {
-    return this.httpClient.post<Authsignup>(this.putURL, user);
+    return this.httpClient.post<Authsignup>("http://localhost:8080/register", user);
   }
 }
