@@ -4,11 +4,6 @@ import {TodolistService} from "../../service/todolist.service";
 
 import {Router, Routes} from "@angular/router";
 
-class TodolistSearch {
-  todoData: String | undefined;
-  userId : String | undefined;
-}
-
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
@@ -27,7 +22,7 @@ todolist : Todolist[] | undefined;
   todoUpdate : Todolist ={id: "", todoData: "", userId: "" ,datecreated : "",datedeadline :''}
   addUpdate: string ="";
   showAdd= false;
-  searcher: TodolistSearch = { todoData: "", userId: ""};
+  searcher: Todolist = {id: "", todoData: "", userId: "",datecreated: "" ,datedeadline:''};
   mainTableShow = false;
   searchTableshow= false;
 
@@ -53,10 +48,10 @@ todolist : Todolist[] | undefined;
     {
       console.log(res);
     });
-    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-      this.routes.navigate(['/dashboard/todolist'])
-    })
-
+    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    //   this.routes.navigate(['/dashboard/todolist'])
+    // })
+    window.location.reload();
   }
 
   update(id:string) {
@@ -71,10 +66,10 @@ todolist : Todolist[] | undefined;
         console.log(res);
       }
     )
-    this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-      this.routes.navigate(['/dashboard/todolist']);
-    })
-    // window.location.reload();
+    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
+    //   this.routes.navigate(['/dashboard/todolist']);
+    // })
+    window.location.reload();
   }
 
   addListCall() {
@@ -98,15 +93,13 @@ todolist : Todolist[] | undefined;
 
   searcherfunc() {
   this.mainTableShow = false;
+  this.searchTableshow = true;
   this.todoservice.search(this.searcher).subscribe(res=>{
-    console.log(res);
     this.searchlist = res;
     if(this.searchlist.length == 0)
     {
       this.notFoundshow = true;
-    }
-    else {
-     this.searchTableshow = true;
+      this.searchTableshow = false;
     }
   });
   }
