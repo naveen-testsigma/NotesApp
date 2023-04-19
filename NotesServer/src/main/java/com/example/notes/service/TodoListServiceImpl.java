@@ -36,6 +36,7 @@ public class TodoListServiceImpl implements TodoListService{
 
     @Override
     public List<TodoList> searchList(String todoData, Long userId) {
-        return todoListRepository.findByUserIdAndTodoData(userId,"%"+todoData+"%");
+        System.out.println(todoListRepository.findAll());
+        return todoListRepository.findByUserIdAndTodoDataLike(userId,"%"+todoData+"%");
     }
 }

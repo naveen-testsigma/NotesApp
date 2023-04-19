@@ -43,7 +43,8 @@ public class TodoListController {
     @PostMapping("/search")
     List<TodoList> searchList(@RequestBody SearchListRequest searchListRequest)
     {
-
+        System.out.println("Reached here");
+        System.out.println(searchListRequest);
         return todoListService.searchList(searchListRequest.getTodoData(),searchListRequest.getUserId());
     }
 

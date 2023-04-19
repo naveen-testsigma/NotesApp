@@ -25,8 +25,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200/**")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
