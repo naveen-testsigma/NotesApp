@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.cors();
+//		httpSecurity.cors();
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
@@ -73,17 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	@Configuration
-	@EnableWebMvc
-	public class WebConfig implements WebMvcConfigurer {
-
-		@Override
-		public void addCorsMappings(CorsRegistry corsRegistry) {
-			corsRegistry.addMapping("/**")
-					.allowedOrigins("*")
-					.allowedMethods("*")
-					.allowedHeaders("*")
-					.allowCredentials(true);
-		}
-	}
+//	@Configuration
+//	@EnableWebMvc
+//	public class WebConfig implements WebMvcConfigurer {
+//
+//		@Override
+//		public void addCorsMappings(CorsRegistry corsRegistry) {
+//			corsRegistry.addMapping("/**")
+//					.allowedOrigins("*")
+//					.allowedMethods("*")
+//					.allowedHeaders("*")
+//					.allowCredentials(true);
+//		}
+//	}
 }
