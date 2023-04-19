@@ -16,7 +16,9 @@ export class SignupComponent {
   constructor(private userservice: UserserviceService, private router:Router) {
   }
   onSubmit(){
-    console.log( this.userservice.postUser(this.signup).subscribe()) ;
+    console.log( this.userservice.postUser(this.signup).subscribe(res =>{
+      console.log(res)
+    })) ;
     alert('registered successfully !');
    this.router.navigate(['/login'])
   }
