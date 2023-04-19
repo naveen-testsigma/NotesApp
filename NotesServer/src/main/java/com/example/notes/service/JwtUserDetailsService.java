@@ -33,6 +33,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	}
 	
 	public UserAuth save(UserDTO user) {
+
 		UserAuth newUser = new UserAuth();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
