@@ -13,9 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { NotesComponent } from './WebModule/notes/notes.component';
 import { TodolistComponent } from './WebModule/todolist/todolist.component';
 import {CommonModule} from '@angular/common';
-import {JWTTokenService} from "./service/jwtdecode.service";
 import {JwtModule} from "@auth0/angular-jwt";
-import { TestComponent } from './test/test.component';
 
 export function tokenGetter(){
   return localStorage.getItem("user");
@@ -30,8 +28,7 @@ export function tokenGetter(){
     DashboardComponent,
     HomeComponent,
     NotesComponent,
-    TodolistComponent,
-    TestComponent
+    TodolistComponent
   ],
   imports: [
     [FormsModule,BrowserModule],
@@ -47,7 +44,7 @@ export function tokenGetter(){
       }
     })
   ],
-  providers: [LoginComponent,NotesComponent,JWTTokenService],
+  providers: [LoginComponent,NotesComponent],
   bootstrap: [AppComponent]
 })
 

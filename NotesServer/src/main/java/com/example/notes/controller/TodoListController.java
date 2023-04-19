@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/todolist")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class TodoListController {
     @Autowired
     TodoListService todoListService;
@@ -43,7 +43,8 @@ public class TodoListController {
     @PostMapping("/search")
     List<TodoList> searchList(@RequestBody SearchListRequest searchListRequest)
     {
-
+        System.out.println("Reached here");
+        System.out.println(searchListRequest);
         return todoListService.searchList(searchListRequest.getTodoData(),searchListRequest.getUserId());
     }
 
