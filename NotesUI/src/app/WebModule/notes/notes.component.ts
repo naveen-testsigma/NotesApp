@@ -48,7 +48,6 @@ export class NotesComponent implements OnInit{
   update() {
     this.isVisible=false;
     // @ts-ignore
-    this.notee1.userId = localStorage.getItem("user");
 
     console.log("add here noteservice : "+ this.notee1.noteBody + this.notee1.noteHeading + this.notee1.userId + this.notee1.id);
     this.noteservice.update(this.notee1).subscribe(data =>{
@@ -82,7 +81,7 @@ export class NotesComponent implements OnInit{
     this.adddisplay = false;
     this.notesdisplay = false;
     // @ts-ignore
-    this.searcher.userId = localStorage.getItem("user");
+
     console.log(this.searcher);
      this.noteservice.search(this.searcher).subscribe(res =>{
        if(res.length==0)
