@@ -17,10 +17,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@CrossOrigin(origins = "*")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -53,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.cors();
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
@@ -66,5 +72,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+	@Configuration
+	@EnableWebMvc
+	public class WebConfig implements WebMvcConfigurer {
+
+		@Override
+		public void addCorsMappings(CorsRegistry corsRegistry) {
+			corsRegistry.addMapping("/**")
+					.allowedOrigins("*")
+					.allowedMethods("*")
+					.allowedHeaders("*")
+					.allowCredentials(true);
+		}
 	}
 }

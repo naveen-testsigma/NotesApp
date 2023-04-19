@@ -4,13 +4,15 @@ import {Notes} from "../types/notes";
 import {HttpClient} from "@angular/common/http";
 import {Todolist} from "../types/todolist";
 import {Obj} from "@popperjs/core";
+import {JWTTokenService} from "./jwtdecode.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodolistService {
+  private id: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private jwt : JWTTokenService) { }
 
   findAll() : Observable<Todolist[]>{
 
@@ -31,7 +33,14 @@ export class TodolistService {
 
   add(todoUpdate: Todolist) :Observable<Object>  {
     // @ts-ignore
-    todoUpdate.userId = localStorage.getItem("user");
+    let email: string =  this.jwt.idgetfromtoken(localStorage.getItem("user"));
+
+    this.http.get<any>(`http://localhost:8080/user/${email}`).subscribe(res=>{
+      console.log("response form email " +res);
+      this.id = res;
+    });
+    todoUpdate.userId = this.id;
+    // @ts-ignore
     console.log("post here "+ todoUpdate.id + ' '+ todoUpdate.userId + ' '+todoUpdate.todoData);
    return  this.http.post(`http://localhost:8080/todolist/post`,todoUpdate);
   }

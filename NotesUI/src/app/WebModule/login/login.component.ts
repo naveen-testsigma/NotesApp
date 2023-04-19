@@ -3,6 +3,7 @@ import {Authlogin} from "../../types/authlogin";
 import {UserserviceService} from "../../service/userservice.service";
 
 import {Router} from "@angular/router";
+import {JWTTokenService} from "../../service/jwtdecode.service";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   checker : Authlogin | undefined;
 
-  constructor(private userservice: UserserviceService,private router : Router) {
+  constructor(private userservice: UserserviceService,private router : Router,private jwt : JWTTokenService) {
   }
 
  login : Authlogin={
@@ -29,8 +30,9 @@ export class LoginComponent {
 
         alert("wrong username or password");
       else {
-          localStorage.setItem("user",res);
-          console.log(res);
+          localStorage.setItem("user",res.token);
+          console.log("token "+ localStorage.getItem("user"))
+        console.log(this.jwt.idgetfromtoken(res.token));
           alert("logging in successful");
           this.router.navigate(["/dashboard"]);
       }

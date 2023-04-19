@@ -36,9 +36,6 @@ export class NotesComponent implements OnInit{
     })
   }
   add() {
-    // @ts-ignore
-    this.notee.userId = localStorage.getItem("user");
-
     console.log("add here noteservice : "+ this.notee.noteBody + this.notee.noteHeading + this.notee.userId + this.notee.id);
     this.noteservice.add(this.notee).subscribe(data =>{
       console.log(data);

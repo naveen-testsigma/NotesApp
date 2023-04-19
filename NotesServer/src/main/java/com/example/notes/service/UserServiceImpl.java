@@ -17,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long getUserIdFromEmailID(String emailId) {
+        System.out.println("Reached into userservice");
+        System.out.println( userRepository.findByEmailId(emailId));
+        System.out.println(userRepository.findAll());
         return userRepository.findByEmailId(emailId).getId();
     }
 
