@@ -16,7 +16,13 @@ import {JwtHelperService} from "@auth0/angular-jwt";
   providedIn: 'root'
 })
 export class NotesService {
-
+  private token:string = "Bearer "+ localStorage.getItem("user");
+  private headers = new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Access-Control-Allow-Methods','GET,POST,OPTIONS,DELETE,PUT')
+    .set('Access-Control-Allow-Headers','*')
+    .set('Authorization',this.token)
+    ;
   private id : BigInt = 0n;
 
   gettheidboi(){
@@ -24,20 +30,13 @@ export class NotesService {
     // @ts-ignore
     const decoded = dorm.decodeToken(localStorage.getItem("user"));
     console.log("email" + " " + decoded.sub +" object here!")
-    this.http.get<any>(`http://localhost:8080/user/${decoded.sub}`).subscribe(res=>{
+    this.http.get<any>(`http://localhost:8080/user/${decoded.sub}`,{headers:this.headers}).subscribe(res=>{
       console.log("response form email " +res);
       this.id = res;
     });
+    console.log("response form email outside" +this.id);
   }
   constructor(private http: HttpClient) {
-    const dorm = new JwtHelperService();
-    // @ts-ignore
-    const decoded = dorm.decodeToken(localStorage.getItem("user"));
-    console.log("email" + " " + decoded.sub +" object here!")
-    this.http.get<any>(`http://localhost:8080/user/${decoded.sub}`).subscribe(res=>{
-      console.log("response form email " +res);
-      this.id = res;
-    });
   }
 
 
@@ -46,7 +45,7 @@ export class NotesService {
   findALl() : Observable<Notes[]>{
     this.gettheidboi();
     console.log("findall Noteservice : "+ this.id )
-    return this.http.get<Notes[]>( `${this.noteURL}${this.id}`)
+    return this.http.get<Notes[]>( `${this.noteURL}${this.id}`,{headers:this.headers})
   }
 
   delete(id: string) : Observable<any> {
@@ -54,10 +53,11 @@ export class NotesService {
     return this.http.delete(`http://localhost:8080/notes/delete/${id}`);
   }
   add(notes : Notes) : Observable<Object> {
+    this.gettheidboi();
     console.log(notes);
     notes.userId = Number(this.id);
     console.log("user id :" +notes.userId);
-    return this.http.post('http://localhost:8080/notes/post',notes);
+    return this.http.post('http://localhost:8080/notes/post',notes,{headers:this.headers});
   }
 
   update(notes : Notes) : Observable<Object> {

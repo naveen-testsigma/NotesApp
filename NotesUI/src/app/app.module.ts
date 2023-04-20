@@ -36,13 +36,13 @@ export function tokenGetter(){
     NgbModule,
     HttpClientModule,
     CommonModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter : tokenGetter,
-        allowedDomains:['localhost:8080'],
-        authScheme: "Bearer "
-      }
-    })
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter : tokenGetter,
+    //     allowedDomains:['*'],
+    //     authScheme: "Bearer ",
+    //   }
+    // })
   ],
   providers: [LoginComponent,NotesComponent],
   bootstrap: [AppComponent]
