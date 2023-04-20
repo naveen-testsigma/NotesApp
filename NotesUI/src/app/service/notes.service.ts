@@ -16,6 +16,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
   providedIn: 'root'
 })
 export class NotesService {
+
   private token:string = "Bearer "+ localStorage.getItem("user");
   private headers = new HttpHeaders()
     .set('Access-Control-Allow-Origin', '*')
@@ -23,6 +24,7 @@ export class NotesService {
     .set('Access-Control-Allow-Headers','*')
     .set('Authorization',this.token)
     ;
+
   private id : BigInt = 0n;
 
   gettheidboi(){
@@ -30,13 +32,16 @@ export class NotesService {
     // @ts-ignore
     const decoded = dorm.decodeToken(localStorage.getItem("user"));
     console.log("email" + " " + decoded.sub +" object here!")
+
     this.http.get<any>(`http://localhost:8080/user/${decoded.sub}`,{headers:this.headers}).subscribe(res=>{
+
       console.log("response form email " +res);
       this.id = res;
     });
     console.log("response form email outside" +this.id);
   }
   constructor(private http: HttpClient) {
+
   }
 
 

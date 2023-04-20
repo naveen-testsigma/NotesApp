@@ -41,12 +41,17 @@ export class LoginComponent {
           alert("logging in successful");
 
           this.router.navigate(["/dashboard"]);
+          
+          this.router.navigateByUrl("/",{skipLocationChange:true}).then(()=>{
+            window.location.reload();
+        
+          })
+          this.router.navigate(['/dashboard'])
+    
+
       }
     }
     );
-
-
-
     }
 }
 
