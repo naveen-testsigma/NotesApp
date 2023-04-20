@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/todolist")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class TodoListController {
     @Autowired
     TodoListService todoListService;
