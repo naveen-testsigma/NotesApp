@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Notes} from "../types/notes";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Todolist} from "../types/todolist";
 import {JwtDecodeOptions} from "jwt-decode";
 import jwt_decode from 'jwt-decode';
@@ -11,48 +11,48 @@ import {JwtHelperService} from "@auth0/angular-jwt";
   providedIn: 'root'
 })
 export class TodolistService {
-  private id: any ;
+  private  dorm = new JwtHelperService();
+  // @ts-ignore
+  private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
+  private token:string = "Bearer "+ localStorage.getItem("user");
 
+  private headers = new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Access-Control-Allow-Methods','*')
+    .set('Access-Control-Allow-Headers','*')
+    .set('Authorization',this.token)
+  ;
   constructor(private http: HttpClient)  {
-    var dorm = new JwtHelperService();
-    // @ts-ignore
-    const decoded = dorm.decodeToken(localStorage.getItem("user"));
-    console.log("email" + " " + decoded.sub +" object here!")
-    this.http.get<any>(`http://localhost:8080/user/${decoded.sub}`).subscribe(res=>{
-      console.log("response form email " +res);
-      this.id = res;
-    });
   }
 
-  findAll() : Observable<Todolist[]>{
+  findAll(id : BigInt) : Observable<Todolist[]>{
 
-    return this.http.get<Todolist[]>( `http://localhost:8080/todolist/userid/${this.id}`);
+    return this.http.get<Todolist[]>( `http://localhost:8080/todolist/userid/${id}`,{headers:this.headers});
 
   }
 
   delete(id : string) :Observable<any>{
-    return this.http.delete(`http://localhost:8080/todolist/delete/${id}`);
+    return this.http.delete(`http://localhost:8080/todolist/delete/${id}`,{headers:this.headers});
   }
 
   update(todoUpdate : Todolist) : Observable<Object>{
-
-    todoUpdate.userId =  this.id;
     console.log("todoUpdate" + todoUpdate.id +' '+todoUpdate.todoData+' '+todoUpdate.userId);
-    return this.http.put<Todolist>(`http://localhost:8080/todolist/update/${todoUpdate.id}`,todoUpdate);
+    return this.http.put<Todolist>(`http://localhost:8080/todolist/update/${todoUpdate.id}`,todoUpdate,{headers:this.headers});
   }
 
   add(todoUpdate: Todolist) :Observable<Object>  {
 
-    todoUpdate.userId = this.id;
-    // @ts-ignore
     console.log("post here "+ todoUpdate.id + ' '+ todoUpdate.userId + ' '+todoUpdate.todoData);
-   return  this.http.post(`http://localhost:8080/todolist/post`,todoUpdate);
+   return  this.http.post(`http://localhost:8080/todolist/post`,todoUpdate,{headers:this.headers});
   }
 
   search(searcher : any) : Observable<Todolist[]> {
 
     console.log(searcher);
-    searcher.userId = this.id;
-    return this.http.post<Todolist[]>('http://localhost:8080/todolist/search',searcher);
+    return this.http.post<Todolist[]>('http://localhost:8080/todolist/search',searcher,{headers:this.headers});
+  }
+
+  setUserid() : Observable<BigInt>{
+    return this.http.get<BigInt>(`http://localhost:8080/user/${this.decoded.sub}`,{headers:this.headers});
   }
 }
