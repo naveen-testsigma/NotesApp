@@ -16,9 +16,11 @@ export class NotesService{
   private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
   private token:string = "Bearer "+ localStorage.getItem("user");
   private headers = new HttpHeaders()
-    .set('Access-Control-Allow-Origin', '*')
-    .set('Access-Control-Allow-Methods','*')
-    .set('Access-Control-Allow-Headers','*')
+    .set("Access-Control-Allow-Origin", "http://localhost:4200")
+    .set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+    .set("Access-Control-Allow-Headers", "Content-Type")
+    .set('Origin','http://localhost:4200')
+    .set('Content-Type','application/json')
     .set('Authorization',this.token)
     ;
   constructor(private http: HttpClient) {
@@ -53,7 +55,7 @@ export class NotesService{
 
   search(searcher : Search) : Observable<Notes[]>{
     console.log(searcher);
-    return this.http.post<Notes[]>('http://localhost:8080/notes/search',searcher,{headers:this.headers});
+    return this.http.get<Notes[]>(`http://localhost:8080/notes/get?id=${searcher.userId}&search=${searcher.noteHeading}`,{headers:this.headers});
 
   }
 

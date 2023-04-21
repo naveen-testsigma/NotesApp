@@ -103,6 +103,7 @@ todolist : Todolist[] | undefined;
 
   searcherfunc() {
   this.mainTableShow = false;
+  this.searcher.userId = String(this.userid);
   this.todoservice.search(this.searcher).subscribe(res=>{
     console.log(res);
     this.searchlist = res;

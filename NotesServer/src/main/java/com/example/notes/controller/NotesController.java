@@ -66,7 +66,9 @@ public class NotesController {
     public List<Notes> fun(@RequestParam("id") long id, @RequestParam("search") String search  )
     {
         System.out.println(id+" "+search);
-        Specification spec=Specification.where(NotesSpecification.hasNoteHeadingLike(search)).and(NotesSpecification.hasId(id));
+        Specification spec=Specification.where(
+                NotesSpecification.hasNoteHeadingLike(search));
+                //.and(NotesSpecification.hasId(id));
         return notesRepository.findAll(spec);
     }
 }

@@ -15,7 +15,7 @@ public abstract class TodoListSpecification implements Specification<TodoList> {
     public static Specification<TodoList> hasId(Long id)
     {
         return ((root, query, criteriaBuilder) -> {
-            return  criteriaBuilder.equal(root.get("id"),id);
+            return  criteriaBuilder.equal(root.get("userId"),id);
         });
     }
 }

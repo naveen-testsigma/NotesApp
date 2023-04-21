@@ -16,7 +16,7 @@ public  class NotesSpecification {
     public static Specification<Notes> hasId(Long id)
     {
         return ((root, query, criteriaBuilder) -> {
-            return  criteriaBuilder.equal(root.get("id"),id);
+            return  criteriaBuilder.equal(root.get("userId"),id);
         });
     }
 }
