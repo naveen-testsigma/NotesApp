@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import jwt_decode from "jwt-decode";
 import jwtDecode from "jwt-decode";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class LoginComponent {
   checker : Authlogin | undefined;
 
-  constructor(private userservice: UserserviceService,private router : Router) {
+  constructor(private userservice: UserserviceService,private router : Router,private http : HttpClient) {
   }
 
  login : Authlogin={
@@ -35,19 +36,18 @@ export class LoginComponent {
           console.log("token "+ localStorage.getItem("user"))
 
         var dorm = new JwtHelperService();
-          // @ts-ignore
+        // @ts-ignore
         const decoded = dorm.decodeToken(localStorage.getItem("user"));
         console.log("email" + " " + decoded.sub +" object here!")
           alert("logging in successful");
-
           this.router.navigate(["/dashboard"]);
-          
+
           this.router.navigateByUrl("/",{skipLocationChange:true}).then(()=>{
             window.location.reload();
-        
+
           })
           this.router.navigate(['/dashboard'])
-    
+
 
       }
     }

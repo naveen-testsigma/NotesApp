@@ -4,6 +4,7 @@ import {Notes} from "../../types/notes";
 import {Router} from "@angular/router";
 
 import {Search} from "../../types/search";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-notes',
@@ -11,6 +12,7 @@ import {Search} from "../../types/search";
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit{
+  id : BigInt = 0n;
   user : any = {  };
   isVisible=false;
   isSearch = false;
@@ -24,18 +26,26 @@ export class NotesComponent implements OnInit{
   adddisplay = true;
   constructor(private noteservice : NotesService,private route : Router) {
 
+
   }
   ngOnInit(): void {
+   this.noteservice.idSetter().subscribe(res=> {
+     console.log("first function returning id value : " + res)
+       this.id = res;
+     this.getting();
+     }
+   );
 
-   this.getting();
+
   }
   getting(){
-
-    this.noteservice.findALl().subscribe(data =>{
+    console.log("Getting find all here "+ this.id)
+    this.noteservice.findALl(this.id).subscribe(data =>{
       this.notes = data;
     })
   }
   add() {
+    this.notee.userId = Number(this.id);
     console.log("add here noteservice : "+ this.notee.noteBody + this.notee.noteHeading + this.notee.userId + this.notee.id);
     this.noteservice.add(this.notee).subscribe(data =>{
       console.log(data);
@@ -47,8 +57,7 @@ export class NotesComponent implements OnInit{
 
   update() {
     this.isVisible=false;
-    // @ts-ignore
-
+    this.notee1.userId = Number(this.id);
     console.log("add here noteservice : "+ this.notee1.noteBody + this.notee1.noteHeading + this.notee1.userId + this.notee1.id);
     this.noteservice.update(this.notee1).subscribe(data =>{
       console.log(data);
@@ -83,6 +92,7 @@ export class NotesComponent implements OnInit{
     // @ts-ignore
 
     console.log(this.searcher);
+    this.searcher.userId = String(this.id);
      this.noteservice.search(this.searcher).subscribe(res =>{
        if(res.length==0)
          this.notFound = true;
@@ -106,5 +116,5 @@ export class NotesComponent implements OnInit{
     this.isSearch = false;
   }
 
- 
+
 }

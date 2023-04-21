@@ -16,6 +16,7 @@ class TodolistSearch {
 })
 export class TodolistComponent implements OnInit{
   notFoundshow = false;
+  private userid: BigInt =0n;
 
 constructor(private todoservice : TodolistService,private routes : Router) {
 }
@@ -32,13 +33,16 @@ todolist : Todolist[] | undefined;
   searchTableshow= false;
 
   ngOnInit(): void {
-    this.getting();
+    this.todoservice.setUserid().subscribe(res=>{
+      this.userid = res;
+      this.getting();
+    })
   }
  getting(){
     this.notFoundshow = false;
     this.mainTableShow = true;
     this.searchTableshow = false;
-    this.todoservice.findAll().subscribe(res=>{
+    this.todoservice.findAll(this.userid).subscribe(res=>{
       console.log("result" ,res);
       this.todolist = res;
       this.showAdd = false;
@@ -67,6 +71,7 @@ todolist : Todolist[] | undefined;
   updateList() {
     this.todoUpdate.id = this.idTodo;
     this.todoUpdate.todoData = this.textUpdate;
+    this.todoUpdate.userId = String(this.userid);
     this.todoservice.update(this.todoUpdate).subscribe(res=>{
         console.log(res);
       }
@@ -83,7 +88,7 @@ todolist : Todolist[] | undefined;
 
   addList() {
     this.todoUpdate.todoData = this.addUpdate;
-
+    this.todoUpdate.userId = String(this.userid);
     this.showUpdate = false;
     this.todoservice.add(this.todoUpdate).subscribe(res=>{
       console.log("result" + res);
@@ -112,5 +117,5 @@ todolist : Todolist[] | undefined;
   }
 
 
- 
+
 }
