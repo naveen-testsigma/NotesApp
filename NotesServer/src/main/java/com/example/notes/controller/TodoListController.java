@@ -1,8 +1,10 @@
 package com.example.notes.controller;
 
+import com.example.notes.criteria.Criteria;
+import com.example.notes.criteria.CriterialBuilder;
 import com.example.notes.mapper.ListMapper;
+import com.example.notes.repository.TodoListRepository;
 import com.example.notes.request.ListRequest;
-import com.example.notes.request.SearchListRequest;
 import com.example.notes.entity.TodoList;
 import com.example.notes.service.TodoListService;
 import lombok.AllArgsConstructor;
@@ -18,36 +20,43 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/todolist")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TodoListController {
+    @Autowired
+    CriterialBuilder criterialBuilder;
     @Autowired
     TodoListService todoListService;
     @Autowired
     ListMapper listMapper;
-    @PostMapping("/post")
+    @Autowired
+    TodoListRepository todoListRepository;
+    @PostMapping("/")
     TodoList postTodoList(@RequestBody ListRequest listRequest)
     {
         TodoList todoList=listMapper.listRequestToTodoList(listRequest);
         return todoListService.postTodoList(todoList);
     }
-    @GetMapping("/userid/{user_id}")
-    List<TodoList> getTodoListById(@PathVariable("user_id") Long user_id)
-    {
-        return todoListService.getTodoListById(user_id);
-    }
-    @PutMapping("/update/{id}")
-    String updateTodoListById(@PathVariable("id") Long  id, @RequestBody TodoList todoList )
+
+    @PutMapping("/{listId}")
+    String updateTodoListById(@PathVariable("listId") Long  id, @RequestBody TodoList todoList )
     {
         return todoListService.updateTodoListById(id,todoList);
     }
-    @PostMapping("/search")
-    List<TodoList> searchList(@RequestBody SearchListRequest searchListRequest)
+    @GetMapping("/get")
+    List<TodoList> searchList(@RequestParam("id") long id,@RequestParam(required = false, value = "query") List<String> query)
     {
-
-        return todoListService.searchList(searchListRequest.getTodoData(),searchListRequest.getUserId());
+        return todoListService.searchList(id,query);
+    }
+    @GetMapping("/getsearch")
+    List<TodoList> searchListTemp(@RequestParam("query") String data)
+    {
+//        System.out.println(data);
+        List<Criteria> criteriaList=criterialBuilder.builder(data);
+        System.out.println(criteriaList);
+        return todoListService.searchListTemp(criteriaList);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     String deleteTodoListById(@PathVariable("id") Long id)
     {
         return todoListService.deleteTodoListById(id);

@@ -13,6 +13,12 @@ import {HttpClientModule} from "@angular/common/http";
 import { NotesComponent } from './WebModule/notes/notes.component';
 import { TodolistComponent } from './WebModule/todolist/todolist.component';
 import {CommonModule} from '@angular/common';
+import {JwtModule} from "@auth0/angular-jwt";
+
+export function tokenGetter(){
+  return localStorage.getItem("user");
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +35,17 @@ import {CommonModule} from '@angular/common';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter : tokenGetter,
+    //     allowedDomains:['*'],
+    //     authScheme: "Bearer ",
+    //   }
+    // })
   ],
   providers: [LoginComponent,NotesComponent],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

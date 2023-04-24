@@ -16,7 +16,7 @@ const routes: Routes = [
 
       {path:'dashboard',component:DashboardComponent},
       {path: 'dashboard/todolist',component:TodolistComponent},
-      {path:'dashboard/notes',component: NotesComponent}
+      {path:'dashboard/notes',component: NotesComponent},
       ]},
 ];
 

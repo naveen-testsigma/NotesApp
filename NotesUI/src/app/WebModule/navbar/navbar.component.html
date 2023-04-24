@@ -7,12 +7,15 @@
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav m-2">
-      <li>
+      <li  *ngIf="loggingbuttondisable">
 
-        <button class="btn btn-primary  m-1 " [routerLink]="['/login']"><i class="bi bi-box-arrow-in-right m-1"></i>Login</button>
+        <button *ngIf="ifLoggedin" class="btn btn-primary  m-1 " [routerLink]="['/login']"><i class="bi bi-box-arrow-in-right m-1"></i>Login</button>
       </li>
       <li>
-        <button class="btn btn-warning m-1" [routerLink]="['/signup']"><i class="bi bi-brush m-1"></i>Signup</button>
+        <button  *ngIf="ifLoggedin" class="btn btn-warning m-1" [routerLink]="['/signup']"><i class="bi bi-brush m-1"></i>Signup</button>
+      </li>
+      <li>
+        <button *ngIf="ifLoggedout" (click)="logoutChecker()" class="justify-content-end btn btn-danger" > <i class="bi bi-box-arrow-left"></i>logout</button>
       </li>
     </ul>
   </div>

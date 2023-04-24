@@ -1,8 +1,11 @@
 package com.example.notes.service;
 
+import com.example.notes.builder.TodoListSpecificationBuilder;
+import com.example.notes.criteria.Criteria;
 import com.example.notes.entity.TodoList;
 import com.example.notes.repository.TodoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,15 +13,14 @@ import java.util.List;
 public class TodoListServiceImpl implements TodoListService{
     @Autowired
     TodoListRepository todoListRepository;
+    @Autowired
+    TodoListSpecificationBuilder todoListSpecificationBuilder;
     @Override
     public TodoList postTodoList(TodoList todoList) {
         return todoListRepository.save(todoList);
     }
 
-    @Override
-    public List<TodoList> getTodoListById(Long userId) {
-        return todoListRepository.findAllByUserId(userId);
-    }
+
 
     @Override
     public String updateTodoListById(Long id, TodoList todoList) {
@@ -35,7 +37,14 @@ public class TodoListServiceImpl implements TodoListService{
     }
 
     @Override
-    public List<TodoList> searchList(String todoData, Long userId) {
-        return todoListRepository.findByUserIdAndTodoData(userId,"%"+todoData+"%");
+    public List<TodoList> searchList(Long userId,List<String> query) {
+       Specification spec= todoListSpecificationBuilder.build(userId,query);
+        return todoListRepository.findAll(spec);
+    }
+
+    @Override
+    public List<TodoList> searchListTemp(List<Criteria> criteriaList) {
+        Specification spec= todoListSpecificationBuilder.builder(criteriaList);
+        return todoListRepository.findAll(spec);
     }
 }

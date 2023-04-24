@@ -1,47 +1,67 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Notes} from "../types/notes";
-import {LoginComponent} from "../WebModule/login/login.component";
 import {Observable} from "rxjs";
-import {Authlogin} from "../types/authlogin";
-import {NotesComponent} from "../WebModule/notes/notes.component";
 import {Search} from "../types/search";
+import {JwtHelperService} from "@auth0/angular-jwt";
+
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotesService {
+export class NotesService{
+  private  dorm = new JwtHelperService();
   // @ts-ignore
-  constructor(private http: HttpClient,private login:LoginComponent) {
+  private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
+  private token:string = "Bearer "+ localStorage.getItem("user");
+  private headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", "http://localhost:4200")
+    .set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+    .set("Access-Control-Allow-Headers", "Content-Type")
+    .set('Origin','http://localhost:4200')
+    .set('Content-Type','application/json')
+    .set('Authorization',this.token)
+    ;
+  constructor(private http: HttpClient) {
 
   }
 
-  private noteURL = "http://localhost:8080/notes/userid/";
 
-  findALl() : Observable<Notes[]>{
-    console.log("findall Noteservice : "+localStorage.getItem("user"))
-    return this.http.get<Notes[]>( `${this.noteURL}${localStorage.getItem("user")}`)
+  private noteURL = "http://localhost:8080/notes/getsearch";
+  idSetter(): Observable<BigInt>{
+   return this.http.get<BigInt>(`http://localhost:8080/user/${this.decoded.sub}`,{headers:this.headers});
+  }
+
+  findALl(id: string | BigInt) : Observable<Notes[]>{
+    console.log("findall id passed value :"+id);
+    return this.http.get<Notes[]>( `${this.noteURL}?query=id:${id}`,{headers:this.headers})
   }
 
   delete(id: string) : Observable<any> {
     console.log("delete here noteservie : "+ id);
-    return this.http.delete(`http://localhost:8080/notes/delete/${id}`);
+    return this.http.delete(`http://localhost:8080/notes/${id}`,{headers:this.headers});
   }
   add(notes : Notes) : Observable<Object> {
-    console.log(notes);
-    return this.http.post('http://localhost:8080/notes/post',notes);
+    console.log("user id :" +notes.userId);
+    return this.http.post('http://localhost:8080/notes/',notes,{headers:this.headers});
   }
 
-  update(notes : Notes) : Observable<Object> {
+  update(notes : Notes) : Observable<Object>{
    console.log(notes);
-  // @ts-ignore
-    return this.http.post(`http://localhost:8080/notes/update/${notes.id}`,notes);
+    return this.http.post(`http://localhost:8080/notes/${notes.id}`,notes,{headers:this.headers});
   }
 
   search(searcher : Search) : Observable<Notes[]>{
-
-    return this.http.post<Notes[]>('http://localhost:8080/notes/search',searcher);
+    console.log("service note heading : "+searcher.noteHeading + " length "+searcher.noteHeading.length);
+    if(!searcher.noteHeading){
+      console.log("null value event : ")
+      return this.findALl(searcher.userId);
+    }
+    else
+      return this.http.get<Notes[]>(`http://localhost:8080/notes/getsearch?query=id:${searcher.userId},title:${searcher.noteHeading}`,{headers:this.headers});
 
   }
+
+
 }

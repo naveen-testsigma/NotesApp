@@ -1,18 +1,21 @@
 
 <div class="container-fluid">
-  <form (ngSubmit)="onSubmit()" class="form">
+  <form (ngSubmit)="onSubmit()" class="form"  #noteForm="ngForm">
     <div class="form-group">
       <label for="username" class="p-3">
         Email
       </label>
-      <input type="text" name="username" id="username" [(ngModel)]="login.emailId">
+      <input #email="ngModel" type="text" minlength="4" required name="username" id="username" [(ngModel)]="login.emailId">
+
     </div>
+    <div class="text-danger text-muted" *ngIf="email.invalid && (email.dirty||email.touched)">username required!</div>
     <div class="form-group">
       <label for="password" class="p-1">
         Password
       </label>
       <input type="password" name="password" id="password" [(ngModel)]="login.password">
     </div>
-    <button class="btn btn-outline-dark m-3" type="submit">login</button>
+    <div class="text-danger text-muted" *ngIf="email.invalid && (email.dirty||email.touched)">password required!</div>
+    <button [disabled]="noteForm.invalid" class="btn btn-outline-dark m-3" type="submit">login</button>
   </form>
 </div>

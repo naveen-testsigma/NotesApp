@@ -5,6 +5,8 @@ import com.example.notes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -17,7 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long getUserIdFromEmailID(String emailId) {
-        return userRepository.findByEmailId(emailId).getId();
+        System.out.println("Reached into userservice");
+
+          return userRepository.findByEmailId(emailId).getId();
     }
 
 
