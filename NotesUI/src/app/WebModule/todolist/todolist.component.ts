@@ -24,7 +24,7 @@ constructor(private todoservice : TodolistService,private routes : Router) {
 todolist : Todolist[] | undefined;
   showUpdate=  false;
   idTodo :string ="";
-  textUpdate : string ="";
+  textUpdate : string ="default value";
   searchlist : Todolist[]|undefined;
   todoUpdate : Todolist ={id: "", todoData: "", userId: "" ,datecreated : "",datedeadline :''}
   addUpdate: string ="";
@@ -65,6 +65,7 @@ todolist : Todolist[] | undefined;
   }
 
   update(id:string,tododata:string) {
+    this.textUpdate = tododata;
     this.updataPlaceHolder = tododata;
     this.mainTableShow = false;
     this.searchTableshow = false;

@@ -21,7 +21,7 @@ export class NotesComponent implements OnInit{
   notes : Notes[] | undefined;
   serachNotes : Notes[] | undefined;
   notee : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
-  notee1 : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
+  notee1 : Notes={id: "", noteBody: "updatehere :)", noteHeading: "updatehere :)", userId: 1};
   searcher : Search ={noteHeading: "", userId: ""}
   adddisplay = false;
   private isClicked: boolean = false;
@@ -73,6 +73,8 @@ export class NotesComponent implements OnInit{
   }
   setId(noteid:string,noteheading:string,notebody : string)
   {
+    this.notee1.noteHeading = noteheading;
+    this.notee1.noteBody = notebody;
     this.updateHolder.noteHeading = noteheading;
     this.updateHolder.noteBody = notebody;
     this.adddisplay = false;
@@ -126,6 +128,7 @@ export class NotesComponent implements OnInit{
 
 
   adddisplayInvoke() {
+    this.isVisible = false;
     this.notesdisplay = false;
     this.isSearch = false;
     this.adddisplay = true;

@@ -16,9 +16,9 @@
     </tr>
     </thead>
     <tbody *ngFor = "let todo of todolist">
-    <tr>
+    <tr class="justify-content-evenly">
 <!--      <th scope="row">{{todo.id}}</th>-->
-      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
+      <td class="justify-content-evenly">{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
 <!--      <td>{{todo.datecreated}}</td>-->
 <!--      <td>{{todo.datedeadline}}</td>-->
     </tr>
@@ -34,8 +34,8 @@
     <div>
 
       <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #fafafa;"
-              placeholder="{{updataPlaceHolder}}"
               type="text"
+              [value] = "textUpdate"
               id="noteUpdateHeading"
               name="noteHeading"
               [(ngModel)]="textUpdate"
