@@ -1,4 +1,5 @@
 package com.example.notes.service;
+import com.example.notes.criteria.Criteria;
 import com.example.notes.entity.TodoList;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +12,6 @@ public interface TodoListService {
     String deleteTodoListById(Long id);
 
     List<TodoList> searchList( Long userId,List<String> query);
+
+    List<TodoList> searchListTemp(List<Criteria> criteriaList);
 }

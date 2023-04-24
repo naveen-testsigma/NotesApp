@@ -1,7 +1,9 @@
 package com.example.notes.service;
 
 import com.example.notes.builder.NotesSpecificationBuilder;
+import com.example.notes.criteria.Criteria;
 import com.example.notes.entity.Notes;
+import com.example.notes.entity.TodoList;
 import com.example.notes.repository.NotesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,6 +37,12 @@ public class NotesServiceImpl implements NotesService {
     @Override
     public List<Notes> searchNotes(Long id,List<String> query) {
         Specification spec=notesSpecificationBuilder.build(id,query);
+        return notesRepository.findAll(spec);
+    }
+
+    @Override
+    public List<Notes> searchNotesTemp(List<Criteria> criteriaList) {
+        Specification spec= notesSpecificationBuilder.builder(criteriaList);
         return notesRepository.findAll(spec);
     }
 

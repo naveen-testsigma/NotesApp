@@ -1,5 +1,7 @@
 package com.example.notes.controller;
 
+import com.example.notes.criteria.Criteria;
+import com.example.notes.criteria.CriterialBuilder;
 import com.example.notes.mapper.ListMapper;
 import com.example.notes.repository.TodoListRepository;
 import com.example.notes.request.ListRequest;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequestMapping("/todolist")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TodoListController {
+    @Autowired
+    CriterialBuilder criterialBuilder;
     @Autowired
     TodoListService todoListService;
     @Autowired
@@ -43,6 +47,15 @@ public class TodoListController {
     {
         return todoListService.searchList(id,query);
     }
+    @GetMapping("/getsearch")
+    List<TodoList> searchListTemp(@RequestParam("query") String data)
+    {
+//        System.out.println(data);
+        List<Criteria> criteriaList=criterialBuilder.builder(data);
+        System.out.println(criteriaList);
+        return todoListService.searchListTemp(criteriaList);
+    }
+
     @DeleteMapping("/{id}")
     String deleteTodoListById(@PathVariable("id") Long id)
     {

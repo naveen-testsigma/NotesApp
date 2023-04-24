@@ -1,5 +1,8 @@
 package com.example.notes.controller;
 
+import com.example.notes.criteria.Criteria;
+import com.example.notes.criteria.CriterialBuilder;
+import com.example.notes.entity.TodoList;
 import com.example.notes.mapper.NotesMapper;
 import com.example.notes.repository.NotesRepository;
 import com.example.notes.request.NotesRequest;
@@ -30,6 +33,8 @@ public class NotesController {
     @Autowired
     NotesRepository notesRepository;
     @Autowired
+    CriterialBuilder criterialBuilder;
+    @Autowired
     NotesMapper notesMapper;
     @PostMapping("/")
     Notes postNotes(@RequestBody NotesRequest notesRequest)
@@ -55,5 +60,12 @@ public class NotesController {
     {
         return notesService.searchNotes(id,query);
     }
-
+    @GetMapping("/getsearch")
+    List<Notes> searchNotesTemp(@RequestParam("query") String data)
+    {
+//        System.out.println(data);
+        List<Criteria> criteriaList=criterialBuilder.builder(data);
+        System.out.println(criteriaList);
+        return notesService.searchNotesTemp(criteriaList);
+    }
 }
