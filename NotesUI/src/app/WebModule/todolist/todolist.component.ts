@@ -20,6 +20,7 @@ export class TodolistComponent implements OnInit{
 
 constructor(private todoservice : TodolistService,private routes : Router) {
 }
+ updataPlaceHolder :string = "";
 todolist : Todolist[] | undefined;
   showUpdate=  false;
   idTodo :string ="";
@@ -63,7 +64,11 @@ todolist : Todolist[] | undefined;
 
   }
 
-  update(id:string) {
+  update(id:string,tododata:string) {
+    this.updataPlaceHolder = tododata;
+    this.mainTableShow = false;
+    this.searchTableshow = false;
+    this.showAdd = false;
     this.showUpdate = true;
     this.idTodo = id;
     }
@@ -83,6 +88,10 @@ todolist : Todolist[] | undefined;
   }
 
   addListCall() {
+    this.notFoundshow = false;
+    this.mainTableShow = false;
+    this.searchTableshow = false;
+    this.showUpdate = false;
     this.showAdd = true;
   }
 
@@ -102,6 +111,9 @@ todolist : Todolist[] | undefined;
   }
 
   searcherfunc() {
+    this.showUpdate = false;
+    this.showAdd = false;
+
   this.mainTableShow = false;
   this.searcher.userId = String(this.userid);
   this.todoservice.search(this.searcher).subscribe(res=>{

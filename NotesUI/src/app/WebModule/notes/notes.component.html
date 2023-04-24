@@ -2,20 +2,25 @@
 
 <div class="container">
 <div style="padding-bottom: 2rem">
+  <div class="input-group">
     <input class="form-control mr-sm-2" style="margin-top: 1rem" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searcher.noteHeading" >
-  <div class= "btn-group" style="padding-top: 0.5rem">
-  <button class="btn btn-outline-info my-2 my-sm-0" (click)="searcherfunc()">Search</button>
-  <button (click)="noteslist()" class="btn btn-outline-success">noteslist</button></div>
+    <div class="btn-group" style="margin-left: 0.25rem;margin-top: 1rem">
+      <button  class="btn border-0" (click)="searcherfunc()"><i class="bi bi-search" style="font-size: 1.5rem;"></i></button>
+<!--      <button (click)="noteslist()" class="btn btn-outline-success">noteslist</button> -->
+      <button class="btn border-0" (click)="adddisplayInvoke()" ><i class="bi bi-clipboard2-plus" style="font-size: 1.5rem;"></i></button>
+    </div>
+    </div>
+
 <div class="container border-dark border-3 rounded">
   <h5 class="bg-danger rounded bg-opacity-50" *ngIf="notFound" >not found ! </h5>
 </div>
   <div class="row p-5" *ngIf="isSearch">
-    <div class="col-lg-3 col-md-3 col-sm-3"   *ngFor="let noter of serachNotes">
+    <div class="col-lg-4 col-md-6 col-sm-6 "  style="padding-top: 2rem"  *ngFor="let noter of serachNotes">
       <div class="card">
-        <div class="card-body bg-primary bg-opacity-25" >
+        <div class="card-body bg-secondary bg-opacity-25" >
           <h4 class="card-title p-0 text-dark">{{noter.noteHeading}}
             <div class="btn-group">
-              <button (click)="setId(noter.id)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>
+              <button (click)="setId(noter.id,noter.noteHeading,noter.noteBody)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>
               <button (click)="delete(noter.id)" class="btn btn-danger"><i class="bi bi-calendar2-x"></i></button>
             </div>  <hr></h4>
           <p class="card-text text-black-50 p-4">{{noter.noteBody}}</p>
@@ -24,30 +29,89 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="isVisible" >
+  <div class="text-center" *ngIf="isVisible" >
 
-      <div class="container form-group" >
-        <h4 class="form-field"><input placeholder="update title here" type="text" size="33" class="input-group-text" [(ngModel)]="notee1.noteHeading" ></h4>
-        <p class="form-field"><textarea rows="5" cols="35" placeholder="Update body here"   [(ngModel)]="notee1.noteBody" class="input-group-text"> </textarea></p>
-        <button (click)="update()" class="btn btn-primary">update</button>
+    <form (ngSubmit)="update()" #noteForm="ngForm">
+      <div>
+
+        <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: lavenderblush;"
+                placeholder="{{updateHolder.noteHeading}}"
+                type="text"
+                id="noteupdateHeading"
+                name="noteHeading"
+                [(ngModel)]="notee1.noteHeading"
+                #title="ngModel"
+                required
+                minlength="1"
+                maxlength="7"
+        >
+
+        <div class="text-danger m-3" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
       </div>
 
-  </div>
-  <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="adddisplay">
-    <div class="container form-group" >
-        <h4 class="form-field"><input placeholder="noteheading" type="text" size="33" class="input-group-text" [(ngModel)]="notee.noteHeading" ></h4>
-        <p class="form-field"><textarea rows="5" cols="35" placeholder="notebody"   [(ngModel)]="notee.noteBody" class="input-group-text"> </textarea></p>
-         <button (click)="add()" class="btn btn-primary">add</button>
+      <div>
+
+        <input style="margin:1rem;text-align: center; width: 12rem; height: 10rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: lavenderblush;"
+               placeholder="{{updateHolder.noteBody}}"
+               type="text"
+               id="noteupdateBody"
+               name="noteBody"
+               [(ngModel)]="notee1.noteBody"
+               #body="ngModel"
+               required
+               minlength="1"
+               maxlength="25"
+        >
+        <div class="text-danger m-3" *ngIf="body.invalid && (title.dirty||title.touched)">Note body is required.</div>
       </div>
+      <button type="submit" class="btn btn-warning" [disabled]="noteForm.invalid">Update Note</button>
+    </form>
   </div>
+  <form (ngSubmit)="add()" #noteForm="ngForm" *ngIf="adddisplay">
+    <div>
+
+      <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"
+        placeholder="title"
+        type="text"
+        id="noteHeading"
+        name="noteHeading"
+        [(ngModel)]="notee.noteHeading"
+        #title="ngModel"
+        required
+        minlength="1"
+        maxlength="7"
+      >
+
+        <div class="text-danger m-3" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
+      </div>
+
+    <div>
+
+      <input style="margin:1rem;text-align: center; width: 12rem; height: 10rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"
+        placeholder="body"
+        type="text"
+        id="noteBody"
+        name="noteBody"
+        [(ngModel)]="notee.noteBody"
+        #body="ngModel"
+        required
+        minlength="1"
+        maxlength="25"
+      >
+      <div class="text-danger m-3" *ngIf="body.invalid && (title.dirty||title.touched)">Note body is required.</div>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="noteForm.invalid">Add Note</button>
+  </form>
+
+
   <div class="row p-5" *ngIf="notesdisplay">
     <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of notes" >
       <div class="card" >
         <div class="card-body bg-secondary bg-opacity-25" >
          <h4 class="card-title p-0 text-dark">{{note.noteHeading}}
-         <div class="btn-group">
-           <button (click)="setId(note.id)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>
-           <button (click)="delete(note.id)" class="btn btn-danger"><i class="bi bi-calendar2-x"></i></button>
+         <div class="btn-group " style="margin-left: 0">
+           <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-warning" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 2rem"><i class="bi bi-cloud-plus-fill"></i></button>
+           <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 2rem"><i class="bi bi-calendar2-x"></i></button>
          </div>  <hr></h4>
           <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>
 
