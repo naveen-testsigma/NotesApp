@@ -31,44 +31,43 @@ public class NotesController {
     NotesRepository notesRepository;
     @Autowired
     NotesMapper notesMapper;
-    @PostMapping("/post")
+    @PostMapping("/")
     Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
-    @PostMapping("/search")
-    List<Notes> searchNotes(@RequestBody SearchNotesRequest searchDto)
-    {
-        System.out.println("Here at search");
-        return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
-    }
-    @GetMapping("/userid/{user_id}")
-    List<Notes> getNotesById(@PathVariable("user_id") Long user_id)
-    {
-
-        return notesService.getNotesById(user_id);
-    }
-    @PostMapping("/update/{id}")
+//    @PostMapping("/search")
+//    List<Notes> searchNotes(@RequestBody SearchNotesRequest searchDto)
+//    {
+//        return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
+//    }
+//    @GetMapping("/userid/{user_id}")
+//    List<Notes> getNotesById(@PathVariable("user_id") Long user_id)
+//    {
+//
+//        return notesService.getNotesById(user_id);
+//    }
+    @PostMapping("/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.updateNotesById(id,notes);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     String deleteNotesById(@PathVariable("id") Long id)
     {
         return notesService.deleteNotesById(id);
     }
 
     @GetMapping("/get")
-    public List<Notes> fun(@RequestParam("id") long id, @RequestParam("search") String search  )
+    public List<Notes> fun(@RequestParam("id") long id, @RequestParam("title") String search)
     {
         System.out.println(id+" "+search);
         Specification spec=Specification.where(
-                NotesSpecification.hasNoteHeadingLike(search));
-                //.and(NotesSpecification.hasId(id));
+                NotesSpecification.hasNoteHeadingLike(search))
+                .and(NotesSpecification.hasId(id));
         return notesRepository.findAll(spec);
     }
 }

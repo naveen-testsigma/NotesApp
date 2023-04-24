@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class TodoListSpecification implements Specification<TodoList> {
+public  class TodoListSpecification  {
     public static Specification<TodoList> hasTodoDataLike(String todoData) {
         return ((root, query, criteriaBuilder) -> {
             return criteriaBuilder.like(root.get("todoData"), "%" + todoData + "%");
