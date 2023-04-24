@@ -28,14 +28,14 @@ export class NotesService{
   }
 
 
-  private noteURL = "http://localhost:8080/notes/userid/";
+  private noteURL = "http://localhost:8080/notes/get";
   idSetter(): Observable<BigInt>{
    return this.http.get<BigInt>(`http://localhost:8080/user/${this.decoded.sub}`,{headers:this.headers});
   }
 
   findALl(id: string | BigInt) : Observable<Notes[]>{
     console.log("findall id passed value :"+id);
-    return this.http.get<Notes[]>( `${this.noteURL}${id}`,{headers:this.headers})
+    return this.http.get<Notes[]>( `${this.noteURL}?id=${id}`,{headers:this.headers})
   }
 
   delete(id: string) : Observable<any> {
@@ -44,7 +44,7 @@ export class NotesService{
   }
   add(notes : Notes) : Observable<Object> {
     console.log("user id :" +notes.userId);
-    return this.http.post('http://localhost:8080/notes/post',notes,{headers:this.headers});
+    return this.http.post('http://localhost:8080/notes/',notes,{headers:this.headers});
   }
 
   update(notes : Notes) : Observable<Object>{

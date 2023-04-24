@@ -37,17 +37,6 @@ public class NotesController {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
-//    @PostMapping("/search")
-//    List<Notes> searchNotes(@RequestBody SearchNotesRequest searchDto)
-//    {
-//        return notesService.searchNotes(searchDto.getNoteHeading(),searchDto.getUserId());
-//    }
-//    @GetMapping("/userid/{user_id}")
-//    List<Notes> getNotesById(@PathVariable("user_id") Long user_id)
-//    {
-//
-//        return notesService.getNotesById(user_id);
-//    }
     @PostMapping("/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
@@ -55,19 +44,16 @@ public class NotesController {
         return notesService.updateNotesById(id,notes);
     }
 
-    @DeleteMapping("/{id}")
-    String deleteNotesById(@PathVariable("id") Long id)
+    @DeleteMapping("/{notesId}")
+    String deleteNotesById(@PathVariable("notesId") Long id)
     {
         return notesService.deleteNotesById(id);
     }
 
     @GetMapping("/get")
-    public List<Notes> fun(@RequestParam("id") long id, @RequestParam("title") String search)
+    public List<Notes> searchNotes(@RequestParam("id") long id,@RequestParam(required = false, value = "query") List<String> query)
     {
-        System.out.println(id+" "+search);
-        Specification spec=Specification.where(
-                NotesSpecification.hasNoteHeadingLike(search))
-                .and(NotesSpecification.hasId(id));
-        return notesRepository.findAll(spec);
+        return notesService.searchNotes(id,query);
     }
+
 }

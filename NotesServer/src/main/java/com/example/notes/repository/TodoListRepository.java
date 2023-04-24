@@ -10,7 +10,5 @@ import java.util.List;
 @Repository
 public interface TodoListRepository extends JpaRepository<TodoList,Long>, JpaSpecificationExecutor<TodoList>
 {
-    List<TodoList> findAllByUserId(Long userId);
 
-    List<TodoList> findByUserIdAndTodoDataLike( Long userId,String todoData);
 }

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface NotesService {
-    List<Notes> getNotesById(Long userId);
-
     String deleteNotesById(Long id);
 
     //String updateNotesById(Long id);
@@ -16,5 +14,5 @@ public interface NotesService {
 
     String updateNotesById(Long id, Notes notes);
 
-    List<Notes> searchNotes(String word,Long id);
+    List<Notes> searchNotes(Long id,List<String> query);
 }
