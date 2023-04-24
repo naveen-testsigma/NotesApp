@@ -50,7 +50,7 @@ public class NotesController {
         return notesService.deleteNotesById(id);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/")
     public List<Notes> searchNotes(@RequestParam("id") long id,@RequestParam(required = false, value = "query") List<String> query)
     {
         return notesService.searchNotes(id,query);
