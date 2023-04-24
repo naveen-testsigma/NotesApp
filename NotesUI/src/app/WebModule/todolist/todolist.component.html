@@ -1,13 +1,14 @@
 
 <div class="container p-5">
+  <div class="input-group">
   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searcher.todoData" >
-  <div class= "btn-group p-5">
-    <button class="btn btn-outline-info my-2 my-sm-0" (click)="searcherfunc()">Search</button>
-    <button (click)="getting()" class="btn btn-outline-success">todolist</button></div>
-  <div class="container border-dark border-3 rounded ">
-    <h5 class="bg-danger rounded opacity-75" *ngIf="notFoundshow" >not found ! </h5>
+    <button  class="btn border-0" (click)="searcherfunc()"><i class="bi bi-search" style="font-size: 1.5rem;"></i></button>
   </div>
-  <table class="table table-light" *ngIf="mainTableShow">
+    <div *ngIf="notFoundshow"  class="container border-dark border-3 rounded " style="margin-top: 3rem">
+    <h5 class="border-dark bg-danger rounded opacity-25 display-6" >not found ! </h5>
+      <button (click)="addListCall()" class="btn btn-outline-dark ">Add Tasks</button>
+  </div>
+  <table class="table table-light" *ngIf="mainTableShow" style="margin-top: 3rem">
     <thead class="table-dark">
     <tr>
       <th scope="col">tododata
@@ -17,32 +18,75 @@
     <tbody *ngFor = "let todo of todolist">
     <tr>
 <!--      <th scope="row">{{todo.id}}</th>-->
-      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
+      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
 <!--      <td>{{todo.datecreated}}</td>-->
 <!--      <td>{{todo.datedeadline}}</td>-->
     </tr>
     </tbody>
   </table>
-  <div class="container" *ngIf="showUpdate">
-    <input type="text" placeholder="update task here" class="input-group input-group-text" [(ngModel)]="textUpdate">
-    <button class=" input-group btn btn-warning" (click)="updateList()">update</button>
-  </div>
-  <div class="container" *ngIf="showAdd">
-    <input type="text" placeholder="Add tasks here" class="input-group input-group-text" [(ngModel)]="addUpdate">
-    <button class=" input-group btn btn-warning" (click)="addList()">Add</button>
-  </div>
-  <table class="table table-striped table-info" *ngIf="searchTableshow">
+<!--  <div class="container" *ngIf="showUpdate" style="padding-top: 3rem">-->
+<!--    <div class="input-group">-->
+<!--      <input type="text"  style="margin-left: 40%" placeholder="{{updataPlaceHolder }}" [(ngModel)]="textUpdate">-->
+<!--      <button class=" btn btn-outline-danger" (click)="updateList()">update</button>-->
+<!--    </div>-->
+<!--  </div>-->
+  <form (ngSubmit)="updateList()" #noteForm="ngForm" *ngIf="showUpdate">
+    <div>
+
+      <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #fafafa;"
+              placeholder="{{updataPlaceHolder}}"
+              type="text"
+              id="noteUpdateHeading"
+              name="noteHeading"
+              [(ngModel)]="textUpdate"
+              #title="ngModel"
+              required
+              minlength="1"
+
+      >
+
+      <div class="text-warning m-2" *ngIf="title.invalid && (title.dirty||title.touched)">Task is required</div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="noteForm.invalid">Update task</button>
+  </form>
+<!--  <div class="container" *ngIf="showAdd" style="margin-top: 3rem; align-items: center">-->
+<!--    <div class="input-group">-->
+<!--    <input type="text"  style="margin-left: 40%" placeholder="Add tasks here" [(ngModel)]="addUpdate">-->
+<!--    <button class=" btn btn-outline-warning" (click)="addList()">Add</button>-->
+<!--  </div>-->
+<!--  </div>-->
+  <form (ngSubmit)="addList()" #noteForm="ngForm" *ngIf="showAdd">
+    <div>
+
+      <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #fafafa;"
+              placeholder="add tasks here"
+              type="text"
+              id="noteHeading"
+              name="noteHeading"
+              [(ngModel)]="addUpdate"
+              #title="ngModel"
+              required
+              minlength="1"
+
+      >
+
+      <div class="text-success m-2" *ngIf="title.invalid && (title.dirty||title.touched)">Task is required</div>
+    </div>
+    <button type="submit" class="btn btn-dark" [disabled]="noteForm.invalid">Add task</button>
+  </form>
+  <table class="table table-light" *ngIf="searchTableshow" style="margin-top: 3rem">
     <thead class="table-dark">
     <tr>
 <!--      <th scope="col">#</th>-->
-      <th scope="col">todo searched
+      <th scope="col">tododata
+
         <a (click)="addListCall()"><i class="bi bi-file-earmark-plus-fill"></i></a></th>
     </tr>
     </thead>
     <tbody *ngFor = "let todo of searchlist">
     <tr>
 <!--      <th scope="row">{{todo.id}}</th>-->
-      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
+      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
     </tr>
     </tbody>
   </table>
