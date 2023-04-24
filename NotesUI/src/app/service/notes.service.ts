@@ -53,9 +53,14 @@ export class NotesService{
   }
 
   search(searcher : Search) : Observable<Notes[]>{
-    console.log(searcher);
-    return this.http.get<Notes[]>(`http://localhost:8080/notes/getsearch?query=id:${searcher.userId},title:${searcher.noteHeading}`,{headers:this.headers});
-  
+    console.log("service note heading : "+searcher.noteHeading + " length "+searcher.noteHeading.length);
+    if(!searcher.noteHeading){
+      console.log("null value event : ")
+      return this.findALl(searcher.userId);
+    }
+    else
+      return this.http.get<Notes[]>(`http://localhost:8080/notes/getsearch?query=id:${searcher.userId},title:${searcher.noteHeading}`,{headers:this.headers});
+
   }
 
 

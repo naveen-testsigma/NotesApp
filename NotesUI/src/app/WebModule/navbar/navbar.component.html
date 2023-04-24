@@ -7,7 +7,7 @@
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav m-2">
-      <li>
+      <li  *ngIf="loggingbuttondisable">
 
         <button *ngIf="ifLoggedin" class="btn btn-primary  m-1 " [routerLink]="['/login']"><i class="bi bi-box-arrow-in-right m-1"></i>Login</button>
       </li>

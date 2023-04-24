@@ -21,7 +21,7 @@ export class TodolistComponent implements OnInit{
 constructor(private todoservice : TodolistService,private routes : Router) {
 }
  updataPlaceHolder :string = "";
-todolist : Todolist[] | undefined;
+
   showUpdate=  false;
   idTodo :string ="";
   textUpdate : string ="default value";
@@ -30,7 +30,7 @@ todolist : Todolist[] | undefined;
   addUpdate: string ="";
   showAdd= false;
   searcher: TodolistSearch = { todoData: "", userId: ""};
-  mainTableShow = false;
+
   searchTableshow= false;
 
   ngOnInit(): void {
@@ -41,14 +41,14 @@ todolist : Todolist[] | undefined;
   }
  getting(){
     this.notFoundshow = false;
-    this.mainTableShow = true;
-    this.searchTableshow = false;
+
+    this.searchTableshow = true;
     this.todoservice.findAll(this.userid).subscribe(res=>{
       console.log("result" ,res);
-      this.todolist = res;
+      this.searchlist = res;
       this.showAdd = false;
       this.showUpdate = false;
-      console.log("todolist   " + this.todolist);
+      console.log("todolist   " + this.searchlist);
     })
  }
 
@@ -67,7 +67,6 @@ todolist : Todolist[] | undefined;
   update(id:string,tododata:string) {
     this.textUpdate = tododata;
     this.updataPlaceHolder = tododata;
-    this.mainTableShow = false;
     this.searchTableshow = false;
     this.showAdd = false;
     this.showUpdate = true;
@@ -90,7 +89,7 @@ todolist : Todolist[] | undefined;
 
   addListCall() {
     this.notFoundshow = false;
-    this.mainTableShow = false;
+
     this.searchTableshow = false;
     this.showUpdate = false;
     this.showAdd = true;
@@ -112,23 +111,20 @@ todolist : Todolist[] | undefined;
   }
 
   searcherfunc() {
-    if (this.searcher.todoData == "")
-      this.getting();
-    else {
       this.showUpdate = false;
       this.showAdd = false;
-
-      this.mainTableShow = false;
       this.searcher.userId = String(this.userid);
       this.todoservice.search(this.searcher).subscribe(res => {
         console.log(res);
         this.searchlist = res;
         if (this.searchlist.length == 0) {
           this.notFoundshow = true;
+          this.searchTableshow = false;
         } else {
+          this.notFoundshow = false;
           this.searchTableshow = true;
         }
       });
     }
-  }
+
 }

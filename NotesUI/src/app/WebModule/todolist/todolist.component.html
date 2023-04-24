@@ -1,29 +1,29 @@
 
 <div class="container p-5">
   <div class="input-group">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searcher.todoData" >
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (input)="searcherfunc()" [(ngModel)]="searcher.todoData" >
     <button  class="btn border-0" (click)="searcherfunc()"><i class="bi bi-search" style="font-size: 1.5rem;"></i></button>
   </div>
     <div *ngIf="notFoundshow"  class="container border-dark border-3 rounded " style="margin-top: 3rem">
     <h5 class="border-dark bg-danger rounded opacity-25 display-6" >not found ! </h5>
       <button (click)="addListCall()" class="btn btn-outline-dark ">Add Tasks</button>
   </div>
-  <table class="table table-light" *ngIf="mainTableShow" style="margin-top: 3rem">
-    <thead class="table-dark">
-    <tr>
-      <th scope="col">tododata
-        <a (click)="addListCall()"><i class="bi bi-file-earmark-plus-fill"></i></a></th>
-    </tr>
-    </thead>
-    <tbody *ngFor = "let todo of todolist">
-    <tr class="justify-content-evenly">
-<!--      <th scope="row">{{todo.id}}</th>-->
-      <td class="justify-content-evenly">{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
-<!--      <td>{{todo.datecreated}}</td>-->
-<!--      <td>{{todo.datedeadline}}</td>-->
-    </tr>
-    </tbody>
-  </table>
+<!--  <table class="table table-light" *ngIf="mainTableShow" style="margin-top: 3rem">-->
+<!--    <thead class="table-dark">-->
+<!--    <tr>-->
+<!--      <th scope="col">tododata-->
+<!--        <a (click)="addListCall()"><i class="bi bi-file-earmark-plus-fill"></i></a></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody *ngFor = "let todo of todolist">-->
+<!--    <tr class="justify-content-evenly">-->
+<!--&lt;!&ndash;      <th scope="row">{{todo.id}}</th>&ndash;&gt;-->
+<!--      <td class="justify-content-evenly">{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>-->
+<!--&lt;!&ndash;      <td>{{todo.datecreated}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;      <td>{{todo.datedeadline}}</td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
 <!--  <div class="container" *ngIf="showUpdate" style="padding-top: 3rem">-->
 <!--    <div class="input-group">-->
 <!--      <input type="text"  style="margin-left: 40%" placeholder="{{updataPlaceHolder }}" [(ngModel)]="textUpdate">-->
@@ -81,13 +81,17 @@
 <!--      <th scope="col">#</th>-->
       <th scope="col">tododata
 
-        <a (click)="addListCall()"><i class="bi bi-file-earmark-plus-fill"></i></a></th>
+        <a (click)="addListCall()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></th>
     </tr>
     </thead>
     <tbody *ngFor = "let todo of searchlist">
     <tr>
 <!--      <th scope="row">{{todo.id}}</th>-->
-      <td>{{todo.todoData}} <span class="p-1"><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a> </span></td>
+      <td class="d-flex justify-content-between">
+        <span>     {{todo.todoData}} </span>
+        <span><a (click)="delete(todo.id)" ><i class="bi bi-dash-circle p-2" ></i></a> <a (click)="update(todo.id,todo.todoData)"><i class="bi bi-pencil-fill p-2"></i></a>
+        </span>
+      </td>
     </tr>
     </tbody>
   </table>

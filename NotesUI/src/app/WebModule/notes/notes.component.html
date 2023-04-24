@@ -3,7 +3,7 @@
 <div class="container">
 <div style="padding-bottom: 2rem">
   <div class="input-group">
-    <input class="form-control mr-sm-2" style="margin-top: 1rem" type="search" placeholder="Search" aria-label="Search" (ngModelChange)="onSearchChange()" [(ngModel)]="searcher.noteHeading" >
+    <input class="form-control mr-sm-2" style="margin-top: 1rem" type="search" placeholder="Search" aria-label="Search"(input)="searcherfunc()"  [(ngModel)]="searcher.noteHeading" >
     <div class="btn-group" style="margin-left: 0.25rem;margin-top: 1rem">
       <button  class="btn border-0" (click)="searcherfunc()"><i class="bi bi-search" style="font-size: 1.5rem;"></i></button>
 <!--      <button (click)="noteslist()" class="btn btn-outline-success">noteslist</button> -->
@@ -128,28 +128,28 @@
 <!--  </form>-->
 
 
-  <div class="row p-5" *ngIf="notesdisplay">
-    <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of notes" >
-      <div class="card" >
-        <div class="card-body bg-secondary bg-opacity-25" >
-         <div>
-           <div class="flex d-flex justify-content-between">
-             <div >
-               <h4 class="card-title p-0 text-dark text-center">{{note.noteHeading}}</h4></div>
-         <div class="btn-group " style="margin-left: 0">
-           <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-black" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-           <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-trash-o" aria-hidden="true"></i>
-           </button>
-         </div>
-           </div><hr>
-          <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>
+<!--  <div class="row p-5" *ngIf="notesdisplay">-->
+<!--    <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of notes" >-->
+<!--      <div class="card" >-->
+<!--        <div class="card-body bg-secondary bg-opacity-25" >-->
+<!--         <div>-->
+<!--           <div class="flex d-flex justify-content-between">-->
+<!--             <div >-->
+<!--               <h4 class="card-title p-0 text-dark text-center">{{note.noteHeading}}</h4></div>-->
+<!--         <div class="btn-group " style="margin-left: 0">-->
+<!--           <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-black" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->
+<!--           <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-trash-o" aria-hidden="true"></i>-->
+<!--           </button>-->
+<!--         </div>-->
+<!--           </div><hr>-->
+<!--          <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>-->
 
-        </div>
-      </div>
-    </div>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
-  </div>
-</div>
+<!--  </div>-->
+<!--</div>-->
   <div class="row p-5" *ngIf="isSearch">
     <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of serachNotes" >
       <div class="card" >

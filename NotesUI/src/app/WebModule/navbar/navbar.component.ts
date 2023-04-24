@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +9,12 @@ import { Router } from '@angular/router';
 export class NavbarComponent{
 ifLoggedout: Boolean = false;
 ifLoggedin: Boolean = true;
+  loggingbuttondisable: boolean = true;
 constructor(private routes:Router){
 if(localStorage.getItem("user"))
 {
+  if(this.routes.url === '/login')
+    this.loggingbuttondisable = false;
   this.ifLoggedin = false;
  this.ifLoggedout =true;
 }

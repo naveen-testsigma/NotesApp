@@ -48,9 +48,11 @@ export class TodolistService {
 
   search(searcher : any) : Observable<Todolist[]> {
 
-    console.log(searcher);
-    return this.http.get<Todolist[]>(`http://localhost:8080/todolist/getsearch?query=id:${searcher.userId},title:
-    ${searcher.todoData}`,{headers:this.headers});
+    console.log("searcher in funciton :"+searcher.todoData);
+    if(searcher.todoData.length== 0)
+      return this.http.get<Todolist[]>(`http://localhost:8080/todolist/getsearch?query=id:${searcher.userId}`,{headers:this.headers});
+    else
+      return this.http.get<Todolist[]>(`http://localhost:8080/todolist/getsearch?query=id:${searcher.userId},title:${searcher.todoData}`,{headers:this.headers});
   }
 
   setUserid() : Observable<BigInt>{

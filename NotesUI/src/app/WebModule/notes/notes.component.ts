@@ -4,6 +4,7 @@ import {Notes} from "../../types/notes";
 import {Router} from "@angular/router";
 import { NgForm } from '@angular/forms';
 import {Search} from "../../types/search";
+import {emitDistinctChangesOnlyDefaultValue} from "@angular/compiler";
 
 @Component({
   selector: 'app-notes',
@@ -17,8 +18,6 @@ export class NotesComponent implements OnInit{
   isVisible=false;
   isSearch = false;
   notFound = false;
-  notesdisplay = true;
-  notes : Notes[] | undefined;
   serachNotes : Notes[] | undefined;
   notee : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
   notee1 : Notes={id: "", noteBody: "updatehere :)", noteHeading: "updatehere :)", userId: 1};
@@ -30,7 +29,9 @@ export class NotesComponent implements OnInit{
 
   }
   ngOnInit(): void {
-
+   if(this.searcher.noteHeading.length == 0){
+     this.searcherfunc();
+   }
    this.noteservice.idSetter().subscribe(res=> {
      console.log("first function returning id value : " + res)
        this.id = res;
@@ -42,11 +43,9 @@ export class NotesComponent implements OnInit{
   }
   getting(){
     console.log("Getting find all here "+ this.id)
-    this.noteservice.findALl(this.id).subscribe(data =>{
-      this.notes = data;
-      console.log(data)
-    })
-    this.notesdisplay = true;
+    this.searcherfunc();
+    this.isSearch = true;
+    this.notFound = false;
     this.adddisplay = false;
     this.isVisible = false;
   }
@@ -81,7 +80,6 @@ export class NotesComponent implements OnInit{
     this.updateHolder.noteHeading = noteheading;
     this.updateHolder.noteBody = notebody;
     this.adddisplay = false;
-    this.notesdisplay = false;
     this.isSearch = false;
     this.isVisible=true;
     this.notee1.id  =String(noteid);
@@ -99,19 +97,15 @@ export class NotesComponent implements OnInit{
   }
 
   searcherfunc() {
-    if( this.searcher.noteHeading =="")
-      this.getting();
-    else {
-      this.isVisible = false;
-      this.adddisplay = false;
-      this.notesdisplay = false;
-      // @ts-ignore
-
+    this.isVisible = false;
+    this.adddisplay = false;
       console.log(this.searcher);
       this.searcher.userId = String(this.id);
       this.noteservice.search(this.searcher).subscribe(res => {
-        if (res.length == 0)
+        if (res.length == 0) {
           this.notFound = true;
+          this.isSearch = false;
+        }
         else {
           this.notFound = false;
           this.serachNotes = res;
@@ -119,32 +113,30 @@ export class NotesComponent implements OnInit{
         }
         console.log(res);
       });
-    }
 
   }
 
-  noteslist() {
-    this.notFound = false;
-    this.searcher.noteHeading="";
-    this.isVisible = false;
-    this.adddisplay = true;
-    this.notesdisplay = true;
-    this.isSearch = false;
-  }
+  // noteslist() {
+  //   this.notFound = false;
+  //   this.searcher.noteHeading="";
+  //   this.isVisible = false;
+  //   this.adddisplay = true;
+  //   this.notesdisplay = true;
+  //   this.isSearch = false;
+  // }
 
 
   adddisplayInvoke() {
     this.isVisible = false;
-    this.notesdisplay = false;
     this.isSearch = false;
     this.adddisplay = true;
   }
 
-  onSearchChange() {
-    if(this.searcher.noteHeading == "")
-    {
-      console.log("searchbar is empty");
-      this.getting();
-    }
-  }
+  // onSearchChange() {
+  //   if(this.searcher.noteHeading == "")
+  //   {
+  //     console.log("searchbar is empty");
+  //     this.getting();
+  //   }
+  // }
 }
