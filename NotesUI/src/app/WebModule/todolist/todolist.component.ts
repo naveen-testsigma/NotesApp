@@ -112,24 +112,23 @@ todolist : Todolist[] | undefined;
   }
 
   searcherfunc() {
-    this.showUpdate = false;
-    this.showAdd = false;
-
-  this.mainTableShow = false;
-  this.searcher.userId = String(this.userid);
-  this.todoservice.search(this.searcher).subscribe(res=>{
-    console.log(res);
-    this.searchlist = res;
-    if(this.searchlist.length == 0)
-    {
-      this.notFoundshow = true;
-    }
+    if (this.searcher.todoData == "")
+      this.getting();
     else {
-     this.searchTableshow = true;
+      this.showUpdate = false;
+      this.showAdd = false;
+
+      this.mainTableShow = false;
+      this.searcher.userId = String(this.userid);
+      this.todoservice.search(this.searcher).subscribe(res => {
+        console.log(res);
+        this.searchlist = res;
+        if (this.searchlist.length == 0) {
+          this.notFoundshow = true;
+        } else {
+          this.searchTableshow = true;
+        }
+      });
     }
-  });
   }
-
-
-
 }

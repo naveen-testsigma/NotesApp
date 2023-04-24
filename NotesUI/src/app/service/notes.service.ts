@@ -40,7 +40,7 @@ export class NotesService{
 
   delete(id: string) : Observable<any> {
     console.log("delete here noteservie : "+ id);
-    return this.http.delete(`http://localhost:8080/notes/delete/${id}`,{headers:this.headers});
+    return this.http.delete(`http://localhost:8080/notes/${id}`,{headers:this.headers});
   }
   add(notes : Notes) : Observable<Object> {
     console.log("user id :" +notes.userId);
@@ -49,13 +49,12 @@ export class NotesService{
 
   update(notes : Notes) : Observable<Object>{
    console.log(notes);
-
-    return this.http.post(`http://localhost:8080/notes/update/${notes.id}`,notes,{headers:this.headers});
+    return this.http.post(`http://localhost:8080/notes/${notes.id}`,notes,{headers:this.headers});
   }
 
   search(searcher : Search) : Observable<Notes[]>{
     console.log(searcher);
-    return this.http.get<Notes[]>(`http://localhost:8080/notes/get?id=${searcher.userId}&search=${searcher.noteHeading}`,{headers:this.headers});
+    return this.http.get<Notes[]>(`http://localhost:8080/notes/get?id=${searcher.userId}&query=${searcher.noteHeading}`,{headers:this.headers});
 
   }
 

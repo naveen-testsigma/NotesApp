@@ -27,7 +27,7 @@ export class TodolistService {
 
   findAll(id : BigInt) : Observable<Todolist[]>{
 
-    return this.http.get<Todolist[]>( `http://localhost:8080/todolist/userid/${id}`,{headers:this.headers});
+    return this.http.get<Todolist[]>( `http://localhost:8080/todolist/get?id=${id}`,{headers:this.headers});
 
   }
 
@@ -37,19 +37,19 @@ export class TodolistService {
 
   update(todoUpdate : Todolist) : Observable<Object>{
     console.log("todoUpdate" + todoUpdate.id +' '+todoUpdate.todoData+' '+todoUpdate.userId);
-    return this.http.put<Todolist>(`http://localhost:8080/todolist/update/${todoUpdate.id}`,todoUpdate,{headers:this.headers});
+    return this.http.put<Todolist>(`http://localhost:8080/todolist/${todoUpdate.id}`,todoUpdate,{headers:this.headers});
   }
 
   add(todoUpdate: Todolist) :Observable<Object>  {
 
     console.log("post here "+ todoUpdate.id + ' '+ todoUpdate.userId + ' '+todoUpdate.todoData);
-   return  this.http.post(`http://localhost:8080/todolist/post`,todoUpdate,{headers:this.headers});
+   return  this.http.post(`http://localhost:8080/todolist/`,todoUpdate,{headers:this.headers});
   }
 
   search(searcher : any) : Observable<Todolist[]> {
 
     console.log(searcher);
-    return this.http.get<Todolist[]>(`http://localhost:8080/todolist/get?id=${searcher.userId}&search=${searcher.todoData}`,{headers:this.headers});
+    return this.http.get<Todolist[]>(`http://localhost:8080/todolist/get?id=${searcher.userId}&query=${searcher.todoData}`,{headers:this.headers});
   }
 
   setUserid() : Observable<BigInt>{

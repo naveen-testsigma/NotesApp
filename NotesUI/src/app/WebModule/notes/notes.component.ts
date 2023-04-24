@@ -96,24 +96,27 @@ export class NotesComponent implements OnInit{
   }
 
   searcherfunc() {
-    this.isVisible = false;
-    this.adddisplay = false;
-    this.notesdisplay = false;
-    // @ts-ignore
+    if( this.searcher.noteHeading =="")
+      this.getting();
+    else {
+      this.isVisible = false;
+      this.adddisplay = false;
+      this.notesdisplay = false;
+      // @ts-ignore
 
-    console.log(this.searcher);
-    this.searcher.userId = String(this.id);
-     this.noteservice.search(this.searcher).subscribe(res =>{
-       if(res.length==0)
-         this.notFound = true;
-       else {
-         this.notFound = false;
-         this.serachNotes = res;
-         this.isSearch = true;
-       }
-       console.log(res);
-     });
-
+      console.log(this.searcher);
+      this.searcher.userId = String(this.id);
+      this.noteservice.search(this.searcher).subscribe(res => {
+        if (res.length == 0)
+          this.notFound = true;
+        else {
+          this.notFound = false;
+          this.serachNotes = res;
+          this.isSearch = true;
+        }
+        console.log(res);
+      });
+    }
 
   }
 
