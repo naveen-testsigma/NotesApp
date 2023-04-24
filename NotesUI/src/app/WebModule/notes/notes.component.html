@@ -3,39 +3,26 @@
 <div class="container">
 <div style="padding-bottom: 2rem">
   <div class="input-group">
-    <input class="form-control mr-sm-2" style="margin-top: 1rem" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searcher.noteHeading" >
+    <input class="form-control mr-sm-2" style="margin-top: 1rem" type="search" placeholder="Search" aria-label="Search" (ngModelChange)="onSearchChange()" [(ngModel)]="searcher.noteHeading" >
     <div class="btn-group" style="margin-left: 0.25rem;margin-top: 1rem">
       <button  class="btn border-0" (click)="searcherfunc()"><i class="bi bi-search" style="font-size: 1.5rem;"></i></button>
 <!--      <button (click)="noteslist()" class="btn btn-outline-success">noteslist</button> -->
-      <button class="btn border-0" (click)="adddisplayInvoke()" ><i class="bi bi-clipboard2-plus" style="font-size: 1.5rem;"></i></button>
+      <button class="btn border-0" (click)="adddisplayInvoke()" ><i class="fa fa-plus-square" aria-hidden="true"style="font-size: 1.5rem;"></i></button>
+
     </div>
     </div>
 
 <div class="container border-dark border-3 rounded">
   <h5 class="bg-danger rounded bg-opacity-50" *ngIf="notFound" >not found ! </h5>
 </div>
-  <div class="row p-5" *ngIf="isSearch">
-    <div class="col-lg-4 col-md-6 col-sm-6 "  style="padding-top: 2rem"  *ngFor="let noter of serachNotes">
-      <div class="card">
-        <div class="card-body bg-secondary bg-opacity-25" >
-          <h4 class="card-title p-0 text-dark">{{noter.noteHeading}}
-            <div class="btn-group">
-              <button (click)="setId(noter.id,noter.noteHeading,noter.noteBody)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>
-              <button (click)="delete(noter.id)" class="btn btn-danger"><i class="bi bi-calendar2-x"></i></button>
-            </div>  <hr></h4>
-          <p class="card-text text-black-50 p-4">{{noter.noteBody}}</p>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div class="text-center" *ngIf="isVisible" >
+
+
+  <div class="text-center pt-5" *ngIf="isVisible" >
 
     <form (ngSubmit)="update()" #noteForm="ngForm">
-      <div>
-
-        <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: lavenderblush;"
-                placeholder="{{updateHolder.noteHeading}}"
+      <div class="form-group row justify-content-center">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <input class="form-control add-control text-center"
                 type="text"
                 id="noteupdateHeading"
                 name="noteHeading"
@@ -43,76 +30,118 @@
                 #title="ngModel"
                 required
                 minlength="1"
-                maxlength="7"
+                maxlength="10"
         >
-
-        <div class="text-danger m-3" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
+      </div>
+        <div class="text-danger text-muted" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
       </div>
 
-      <div>
-
-        <input style="margin:1rem;text-align: center; width: 12rem; height: 10rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: lavenderblush;"
-               placeholder="{{updateHolder.noteBody}}"
-               type="text"
-               id="noteupdateBody"
-               name="noteBody"
-               [(ngModel)]="notee1.noteBody"
-               #body="ngModel"
-               required
-               minlength="1"
-               maxlength="25"
-        >
-        <div class="text-danger m-3" *ngIf="body.invalid && (title.dirty||title.touched)">Note body is required.</div>
+      <div class="form-group row justify-content-center" style="margin-top: 0.25rem;">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <textarea class="form-control add-control text-center"
+                 rows="10"
+                 id="noteeBody"
+                 name="noteeBody"
+                 [(ngModel)]="notee1.noteBody"
+                 #title="ngModel"
+                 required
+                 minlength="1"
+                 maxlength="150"
+          ></textarea>
+        </div>
+        <div class="text-danger text-muted" *ngIf="title.invalid && (title.dirty||title.touched)">Note body is required.</div>
       </div>
-      <button type="submit" class="btn btn-warning" [disabled]="noteForm.invalid">Update Note</button>
+      <button style="margin-top: 0.25rem;" type="submit" class="btn brn-sm btn-dark" [disabled]="noteForm.invalid">Update Note</button>
     </form>
   </div>
-  <form (ngSubmit)="add()" #noteForm="ngForm" *ngIf="adddisplay">
-    <div>
+  <div class="text-center pt-5" *ngIf="adddisplay" >
 
-      <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"
-        placeholder="title"
-        type="text"
-        id="noteHeading"
-        name="noteHeading"
-        [(ngModel)]="notee.noteHeading"
-        #title="ngModel"
-        required
-        minlength="1"
-        maxlength="7"
-      >
-
-        <div class="text-danger m-3" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
+    <form (ngSubmit)="add()" #noteForm="ngForm">
+      <div class="form-group row justify-content-center">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <input class="form-control update-control text-center"
+                 type="text"
+                 id="noteAddHeading"
+                 name="noteHeading"
+                 [(ngModel)]="notee.noteHeading"
+                 #title="ngModel"
+                 required
+                 minlength="1"
+                 maxlength="10"
+          >
+        </div>
+        <div class="text-danger text-muted" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>
       </div>
 
-    <div>
+      <div class="form-group row justify-content-center" style="margin-top: 0.25rem;">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <textarea class="form-control update-control text-center"
+                    rows="10"
+                    id="noteeAddBody"
+                    name="noteeAddBody"
+                    [(ngModel)]="notee.noteBody"
+                    #title="ngModel"
+                    required
+                    minlength="1"
+                    maxlength="150"
+          ></textarea>
+        </div>
+        <div class="text-danger text-muted" *ngIf="title.invalid && (title.dirty||title.touched)">Note body is required.</div>
+      </div>
+      <button style="margin-top: 0.25rem;" type="submit" class="btn brn-sm btn-success" [disabled]="noteForm.invalid">Add Note</button>
+    </form>
+  </div>
+  <!--  <form (ngSubmit)="add()" #noteForm="ngForm" *ngIf="adddisplay">-->
+<!--    <div>-->
 
-      <input style="margin:1rem;text-align: center; width: 12rem; height: 10rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"
-        placeholder="body"
-        type="text"
-        id="noteBody"
-        name="noteBody"
-        [(ngModel)]="notee.noteBody"
-        #body="ngModel"
-        required
-        minlength="1"
-        maxlength="25"
-      >
-      <div class="text-danger m-3" *ngIf="body.invalid && (title.dirty||title.touched)">Note body is required.</div>
-    </div>
-    <button type="submit" class="btn btn-success" [disabled]="noteForm.invalid">Add Note</button>
-  </form>
+<!--      <input  style="margin:1rem;text-align: center; width: 12rem; height: 2rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"-->
+<!--        placeholder="title"-->
+<!--        type="text"-->
+<!--        id="noteHeading"-->
+<!--        name="noteHeading"-->
+<!--        [(ngModel)]="notee.noteHeading"-->
+<!--        #title="ngModel"-->
+<!--        required-->
+<!--        minlength="1"-->
+<!--        maxlength="7"-->
+<!--      >-->
+
+<!--        <div class="text-danger m-3" *ngIf="title.invalid && (title.dirty||title.touched)">Note heading is required.</div>-->
+<!--      </div>-->
+
+<!--    <div>-->
+
+<!--      <input style="margin:1rem;text-align: center; width: 12rem; height: 10rem; border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background-color: #e1ffc7;"-->
+<!--        placeholder="body"-->
+<!--        type="text"-->
+<!--        id="noteBody"-->
+<!--        name="noteBody"-->
+<!--        [(ngModel)]="notee.noteBody"-->
+<!--        #body="ngModel"-->
+<!--        required-->
+<!--        minlength="1"-->
+<!--        maxlength="25"-->
+<!--      >-->
+<!--      <div class="text-danger m-3" *ngIf="body.invalid && (title.dirty||title.touched)">Note body is required.</div>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-success" [disabled]="noteForm.invalid">Add Note</button>-->
+<!--  </form>-->
 
 
   <div class="row p-5" *ngIf="notesdisplay">
     <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of notes" >
       <div class="card" >
         <div class="card-body bg-secondary bg-opacity-25" >
-         <h4 class="card-title p-0 text-dark">{{note.noteHeading}}
+         <div>
+           <div class="flex d-flex justify-content-between">
+             <div >
+               <h4 class="card-title p-0 text-dark text-center">{{note.noteHeading}}</h4></div>
          <div class="btn-group " style="margin-left: 0">
-           <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-warning" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 2rem"><i class="bi bi-cloud-plus-fill"></i></button>
-           <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 2rem"><i class="bi bi-calendar2-x"></i></button>
-         </div>  <hr></h4>
+           <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-black" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+           <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-trash-o" aria-hidden="true"></i>
+           </button>
+         </div>
+           </div><hr>
           <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>
 
         </div>
@@ -120,4 +149,42 @@
     </div>
 
   </div>
+</div>
+  <div class="row p-5" *ngIf="isSearch">
+    <div class="col-lg-4 col-md-6 col-sm-6 " style="padding-top: 2rem"  *ngFor="let note of serachNotes" >
+      <div class="card" >
+        <div class="card-body bg-secondary bg-opacity-25" >
+          <div>
+            <div class="flex d-flex justify-content-between">
+              <div >
+                <h4 class="card-title p-0 text-dark text-center">{{note.noteHeading}}</h4></div>
+              <div class="btn-group " style="margin-left: 0">
+                <button (click)="setId(note.id,note.noteHeading,note.noteBody)" class="btn border-0 text-black" style="padding: 0;margin: 0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <button (click)="delete(note.id)" class="btn border-0 text-danger" style="padding: 0;margin:0;padding-left: 0.5rem;font-size: 1.4rem"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div><hr>
+            <p class="card-text text-black-50 p-4">{{note.noteBody}}</p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!--  <div class="row p-5" *ngIf="isSearch">-->
+<!--    <div class="col-lg-4 col-md-6 col-sm-6 "  style="padding-top: 2rem"  *ngFor="let noter of serachNotes">-->
+<!--      <div class="card">-->
+<!--        <div class="card-body bg-secondary bg-opacity-25" >-->
+<!--          <h4 class="card-title p-0 text-dark">{{noter.noteHeading}}-->
+<!--            <div class="btn-group">-->
+<!--              <button (click)="setId(noter.id,noter.noteHeading,noter.noteBody)" class="btn btn-warning"><i class="bi bi-cloud-plus-fill"></i></button>-->
+<!--              <button (click)="delete(noter.id)" class="btn btn-danger"><i class="bi bi-calendar2-x"></i></button>-->
+<!--            </div>  <hr></h4>-->
+<!--          <p class="card-text text-black-50 p-4">{{noter.noteBody}}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
 </div>

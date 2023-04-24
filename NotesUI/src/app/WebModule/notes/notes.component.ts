@@ -46,6 +46,9 @@ export class NotesComponent implements OnInit{
       this.notes = data;
       console.log(data)
     })
+    this.notesdisplay = true;
+    this.adddisplay = false;
+    this.isVisible = false;
   }
   add() {
 
@@ -137,4 +140,11 @@ export class NotesComponent implements OnInit{
     this.adddisplay = true;
   }
 
+  onSearchChange() {
+    if(this.searcher.noteHeading == "")
+    {
+      console.log("searchbar is empty");
+      this.getting();
+    }
+  }
 }
