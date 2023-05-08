@@ -19,10 +19,7 @@ export class LoginComponent {
   constructor(private userservice: UserserviceService,private router : Router,private http : HttpClient) {
   }
 
- login : Authlogin={
-   password: "", emailId: ""
-
- }
+ login =new Authlogin();
 
   onSubmit() {
 

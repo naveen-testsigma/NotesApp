@@ -7,8 +7,5 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent{
- constructor() {
-  
-
- }
+ constructor() { }
 }

@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotesService} from "../../service/notes.service";
 import {Notes} from "../../types/notes";
 import {Router} from "@angular/router";
-import { NgForm } from '@angular/forms';
 import {Search} from "../../types/search";
-import {emitDistinctChangesOnlyDefaultValue} from "@angular/compiler";
 
 @Component({
   selector: 'app-notes',
@@ -12,16 +10,16 @@ import {emitDistinctChangesOnlyDefaultValue} from "@angular/compiler";
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit{
-  updateHolder : Notes ={id: "", noteBody: "", noteHeading: "", userId: 1};
+  updateHolder = new Notes ();
   id : BigInt = 0n;
   user : any = {  };
   isVisible=false;
   isSearch = false;
   notFound = false;
   serachNotes : Notes[] | undefined;
-  notee : Notes={id: "", noteBody: "", noteHeading: "", userId: 1};
-  notee1 : Notes={id: "", noteBody: "updatehere :)", noteHeading: "updatehere :)", userId: 1};
-  searcher : Search ={noteHeading: "", userId: ""}
+  notee =new Notes();
+  notee1 =new Notes();
+  searcher =new Search();
   adddisplay = false;
   private isClicked: boolean = false;
   constructor(private noteservice : NotesService,private route : Router) {
@@ -33,7 +31,6 @@ export class NotesComponent implements OnInit{
      this.searcherfunc();
    }
    this.noteservice.idSetter().subscribe(res=> {
-     console.log("first function returning id value : " + res)
        this.id = res;
      this.getting();
      }
@@ -50,9 +47,7 @@ export class NotesComponent implements OnInit{
     this.isVisible = false;
   }
   add() {
-
     this.notee.userId = Number(this.id);
-    console.log("add here noteservice : "+ this.notee.noteBody +" note heading : "+ this.notee.noteHeading + this.notee.userId + this.notee.id);
     this.noteservice.add(this.notee).subscribe(data =>{
       console.log(data);
       this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
@@ -63,8 +58,9 @@ export class NotesComponent implements OnInit{
 
   update() {
     this.isVisible=false;
+    this.notee1.noteBody="Update Here";
+    this.notee1.noteHeading="Update Here";
     this.notee1.userId = Number(this.id);
-    console.log("add here noteservice : "+ this.notee1.noteBody + this.notee1.noteHeading + this.notee1.userId + this.notee1.id);
     this.noteservice.update(this.notee1).subscribe(data =>{
       console.log(data);
 
@@ -87,10 +83,7 @@ export class NotesComponent implements OnInit{
   }
 
   delete(id: string) {
-    console.log("delete was here : "+ id);
-    this.noteservice.delete(id).subscribe((res : any)=>{
-      console.log(res);
-    });
+    this.noteservice.delete(id).subscribe((res : any)=>{});
     this.route.navigateByUrl("/",{skipLocationChange:true}).then(()=>{
       this.route.navigate(['/dashboard/notes']);
     })
@@ -99,7 +92,6 @@ export class NotesComponent implements OnInit{
   searcherfunc() {
     this.isVisible = false;
     this.adddisplay = false;
-      console.log(this.searcher);
       this.searcher.userId = String(this.id);
       this.noteservice.search(this.searcher).subscribe(res => {
         if (res.length == 0) {
@@ -111,7 +103,6 @@ export class NotesComponent implements OnInit{
           this.serachNotes = res;
           this.isSearch = true;
         }
-        console.log(res);
       });
 
   }
