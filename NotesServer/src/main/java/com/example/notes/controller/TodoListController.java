@@ -42,17 +42,11 @@ public class TodoListController {
     {
         return todoListService.updateTodoListById(id,todoList);
     }
-    @GetMapping("/get")
-    List<TodoList> searchList(@RequestParam("id") long id,@RequestParam(required = false, value = "query") List<String> query)
-    {
-        return todoListService.searchList(id,query);
-    }
-    @GetMapping("/getsearch")
-    List<TodoList> searchListTemp(@RequestParam("query") String data)
+    @GetMapping("/search")
+    List<TodoList> index(@RequestParam("query") String data)
     {
         List<Criteria> criteriaList=criterialBuilder.builder(data);
-        System.out.println(criteriaList);
-        return todoListService.searchListTemp(criteriaList);
+        return todoListService.index(criteriaList);
     }
 
     @DeleteMapping("/{id}")
