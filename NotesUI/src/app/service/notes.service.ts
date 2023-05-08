@@ -54,7 +54,6 @@ export class NotesService{
   }
 
   search(searcher : Search) : Observable<Notes[]>{
-    console.log("service note heading : "+searcher.noteHeading + " length "+searcher.noteHeading.length);
     if(!searcher.noteHeading){
       console.log("null value event : ")
       return this.findALl(searcher.userId);

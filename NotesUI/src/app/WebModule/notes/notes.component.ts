@@ -27,11 +27,13 @@ export class NotesComponent implements OnInit{
 
   }
   ngOnInit(): void {
-   if(this.searcher.noteHeading.length == 0){
+   if(this.searcher.noteHeading && this.searcher.noteHeading.length == 0){
      this.searcherfunc();
    }
    this.noteservice.idSetter().subscribe(res=> {
        this.id = res;
+       console.log(this.id);
+
      this.getting();
      }
    );
