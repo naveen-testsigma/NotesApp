@@ -55,18 +55,3 @@ public class TodoListSpecificationBuilder {
         return spec;
     }
 }
-
-//        if(query!=null)
-//        {
-//            Specification<TodoList> specForQuery = todoListSpecification.hasTodoDataLike(query.get(0));
-//            for(String x:query)
-//            {
-//                specForQuery=specForQuery.or(todoListSpecification.hasTodoDataLike(x));
-//            }
-//            specForId=specForId.and(specForQuery);
-//        }
-//
-//        Specification spec=Specification.where(specForId);
-//        return spec;
-//    }
-//}

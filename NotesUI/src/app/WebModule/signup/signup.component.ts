@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class SignupComponent {
 
 
-  signup : Authsignup ={emailId: "", name: "", password: ""}
+  signup =new Authsignup();
 
   constructor(private userservice: UserserviceService, private router:Router) {
   }

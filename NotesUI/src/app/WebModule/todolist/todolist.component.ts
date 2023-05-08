@@ -26,7 +26,7 @@ constructor(private todoservice : TodolistService,private routes : Router) {
   idTodo :string ="";
   textUpdate : string ="default value";
   searchlist : Todolist[]|undefined;
-  todoUpdate : Todolist ={id: "", todoData: "", userId: "" ,datecreated : "",datedeadline :''}
+  todoUpdate = new Todolist();
   addUpdate: string ="";
   showAdd= false;
   searcher: TodolistSearch = { todoData: "", userId: ""};
@@ -78,18 +78,16 @@ constructor(private todoservice : TodolistService,private routes : Router) {
     this.todoUpdate.todoData = this.textUpdate;
     this.todoUpdate.userId = String(this.userid);
     this.todoservice.update(this.todoUpdate).subscribe(res=>{
-        console.log(res);
       }
     )
     this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
       this.routes.navigate(['/dashboard/todolist']);
     })
-    // window.location.reload();
+
   }
 
   addListCall() {
     this.notFoundshow = false;
-
     this.searchTableshow = false;
     this.showUpdate = false;
     this.showAdd = true;
@@ -99,12 +97,7 @@ constructor(private todoservice : TodolistService,private routes : Router) {
     this.todoUpdate.todoData = this.addUpdate;
     this.todoUpdate.userId = String(this.userid);
     this.showUpdate = false;
-    this.todoservice.add(this.todoUpdate).subscribe(res=>{
-      console.log("result" + res);
-    })
-    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-    //   this.routes.navigate(['/dashboard/todolist']);
-    // })
+    this.todoservice.add(this.todoUpdate).subscribe(res=>{})
     this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
       this.routes.navigate(['/dashboard/todolist']);
     })
@@ -115,7 +108,6 @@ constructor(private todoservice : TodolistService,private routes : Router) {
       this.showAdd = false;
       this.searcher.userId = String(this.userid);
       this.todoservice.search(this.searcher).subscribe(res => {
-        console.log(res);
         this.searchlist = res;
         if (this.searchlist.length == 0) {
           this.notFoundshow = true;
