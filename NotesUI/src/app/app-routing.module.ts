@@ -7,10 +7,12 @@ import {HomeComponent} from "./WebModule/home/home.component";
 import {NotesComponent} from "./WebModule/notes/notes.component";
 import {TodolistComponent} from "./WebModule/todolist/todolist.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {ErrorpageComponent} from "./WebModule/errorpage/errorpage.component";
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
+  {path:'error',component:ErrorpageComponent},
   {path:'',component:HomeComponent,pathMatch:"full"},
   {path:'',canActivate:[AuthGuard],children:[
 

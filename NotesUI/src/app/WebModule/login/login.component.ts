@@ -34,10 +34,10 @@ export class LoginComponent {
       else {
           localStorage.setItem("user",res.token);
           console.log("token "+ localStorage.getItem("user"))
-
-        var dorm = new JwtHelperService();
-        const decoded = dorm.decodeToken(localStorage.getItem("user"));
-        console.log("email" + " " + decoded.sub +" object here!")
+          var dorm = new JwtHelperService();
+        // @ts-ignore
+          const decoded = dorm.decodeToken(localStorage.getItem("user"));
+          console.log("email" + " " + decoded.sub +" object here!")
           alert("logging in successful");
           this.router.navigate(["/dashboard"]);
 

@@ -12,6 +12,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 })
 export class NotesService{
   private  dorm = new JwtHelperService();
+  // @ts-ignore
   private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
   private token:string = "Bearer "+ localStorage.getItem("user");
   private headers = new HttpHeaders()
@@ -27,7 +28,7 @@ export class NotesService{
   }
 
 
-  private noteURL = "http://localhost:8080/notes/getsearch";
+  private noteURL = "http://localhost:8080/notes/search";
   idSetter(): Observable<BigInt>{
    return this.http.get<BigInt>(`http://localhost:8080/user/${this.decoded.sub}`,{headers:this.headers});
   }
@@ -58,9 +59,8 @@ export class NotesService{
       return this.findALl(searcher.userId);
     }
     else
-      return this.http.get<Notes[]>(`http://localhost:8080/notes/getsearch?query=id:${searcher.userId},title:${searcher.noteHeading}`,{headers:this.headers});
+      return this.http.get<Notes[]>(`http://localhost:8080/notes/search?query=id:${searcher.userId},title:${searcher.noteHeading}`,{headers:this.headers});
 
   }
-
 
 }
