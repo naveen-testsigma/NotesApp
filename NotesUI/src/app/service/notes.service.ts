@@ -1,8 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Notes} from "../types/notes";
+import {Notes} from "../models/notes";
 import {catchError, Observable, throwError,map} from "rxjs";
-import {Search} from "../types/search";
+import {Search} from "../models/search";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {CookieService} from "ngx-cookie-service";
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter} from '@angular/core';
-import {Authlogin} from "../../types/authlogin";
+import {Authlogin} from "../../models/authlogin";
 import {UserserviceService} from "../../service/userservice.service";
 
 import {Router} from "@angular/router";

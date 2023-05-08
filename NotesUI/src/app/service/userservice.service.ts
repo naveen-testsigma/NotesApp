@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Authlogin} from "../types/authlogin";
-import {Authsignup} from "../types/authsignup";
+import {Authlogin} from "../models/authlogin";
+import {Authsignup} from "../models/authsignup";
 import {catchError, map, Observable, throwError} from "rxjs";
-import {Notes} from "../types/notes";
+import {Notes} from "../models/notes";
 
 
 @Injectable({

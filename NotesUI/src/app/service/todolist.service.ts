@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {catchError, Observable, throwError,map} from "rxjs";
-import {Notes} from "../types/notes";
+import {Notes} from "../models/notes";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Todolist} from "../types/todolist";
+import {Todolist} from "../models/todolist";
 import {JwtDecodeOptions} from "jwt-decode";
 import jwt_decode from 'jwt-decode';
 import {JwtHelperService} from "@auth0/angular-jwt";
