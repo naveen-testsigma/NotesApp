@@ -116,27 +116,9 @@ export class NotesComponent implements OnInit{
 
   }
 
-  // noteslist() {
-  //   this.notFound = false;
-  //   this.searcher.noteHeading="";
-  //   this.isVisible = false;
-  //   this.adddisplay = true;
-  //   this.notesdisplay = true;
-  //   this.isSearch = false;
-  // }
-
-
   adddisplayInvoke() {
     this.isVisible = false;
     this.isSearch = false;
     this.adddisplay = true;
   }
-
-  // onSearchChange() {
-  //   if(this.searcher.noteHeading == "")
-  //   {
-  //     console.log("searchbar is empty");
-  //     this.getting();
-  //   }
-  // }
 }

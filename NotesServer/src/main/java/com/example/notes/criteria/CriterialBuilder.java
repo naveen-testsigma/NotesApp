@@ -16,11 +16,6 @@ public class CriterialBuilder {
         for(String s: splittedData)
         {
             String[] splittedCriteria=s.split(":") ;
-//            for(String x: splittedCriteria)
-//            {
-//                System.out.println(x);
-//            }
-//            System.out.println("-----------------");
             criteriaList.add(new Criteria(splittedCriteria[0],splittedCriteria[1]));
         }
         return criteriaList;

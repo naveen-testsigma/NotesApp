@@ -84,7 +84,7 @@ constructor(private todoservice : TodolistService,private routes : Router) {
     this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
       this.routes.navigate(['/dashboard/todolist']);
     })
-    // window.location.reload();
+
   }
 
   addListCall() {
@@ -102,9 +102,6 @@ constructor(private todoservice : TodolistService,private routes : Router) {
     this.todoservice.add(this.todoUpdate).subscribe(res=>{
       console.log("result" + res);
     })
-    // this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-    //   this.routes.navigate(['/dashboard/todolist']);
-    // })
     this.routes.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
       this.routes.navigate(['/dashboard/todolist']);
     })

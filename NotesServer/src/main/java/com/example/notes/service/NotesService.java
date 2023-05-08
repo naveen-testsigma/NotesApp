@@ -10,8 +10,6 @@ import java.util.List;
 public interface NotesService {
     String deleteNotesById(Long id);
 
-    //String updateNotesById(Long id);
-
     Notes postNotes(Notes notes);
 
     String updateNotesById(Long id, Notes notes);

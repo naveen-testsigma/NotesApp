@@ -50,7 +50,6 @@ public class TodoListController {
     @GetMapping("/getsearch")
     List<TodoList> searchListTemp(@RequestParam("query") String data)
     {
-//        System.out.println(data);
         List<Criteria> criteriaList=criterialBuilder.builder(data);
         System.out.println(criteriaList);
         return todoListService.searchListTemp(criteriaList);

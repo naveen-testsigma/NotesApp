@@ -12,7 +12,6 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 })
 export class TodolistService {
   private  dorm = new JwtHelperService();
-  // @ts-ignore
   private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
   private token:string = "Bearer "+ localStorage.getItem("user");
 

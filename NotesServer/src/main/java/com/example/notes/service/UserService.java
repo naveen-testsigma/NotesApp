@@ -11,5 +11,4 @@ public interface UserService {
 
     Long getUserIdFromEmailID(String emailId);
 
-//    User getUserByEmail(String email);
 }
