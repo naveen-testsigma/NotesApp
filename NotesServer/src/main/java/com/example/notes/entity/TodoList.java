@@ -14,8 +14,6 @@ public class TodoList {
     @Id
     @GeneratedValue
     Long id;
-    Date datecreated;
-    Date datedeadline;
     Long userId;
     String todoData;
 

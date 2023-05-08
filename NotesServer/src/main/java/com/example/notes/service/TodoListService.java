@@ -1,17 +1,44 @@
 package com.example.notes.service;
+
+import com.example.notes.builder.TodoListSpecificationBuilder;
 import com.example.notes.criteria.Criteria;
 import com.example.notes.entity.TodoList;
+import com.example.notes.repository.TodoListRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface TodoListService {
-    TodoList postTodoList(TodoList todoList);
-    String updateTodoListById(Long id, TodoList todoList);
+public class TodoListService {
+    @Autowired
+    TodoListRepository todoListRepository;
+    @Autowired
+    TodoListSpecificationBuilder todoListSpecificationBuilder;
 
-    String deleteTodoListById(Long id);
+    public TodoList postTodoList(TodoList todoList) {
+        return todoListRepository.save(todoList);
+    }
 
-    List<TodoList> searchList( Long userId,List<String> query);
+    public String updateTodoListById(Long id, TodoList todoList) {
+        TodoList temp=todoListRepository.findById(id).get();
+        temp.setTodoData(todoList.getTodoData());
+        todoListRepository.save(temp);
+        return "Updated Successfully";
+    }
 
-    List<TodoList> searchListTemp(List<Criteria> criteriaList);
+    public String deleteTodoListById(Long id) {
+         todoListRepository.deleteById(id);
+         return "Deleted Successfully";
+    }
+
+    public List<TodoList> searchList(Long userId,List<String> query) {
+       Specification spec= todoListSpecificationBuilder.build(userId,query);
+        return todoListRepository.findAll(spec);
+    }
+
+    public List<TodoList> index(List<Criteria> criteriaList) {
+        Specification spec= todoListSpecificationBuilder.builder(criteriaList);
+        return todoListRepository.findAll(spec);
+    }
 }

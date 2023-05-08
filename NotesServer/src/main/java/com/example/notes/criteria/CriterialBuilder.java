@@ -1,8 +1,5 @@
 package com.example.notes.criteria;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,14 +13,8 @@ public class CriterialBuilder {
         for(String s: splittedData)
         {
             String[] splittedCriteria=s.split(":") ;
-//            for(String x: splittedCriteria)
-//            {
-//                System.out.println(x);
-//            }
-//            System.out.println("-----------------");
             criteriaList.add(new Criteria(splittedCriteria[0],splittedCriteria[1]));
         }
         return criteriaList;
-//        return null;
     }
 }
