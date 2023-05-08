@@ -19,6 +19,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticationController {
@@ -37,13 +41,15 @@ public class JwtAuthenticationController {
 	private UserService userService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(HttpServletResponse response, @RequestBody LoginRequest loginRequest) throws Exception {
 		JwtRequest authenticationRequest=jwtMapper.loginRequestToJwtRequest(loginRequest);
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		Cookie cookie=new Cookie("JWT",token);
+		response.addCookie(cookie);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	

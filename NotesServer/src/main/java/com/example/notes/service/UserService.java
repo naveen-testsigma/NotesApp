@@ -17,8 +17,6 @@ public class UserService {
 
 
     public Long getUserIdFromEmailID(String emailId) {
-        System.out.println("Reached into userservice");
-
           return userRepository.findByEmailId(emailId).getId();
     }
 
