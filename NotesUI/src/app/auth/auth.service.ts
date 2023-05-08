@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Authlogin} from "../types/authlogin";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private cookieservice:CookieService) { }
   IsloggedIn(){
-    return !!localStorage.getItem("user");
+    return !!this.cookieservice.get("user");
   }
 }

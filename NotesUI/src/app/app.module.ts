@@ -16,9 +16,6 @@ import {CommonModule} from '@angular/common';
 import {JwtModule} from "@auth0/angular-jwt";
 import { ErrorpageComponent } from './WebModule/errorpage/errorpage.component';
 
-export function tokenGetter(){
-  return localStorage.getItem("user");
-}
 
 @NgModule({
   declarations: [

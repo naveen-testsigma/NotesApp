@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router} from '@angular/router';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,8 +11,8 @@ export class NavbarComponent{
 ifLoggedout: Boolean = false;
 ifLoggedin: Boolean = true;
   loggingbuttondisable: boolean = true;
-constructor(private routes:Router){
-if(localStorage.getItem("user"))
+constructor(private routes:Router,private cookieservice:CookieService){
+if(this.cookieservice.get("user"))
 {
   if(this.routes.url === '/login')
     this.loggingbuttondisable = false;

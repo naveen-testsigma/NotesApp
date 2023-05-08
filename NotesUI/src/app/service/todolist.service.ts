@@ -6,6 +6,7 @@ import {Todolist} from "../types/todolist";
 import {JwtDecodeOptions} from "jwt-decode";
 import jwt_decode from 'jwt-decode';
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {CookieService} from "ngx-cookie-service";
 
 
 @Injectable({
@@ -13,9 +14,8 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 })
 export class TodolistService {
   private  dorm = new JwtHelperService();
-  // @ts-ignore
-  private  decoded = this.dorm.decodeToken(localStorage.getItem("user"));
-  private token:string = "Bearer "+ localStorage.getItem("user");
+  private  decoded = this.dorm.decodeToken(this.cookieservice.get("user"));
+  private token:string = "Bearer "+ this.cookieservice.get("user");
 
   private headers = new HttpHeaders()
     .set('Access-Control-Allow-Origin', '*')
@@ -23,7 +23,7 @@ export class TodolistService {
     .set('Access-Control-Allow-Headers','*')
     .set('Authorization',this.token)
   ;
-  constructor(private http: HttpClient)  {
+  constructor(private http: HttpClient,private cookieservice:CookieService)  {
   }
 
   findAll(id : BigInt) : Observable<Todolist[]>{
