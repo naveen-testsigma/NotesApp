@@ -52,7 +52,6 @@ public class NotesController {
     List<Notes> index(@RequestParam("query") String data)
     {
         List<Criteria> criteriaList=criterialBuilder.builder(data);
-        System.out.println(criteriaList);
         return notesService.index(criteriaList);
     }
 }
