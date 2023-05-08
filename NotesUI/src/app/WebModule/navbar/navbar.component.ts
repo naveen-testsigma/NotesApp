@@ -25,7 +25,7 @@ else{
 }
 }
   logoutChecker() {
-  localStorage.clear();
+  this.cookieservice.delete("user");
   this.ifLoggedout = false;
   this.ifLoggedin = true;
   this.routes.navigate(['']);
