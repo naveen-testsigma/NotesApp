@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Todolist} from "../../types/todolist";
+import {Todolist} from "../../models/todolist";
 import {TodolistService} from "../../service/todolist.service";
 
 import {Router, Routes} from "@angular/router";

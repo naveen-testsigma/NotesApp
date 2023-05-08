@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {Authlogin} from "../types/authlogin";
+import {Authlogin} from "../models/authlogin";
 import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
