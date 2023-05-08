@@ -26,8 +26,6 @@ else{
 }
   logoutChecker() {
   this.cookieservice.delete("user");
-  this.ifLoggedout = false;
-  this.ifLoggedin = true;
   this.routes.navigate(['']);
   window.location.reload();
 }

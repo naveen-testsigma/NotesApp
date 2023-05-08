@@ -30,7 +30,6 @@ export class LoginComponent {
 
         alert("wrong username or password");
       else {
-          this.cookieservice.set("user",res.token);
           var dorm = new JwtHelperService();
           const decoded = dorm.decodeToken(this.cookieservice.get("user"));
           console.log("email" + " " + decoded.sub +" object here!")
