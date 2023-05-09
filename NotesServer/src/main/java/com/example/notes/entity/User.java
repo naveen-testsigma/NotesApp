@@ -6,29 +6,30 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     Long id;
-
+    @Column(name="password")
     String password;
-
+    @Column(name="name")
     String name;
-
+    @Column(name="email_id")
     String emailId;
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Notes> notes;
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<TodoList> todoLists;
+    //These ones are changed
+//    @OneToMany(
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<Notes> notes;
+//
+//    @OneToMany(
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<TodoList> todoLists;
 
 }

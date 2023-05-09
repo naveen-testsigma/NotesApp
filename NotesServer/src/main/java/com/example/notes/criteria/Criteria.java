@@ -5,10 +5,12 @@ import lombok.Data;
 @Data
 public class Criteria {
     String key;
+    String operation;
     String value;
-    Criteria(String a,String b)
+    Criteria(String a,String b,String c)
     {
         this.key=a;
-        this.value=b;
+        this.operation=b;
+        this.value=c;
     }
 }

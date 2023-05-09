@@ -1,5 +1,6 @@
 package com.example.notes.criteria;
 
+import com.example.notes.constants.Operators;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,8 +13,12 @@ public class CriterialBuilder {
         List<Criteria> criteriaList = new ArrayList<>();
         for(String s: splittedData)
         {
-            String[] splittedCriteria=s.split(":") ;
-            criteriaList.add(new Criteria(splittedCriteria[0],splittedCriteria[1]));
+            if(s.contains(Operators.COLON))
+            {
+                String[] splittedCriteria=s.split(Operators.COLON) ;
+                criteriaList.add(new Criteria(splittedCriteria[0],Operators.COLON,splittedCriteria[1]));
+            }
+
         }
         return criteriaList;
     }

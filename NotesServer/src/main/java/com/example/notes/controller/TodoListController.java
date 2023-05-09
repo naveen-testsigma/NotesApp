@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/todolist")
-@CrossOrigin(origins = "http://localhost:4200")
 public class TodoListController {
     @Autowired
     CriterialBuilder criterialBuilder;
@@ -28,8 +25,6 @@ public class TodoListController {
     TodoListService todoListService;
     @Autowired
     ListMapper listMapper;
-    @Autowired
-    TodoListRepository todoListRepository;
     @PostMapping("/")
     TodoList postTodoList(@RequestBody ListRequest listRequest)
     {

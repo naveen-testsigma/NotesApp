@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @RestController
 @RequestMapping("/notes")
-@CrossOrigin(origins = "http://localhost:4200")
 public class NotesController {
     @Autowired
     NotesService notesService;

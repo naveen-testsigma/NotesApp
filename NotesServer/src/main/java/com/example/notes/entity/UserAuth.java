@@ -8,21 +8,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "user_auth")
 public class UserAuth {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private long id;
-
-	@Column
+	@Column(name="username")
 	private String username;
-	@Column
+	@Column(name= "password")
 	@JsonIgnore
 	private String password;
-
-
 }

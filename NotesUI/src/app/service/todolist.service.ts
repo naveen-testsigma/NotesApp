@@ -36,7 +36,7 @@ export class TodolistService {
   }
 
   delete(id : string) :Observable<any>{
-    return this.http.delete(`http://localhost:8080/todolist/delete/${id}`,{headers:this.headers});
+    return this.http.delete(`http://localhost:8080/todolist/${id}`,{headers:this.headers});
   }
 
   update(todoUpdate : Todolist) : Observable<Object>{

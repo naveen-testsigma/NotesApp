@@ -18,11 +18,11 @@ public class TodoListSpecificationBuilder {
     TodoListSpecification todoListSpecification;
 
     public Specification build(Long userId, List<String> query) {
-        Specification<TodoList> specForId = todoListSpecification.hasId(userId);
+        Specification<TodoList> specForId = todoListSpecification.builder("hasId",(userId));
         if (query != null) {
-            Specification<TodoList> specForQuery = todoListSpecification.hasTodoDataLike(query.get(0));
+            Specification<TodoList> specForQuery = todoListSpecification.builder("hasTodoDataLike",(query.get(0)));
             for (String x : query) {
-                specForQuery = specForQuery.or(todoListSpecification.hasTodoDataLike(x));
+                specForQuery = specForQuery.or(todoListSpecification.builder("hasTodoDataLike",(x)));
             }
             specForId = specForId.and(specForQuery);
         }
@@ -37,13 +37,13 @@ public class TodoListSpecificationBuilder {
         Boolean first = true;
         for (Criteria x : criteriaList) {
             if (x.getKey().equalsIgnoreCase("id")) {
-                specForId = todoListSpecification.hasId(Long.parseLong(x.getValue()));
+                specForId = todoListSpecification.builder("hasId",(Long.parseLong(x.getValue())));
             } else if(x.getKey().equalsIgnoreCase("title")) {
                 if (first) {
                     first = false;
-                    specForQuery = todoListSpecification.hasTodoDataLike(x.getValue());
+                    specForQuery = todoListSpecification.builder("hasTodoDataLike",(x.getValue()));
                 } else {
-                    specForQuery = specForQuery.or(todoListSpecification.hasTodoDataLike(x.getValue()));
+                    specForQuery = specForQuery.or(todoListSpecification.builder("hasTodoDataLike",(x.getValue())));
                 }
             }
         }

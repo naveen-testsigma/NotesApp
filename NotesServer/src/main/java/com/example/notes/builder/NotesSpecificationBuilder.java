@@ -14,13 +14,13 @@ public class NotesSpecificationBuilder {
     @Autowired
     NotesSpecification notesSpecification;
     public Specification build(Long id, List<String> query) {
-        Specification<Notes> specForId=notesSpecification.hasId(id);
+        Specification<Notes> specForId=notesSpecification.builder("hasId",id);
         if(query!=null)
         {
-            Specification<Notes> specForQuery = notesSpecification.hasNoteHeadingLike(query.get(0));
+            Specification<Notes> specForQuery = notesSpecification.builder("hasNoteHeadingLike",query.get(0));
             for(String x:query)
             {
-                specForQuery=specForQuery.or(notesSpecification.hasNoteHeadingLike(x));
+                specForQuery=specForQuery.or(notesSpecification.builder("hasNoteHeadingLike",x));
             }
             specForId=specForId.and(specForQuery);
         }
@@ -36,13 +36,13 @@ public class NotesSpecificationBuilder {
         Boolean first = true;
         for (Criteria x : criteriaList) {
             if (x.getKey().equalsIgnoreCase("id")) {
-                specForId = notesSpecification.hasId(Long.parseLong(x.getValue()));
+                specForId = notesSpecification.builder("hasId",(Long.parseLong(x.getValue())));
             } else if(x.getKey().equalsIgnoreCase("title")) {
                 if (first) {
                     first = false;
-                    specForQuery = notesSpecification.hasNoteHeadingLike(x.getValue());
+                    specForQuery = notesSpecification.builder("hasNoteHeadingLike",(x.getValue()));
                 } else {
-                    specForQuery = specForQuery.or(notesSpecification.hasNoteHeadingLike(x.getValue()));
+                    specForQuery = specForQuery.or(notesSpecification.builder("hasNoteHeadingLike",(x.getValue())));
                 }
             }
         }
