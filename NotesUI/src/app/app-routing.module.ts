@@ -12,7 +12,7 @@ import {ErrorpageComponent} from "./WebModule/errorpage/errorpage.component";
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
-  {path:'error',component:ErrorpageComponent},
+  {path:'error/:message',component:ErrorpageComponent},
   {path:'',component:HomeComponent,pathMatch:"full"},
   {path:'',canActivate:[AuthGuard],children:[
 
