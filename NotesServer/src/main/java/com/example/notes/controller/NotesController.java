@@ -26,7 +26,7 @@ public class NotesController {
     CriterialBuilder criterialBuilder;
     @Autowired
     NotesMapper notesMapper;
-    @PostMapping("/")
+    @PostMapping()
     Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
