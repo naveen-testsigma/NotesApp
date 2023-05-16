@@ -41,6 +41,7 @@ public class TodoListController {
     List<TodoList> index(@RequestParam("query") String data)
     {
         List<Criteria> criteriaList=criterialBuilder.builder(data);
+       // System.out.println(criteriaList);
         return todoListService.index(criteriaList);
     }
 

@@ -39,6 +39,7 @@ public class TodoListService {
 
     public List<TodoList> index(List<Criteria> criteriaList) {
         Specification spec= todoListSpecificationBuilder.builder(criteriaList);
+        System.out.println(spec);
         return todoListRepository.findAll(spec);
     }
 }

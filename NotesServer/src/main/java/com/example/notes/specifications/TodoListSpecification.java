@@ -12,7 +12,7 @@ public  class TodoListSpecification  {
         if(type=="hasTodoDataLike")
         {
             return ((root, query, criteriaBuilder) -> {
-                return criteriaBuilder.like(root.get("noteHeading"), "%" + data + "%");
+                return criteriaBuilder.like(root.get("todoData"), "%" + data + "%");
             });
         }
         else if(type=="hasId")
