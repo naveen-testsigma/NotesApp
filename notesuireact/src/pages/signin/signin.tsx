@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {Authlogin} from "../../models/authlogin";
-import {NotesService} from "../../service/notes.service";
+
 import {Form, Row, Col, InputGroup, Button} from "react-bootstrap";
+import UserService from "../../service/userservice.service";
 
 const Signin = ()=>{
     const [emailId,setEmailId] = useState('');
@@ -29,7 +30,7 @@ const Signin = ()=>{
       authlogin.emailId = emailId;
       authlogin.password = password;
         console.log(authlogin);
-      NotesService.signin('authenticate',authlogin);
+      UserService.signin('authenticate',authlogin);
 
     }
     return(
@@ -42,7 +43,6 @@ const Signin = ()=>{
                         <Form.Control
                             type="email"
                             placeholder="email"
-
                             onChange={(e)=> setEmailId(e.target.value)}
                             aria-describedby="inputGroupPrepend"
                             required

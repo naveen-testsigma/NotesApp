@@ -13,3 +13,5 @@ export class Notes{
     return Object.assign(this, deserialize(Notes, input));
   }
 }
+
+export default Notes;

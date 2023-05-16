@@ -21,7 +21,7 @@ const Navbar = ()=>{
                             <a className="nav-link" href="/signin" >signin</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/home" >home</a>
+                            <a className="nav-link" href="/dashboard" >dashboard</a>
                         </li>
                     </ul>
                 </div>
