@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, ButtonGroup, Container} from "react-bootstrap";
 import ViewNote from "../../notes";
 import TodoList from "../todolist/todolist";
+import Navbar from "../../navbar";
 
 
 const MainDashboard =()=>{
@@ -19,6 +20,8 @@ const MainDashboard =()=>{
         SetTodoshow(true);
     }
     return(
+        <>
+        <Navbar isLogin={true} />
         <Container>{
             maindashshow &&
             <ButtonGroup>
@@ -39,6 +42,7 @@ const MainDashboard =()=>{
                <ViewNote/>
             }
         </Container>
+        </>
     );
 }
 

@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/home/home";
 import Signup from "./pages/signup/signup";
@@ -9,7 +9,7 @@ import TodoList from "./pages/todolist/todolist";
 function App() {
   return (
        <BrowserRouter>
-           <Navbar/>
+           
            <Routes>
 
               <Route exact path="*" element={<Home/>}/>
