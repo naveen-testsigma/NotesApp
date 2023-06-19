@@ -10,7 +10,14 @@ const getAllNotes = (query:any,id:any) => {
         .catch(e => reject(e));
 }
 const addNote = (note:Notes) => {
-    return Api.post(`${nameSpace}/${note.userId}`,note)
+    return Api.post(`${nameSpace}`,note)
+        .then((res)=>{
+            console.log(res);
+        })
+        .catch(e => reject(e));
+}
+const updateNote = (note:Notes) => {
+    return Api.post(`${nameSpace}/${note.id}`,note)
         .then((res)=>{
             console.log(res);
         })
@@ -24,5 +31,6 @@ const removeNote = (id:any) => {
 export const NoteService = {
     getAllNotes,
     addNote,
+    updateNote,
     removeNote
 }

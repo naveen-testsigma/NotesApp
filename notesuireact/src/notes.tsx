@@ -3,62 +3,88 @@ import {Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstr
 import { NoteService } from "./service/notes.service";
 import Note  from "./models/notes";
 import UserService from "./service/userservice.service";
-import {Cookies} from "react-cookie";
-import jwtDecode from "jwt-decode";
-import {Link} from "react-router-dom";
-
+import Cookies  from "js-cookie";
+import jwtDecode  from "jwt-decode";
 const ViewNote = () => {
     const [note, setNotes] = useState<Note[]>([]); // Specify the type for the note array
-    const [searchQuery, setSearchQuery] = useState("")
+    const [userId,setUserId]=useState(0);
+    const [noteupdate,setNoteupdate] = useState<Note>();
+    const [id,setId] = useState(0);
     const [noteHeading, setNoteHeading] = useState('');
-    const [id ,setId] = useState(Number);
+    const [searchbox,setSearchbox] = useState(true);
+    const [search,setSearch]=useState("");
     const [noteBody, setNoteBody] = useState('');
     const [getNotesActivate, setGetNotes] = useState(true)
     const [addnotesActivate, setAddnotesActivate] = useState(false)
-    const cookie = new Cookies();
     const [deletetoggle,setDeltetoggle] = useState(true);
     const [validated, setValidated] = useState(false);
-    const addNotepass = () => {
+
+    useEffect(() => {
+        if (Cookies.get("user")) {
+
+            // @ts-ignore
+            UserService.getid(jwtDecode(Cookies.get("user")).sub).then((data: any) => {
+                setUserId(data);
+                NoteService.getAllNotes(search, data).then((res: any) => {
+                    setNotes(res);
+                });
+            });
+        }
+    }, [getNotesActivate,deletetoggle,search]);
+
+    function noteAdd(note:any){
+        NoteService.addNote(note).then(()=>{
+            console.log("added succesfully");
+        });
+    }
+    function noteUpdate(note:any){
+        NoteService.updateNote(note).then(()=>{
+            console.log("updated successfully");
+        })
+        setId(0);
+    }
+    function addNotepass() {
     const note = new Note();
     note.noteHeading = noteHeading;
     note.noteBody = noteBody;
-    note.userId = id;
-    NoteService.addNote(note).then(()=>{
-        console.log("added succesfully");
-        setGetNotes(true);
-        setAddnotesActivate(false);
-    }).catch(()=>
-    {
-        alert("problem in adding notes");
-    })
+    note.userId = userId;
+        console.log("in add notes user " + id + " if update id" );
+        if(id==0){
+            noteAdd(note);
     }
+        else{
+            note.id = id;
+            noteUpdate(note);
+        }
+        setGetNotes(true);
+        setSearchbox(true);
+        setAddnotesActivate(false);
+    }
+    const handleSearch=(event:any)=>{
+        setSearch(event.target.value);
+        NoteService.getAllNotes(search, userId).then((res: any) => {
+            setNotes(res);
 
-    const handleaddSubmit = (event: any) => {
+        });
+
+    }
+    const handleaddSubmit = (event:any) => {
         event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        } else {
+        }
+        else{
             event.preventDefault();
             setValidated(true);
             addNotepass();
         }
-    }
-        useEffect(() => {
-            let userid;
-            if (cookie.get("user")) {
 
-                // @ts-ignore
-                UserService.getid(jwtDecode(cookie.get("user")).sub).then((data: any) => {
-                    NoteService.getAllNotes(searchQuery, data).then((res: any) => {
-                        setNotes(res);
-                    });
-                });
-            }
-        }, [getNotesActivate,deletetoggle,searchQuery]);
 
+    };
         function deleteNote(note:any) {
+            console.log(note.id + "in delete note");
             NoteService.removeNote(note.id);
             if(deletetoggle === true)
                 setDeltetoggle(false);
@@ -66,9 +92,10 @@ const ViewNote = () => {
         }
 
         function Updatenote(notes:any) {
-            setId(notes.id);
+            setId (notes.id);
             setAddnotesActivate(true);
             setGetNotes(false);
+            setSearchbox(false);
         }
 
         const AddNote = () => {
@@ -77,31 +104,34 @@ const ViewNote = () => {
                     <Row className="mb-3">
                         <Form.Group as={Col} md="4" controlId="validationCustomUsername">
                             <Form.Label>title</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                                 <Form.Control
                                     type="text"
                                     placeholder="title"
-                                    onChange={(e) => setNoteHeading(e.target.value)}
+                                    onChange={(e)=> setNoteHeading(e.target.value)}
                                     aria-describedby="inputGroupPrepend"
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Please enter title.
+                                    Please choose a username.
                                 </Form.Control.Feedback>
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </InputGroup>
                         </Form.Group>
                         <Form.Group as={Col} md="4" controlId="validationCustom01">
-                            <Form.Label>notes</Form.Label>
+                            <Form.Label>body</Form.Label>
                             <Form.Control
                                 required
                                 type="text"
-                                placeholder="notes"
-                                onChange={(e) => setNoteBody(e.target.value)}
+                                placeholder="body"
+                                onChange={(e)=>setNoteBody(e.target.value)}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">enter notes!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">enter password!</Form.Control.Feedback>
                         </Form.Group>
                     </Row>
-                    <Button type="submit">update note</Button>
+                    <Button type="submit">add note</Button>
                 </Form>
             );
         }
@@ -115,8 +145,8 @@ const ViewNote = () => {
                                     <Card.Title className="d-flex justify-content-between">
                                         <span>{notes.noteHeading}</span>
                                         <span>
-                    <Card.Link onClick={()=>Updatenote(notes)}>update</Card.Link>
-                    <Card.Link onClick={()=>deleteNote(notes)}>delete</Card.Link>
+                    <a href='#' className="text-warning p-2"onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href='#' className="text-danger"onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
                   </span>
                                     </Card.Title>
                                     <Card.Text>{notes.noteBody}</Card.Text>
@@ -128,21 +158,37 @@ const ViewNote = () => {
             );
         }
     const addfunction = () => {
-
+     setAddnotesActivate(true);
+     setGetNotes(false);
+     setSearchbox(false);
     };
     const Searchbox =()=>{
         return(
-            <div className="input-group">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  onChange={(e)=>setSearchQuery(e.target.value)} />
-            <div className="btn-group" >
-            <button className="btn border-0" onClick={()=>{addfunction()}}><i className="fa fa-plus-square" aria-hidden="true"/></button>
-                </div>
-           </div>
+            <Container className="mt-5">
+                <Row>
+                    <Col>
+                        <Form className="d-flex">
+                                <Form.Control
+                                    onChange={handleSearch}
+                                    value={search}
+                                    type="search"
+                                    className="me-2 rounded-pill"
+                                    aria-label="Search"
+                                />
+                                <a href='#' onClick={()=>addfunction()} className="text-success">
+                                    <i className="fa fa-plus" aria-hidden="true"></i>
+                                </a>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
                 );
     }
-        return(
+    return(
             <Container style={{border: "none"}}>
+                { searchbox &&
                 <Searchbox/>
+                }
                 {getNotesActivate &&
                     <GetNotes/>
                 }

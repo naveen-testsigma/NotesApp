@@ -21,11 +21,11 @@ const MainDashboard =()=>{
     return(
         <Container>{
             maindashshow &&
-            <ButtonGroup>
-                <Button onClick={Handlenoteshow} className="btn-outline-dark" >
+            <ButtonGroup className="container-lg p-5 m-5">
+                <Button onClick={Handlenoteshow} variant="outline-success">
                     Notes
                 </Button>
-                <Button onClick={Handletodoshow} className="btn-outline-warning">
+                <Button onClick={Handletodoshow} variant="outline-danger" >
                     Todolist
                 </Button>
             </ButtonGroup>

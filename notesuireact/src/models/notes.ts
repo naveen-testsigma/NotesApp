@@ -2,7 +2,7 @@ import { deserialize, serializable,serialize } from "serializr";
 export class Notes{
 
   @serializable
-  public id !: string;
+  public id !: number;
   @serializable
   public userId !: number;
   @serializable
