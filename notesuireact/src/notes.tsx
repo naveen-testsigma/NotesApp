@@ -60,7 +60,7 @@ const ViewNote = () => {
 
         function deleteNote(note:any) {
             NoteService.removeNote(note.id);
-            if(deletetoggle == true)
+            if(deletetoggle === true)
                 setDeltetoggle(false);
             else setDeltetoggle(true);
         }
