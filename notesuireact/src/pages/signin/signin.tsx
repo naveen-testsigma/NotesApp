@@ -1,10 +1,13 @@
+/* eslint-disable no-restricted-globals */
 import React, {useState} from "react";
 import {Authlogin} from "../../models/authlogin";
-
+import { reject } from "lodash";
 import {Form, Row, Col, InputGroup, Button} from "react-bootstrap";
 import UserService from "../../service/userservice.service";
-
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../navbar";
 const Signin = ()=>{
+    const navigate = useNavigate();
     const [emailId,setEmailId] = useState('');
     const [password,setPassword] = useState('');
     const [validated, setValidated] = useState(false);
@@ -29,11 +32,21 @@ const Signin = ()=>{
       const authlogin = new Authlogin();
       authlogin.emailId = emailId;
       authlogin.password = password;
-        console.log(authlogin);
-      UserService.signin('authenticate',authlogin);
+      UserService.signin('authenticate',authlogin).then((res) => {
+        alert("sigin successfull");
+        navigate("/dashboard");
 
+      })
+      .catch((e) => {
+        reject(e);
+        alert("password or email must be wrong");
+        location.reload();
+      });
+      
     }
     return(
+        <>
+        <Navbar isLogin={false}/>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -67,6 +80,7 @@ const Signin = ()=>{
             </Row>
             <Button type="submit">Submit form</Button>
         </Form>
+        </>
 
     );
 }

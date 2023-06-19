@@ -1,5 +1,6 @@
 import React from "react";
-const Navbar = ()=>{
+import Cookies from "js-cookie";
+const Navbar = (props:any)=>{
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -14,15 +15,23 @@ const Navbar = ()=>{
                         <li className="nav-item">
                             <a className="nav-link" aria-current="page" href="/home">Home</a>
                         </li>
-                        <li className="nav-item">
+                    {!props.isLogin && <>   <li className="nav-item">
                             <a className="nav-link" href="/signup">signup</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/signin" >signin</a>
-                        </li>
+          
+                      </li></>}
+                      {props.isLogin && <>
                         <li className="nav-item">
                             <a className="nav-link" href="/dashboard" >dashboard</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/signin"  onClick={()=>Cookies.remove('user')}>Logout</a>
+          
+                      </li>
+                      </>
+                        }
                     </ul>
                 </div>
             </div>

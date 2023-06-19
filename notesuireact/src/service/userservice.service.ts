@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // @ts-ignore
-import {reject} from 'lodash';
+import { reject } from "lodash";
 import Api from "../instance";
 import {Authlogin} from "../models/authlogin";
 import {Authsignup} from "../models/authsignup";
