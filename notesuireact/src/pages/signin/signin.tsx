@@ -67,7 +67,7 @@ const Signin = ()=>{
                     </InputGroup>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
-                    <Form.Label>First name</Form.Label>
+                    <Form.Label>password</Form.Label>
                     <Form.Control
                         required
                         type="password"
