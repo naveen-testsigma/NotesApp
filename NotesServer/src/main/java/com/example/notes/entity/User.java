@@ -19,17 +19,4 @@ public class User {
     String name;
     @Column(name="email_id")
     String emailId;
-    //These ones are changed
-//    @OneToMany(
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<Notes> notes;
-//
-//    @OneToMany(
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<TodoList> todoLists;
-
 }

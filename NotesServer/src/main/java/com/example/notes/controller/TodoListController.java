@@ -37,7 +37,7 @@ public class TodoListController {
     {
         return todoListService.updateTodoListById(id,todoList);
     }
-    @GetMapping("/search")
+    @GetMapping()
     List<TodoList> index(@RequestParam("query") String data)
     {
         List<Criteria> criteriaList=criterialBuilder.builder(data);

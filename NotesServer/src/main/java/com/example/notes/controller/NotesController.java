@@ -44,7 +44,7 @@ public class NotesController {
     {
         return notesService.deleteNotesById(id);
     }
-    @GetMapping("/search")
+    @GetMapping()
     List<Notes> index(@RequestParam("query") String data)
     {
         List<Criteria> criteriaList=criterialBuilder.builder(data);
