@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,24 +27,27 @@ public class NotesController {
     CriterialBuilder criterialBuilder;
     @Autowired
     NotesMapper notesMapper;
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping()
     Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.updateNotesById(id,notes);
     }
-
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{notesId}")
     String deleteNotesById(@PathVariable("notesId") Long id)
     {
         return notesService.deleteNotesById(id);
     }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/search")
     List<Notes> index(@RequestParam("query") String data)
     {
