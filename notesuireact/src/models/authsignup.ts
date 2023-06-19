@@ -3,7 +3,6 @@ export class Authsignup{
   @serializable
   public  name !: string;
   @serializable
-  @serializable
   public  emailId !: string;
   @serializable
   public  password !: string;
