@@ -1,14 +1,13 @@
 package com.example.notes.service;
 
 
-import com.example.notes.dto.UserDTO;
 import com.example.notes.entity.User;
 import com.example.notes.repository.UserDaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -47,13 +46,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 		System.out.println(newUser);
 		return userDao.save(newUser);
 	}
-	public void authenticate(String username, String password) throws Exception {
+	public Authentication authenticate(String username, String password) {
+		UserDetails userDetails;
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			userDetails = loadUserByUsername(username);
+		} catch (UsernameNotFoundException e) {
+			throw new BadCredentialsException("Invalid username");
 		}
+
+		if (!bcryptEncoder.matches(password, userDetails.getPassword())) {
+			throw new BadCredentialsException("Invalid password");
+		}
+
+		return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 	}
 }

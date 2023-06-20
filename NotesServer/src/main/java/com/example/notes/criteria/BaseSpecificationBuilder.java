@@ -1,6 +1,10 @@
 package com.example.notes.criteria;
 
 import com.example.notes.constants.Operators;
+import com.example.notes.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,8 +15,14 @@ import java.util.regex.Pattern;
 @Component
 public class BaseSpecificationBuilder {
     public List<Criteria> criteriaList = new ArrayList<>();
+    @Autowired
+    UserService userService;
     public List<Criteria> builder(String data)
     {
+        criteriaList.clear();
+        String userName=((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        String userId= new String(String.valueOf((userService.getUserIdFromEmailID(userName))));
+        criteriaList.add(new Criteria("id",Operators.COLON,userId));
         String regex = "(.*?):(.*?),";
 
         Pattern pattern = Pattern.compile(regex);

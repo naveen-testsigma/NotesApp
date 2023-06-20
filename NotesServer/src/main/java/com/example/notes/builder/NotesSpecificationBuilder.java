@@ -15,8 +15,7 @@ import java.util.List;
 public class NotesSpecificationBuilder extends BaseSpecificationBuilder {
     @Autowired
     NotesSpecification notesSpecification;
-    @Autowired
-    NotesService notesService;
+
     @Autowired
     NotesRepository notesRepository;
     public Specification builder(List<Criteria> criteriaList) {
@@ -45,7 +44,7 @@ public class NotesSpecificationBuilder extends BaseSpecificationBuilder {
 
     public List<Notes> build(String data) {
         super.builder(data);
-        Specification spec= builder(criteriaList);
+        Specification spec= builder(super.criteriaList);
         return notesRepository.findAll(spec);
     }
 }

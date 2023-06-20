@@ -36,19 +36,19 @@ public class JwtAuthenticationController {
 	private JwtMapper jwtMapper;
 	@Autowired
 	private UserService userService;
-    @ResponseStatus(HttpStatus.ACCEPTED)
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(HttpServletResponse response, @RequestBody LoginRequest loginRequest) throws Exception {
-		JwtRequest authenticationRequest=jwtMapper.loginRequestToJwtRequest(loginRequest);
-		userDetailsService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		Cookie cookie=new Cookie("user",token);
-		response.addCookie(cookie);
-		return ResponseEntity.ok(new JwtResponse(token));
-	}
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+//	public ResponseEntity<?> createAuthenticationToken(HttpServletResponse response, @RequestBody LoginRequest loginRequest) throws Exception {
+//		JwtRequest authenticationRequest=jwtMapper.loginRequestToJwtRequest(loginRequest);
+//		userDetailsService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+//
+//		final UserDetails userDetails = userDetailsService
+//				.loadUserByUsername(authenticationRequest.getUsername());
+//		final String token = jwtTokenUtil.generateToken(userDetails);
+//		Cookie cookie=new Cookie("user",token);
+//		response.addCookie(cookie);
+//		return ResponseEntity.ok(new JwtResponse(token));
+//	}
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {

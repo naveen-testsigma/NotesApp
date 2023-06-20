@@ -1,5 +1,6 @@
 package com.example.notes.config;
 
+import com.example.notes.jwt.JwtAuthendicateFilter;
 import com.example.notes.jwt.JwtAuthenticationEntryPoint;
 import com.example.notes.jwt.JwtRequestFilter;
 
@@ -30,6 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	@Bean
+	public JwtAuthendicateFilter jwtAuthendicateFilter() throws Exception {
+		JwtAuthendicateFilter filter = new JwtAuthendicateFilter("/**/*");
+		filter.setAuthenticationManager(super.authenticationManagerBean());
+		return filter;
+	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,10 +57,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate", "/register","/notes").permitAll()
+				.authorizeRequests().antMatchers( "/register").permitAll()
 						.anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterAfter(jwtAuthendicateFilter(),jwtRequestFilter.getClass());
+
 	}
 }
