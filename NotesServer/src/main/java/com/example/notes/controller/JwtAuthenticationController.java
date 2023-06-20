@@ -11,13 +11,11 @@ import com.example.notes.request.LoginRequest;
 import com.example.notes.service.JwtUserDetailsService;
 import com.example.notes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +36,7 @@ public class JwtAuthenticationController {
 	private JwtMapper jwtMapper;
 	@Autowired
 	private UserService userService;
-
+    @ResponseStatus(HttpStatus.ACCEPTED)
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(HttpServletResponse response, @RequestBody LoginRequest loginRequest) throws Exception {
 		JwtRequest authenticationRequest=jwtMapper.loginRequestToJwtRequest(loginRequest);
@@ -51,7 +49,7 @@ public class JwtAuthenticationController {
 		response.addCookie(cookie);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-	
+	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));

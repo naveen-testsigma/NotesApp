@@ -7,6 +7,7 @@ import com.example.notes.request.NotesRequest;
 import com.example.notes.entity.Notes;
 import com.example.notes.service.NotesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,24 +23,27 @@ public class NotesController {
     NotesSpecificationBuilder notesSpecificationBuilder;
     @Autowired
     NotesMapper notesMapper;
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping()
     Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.updateNotesById(id,notes);
     }
-
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{notesId}")
     String deleteNotesById(@PathVariable("notesId") Long id)
     {
         return notesService.deleteNotesById(id);
     }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping()
     List<Notes> index(@RequestParam("query") String data)
     {
