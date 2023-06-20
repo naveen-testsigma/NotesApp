@@ -3,7 +3,6 @@ package com.example.notes.service;
 
 import com.example.notes.dto.UserDTO;
 import com.example.notes.entity.User;
-import com.example.notes.entity.UserAuth;
 import com.example.notes.repository.UserDaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,11 +38,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public User save(UserDTO user) {
+	public User save(User user) {
 
 		User newUser = new User();
-		newUser.setEmailId(user.getUsername());
+		newUser.setEmailId(user.getEmailId());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setName(user.getName());
+		System.out.println(newUser);
 		return userDao.save(newUser);
 	}
 	public void authenticate(String username, String password) throws Exception {

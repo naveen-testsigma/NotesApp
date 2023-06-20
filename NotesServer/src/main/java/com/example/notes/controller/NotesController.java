@@ -1,15 +1,11 @@
 package com.example.notes.controller;
 
-import com.example.notes.criteria.Criteria;
-import com.example.notes.criteria.CriterialBuilder;
+import com.example.notes.builder.NotesSpecificationBuilder;
 import com.example.notes.mapper.NotesMapper;
 import com.example.notes.repository.NotesRepository;
 import com.example.notes.request.NotesRequest;
 import com.example.notes.entity.Notes;
 import com.example.notes.service.NotesService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +19,7 @@ public class NotesController {
     @Autowired
     NotesRepository notesRepository;
     @Autowired
-    CriterialBuilder criterialBuilder;
+    NotesSpecificationBuilder notesSpecificationBuilder;
     @Autowired
     NotesMapper notesMapper;
     @PostMapping()
@@ -47,7 +43,6 @@ public class NotesController {
     @GetMapping()
     List<Notes> index(@RequestParam("query") String data)
     {
-        List<Criteria> criteriaList=criterialBuilder.builder(data);
-        return notesService.index(criteriaList);
+        return notesSpecificationBuilder.build(data);
     }
 }

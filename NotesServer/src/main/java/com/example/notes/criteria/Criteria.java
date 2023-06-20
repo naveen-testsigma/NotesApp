@@ -1,13 +1,14 @@
 package com.example.notes.criteria;
 
+import com.example.notes.constants.Operators;
 import lombok.Data;
 
 @Data
 public class Criteria {
     String key;
-    String operation;
+    Enum<Operators> operation;
     String value;
-    Criteria(String a,String b,String c)
+    Criteria(String a, Enum<Operators> b, String c)
     {
         this.key=a;
         this.operation=b;
