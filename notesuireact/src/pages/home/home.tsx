@@ -5,7 +5,9 @@ const Home = () =>{
     
       <div >
         <Navbar/>
-               <span className="container-fluid fs-1 text-dark"> notes and todolist</span>
+        <div className="d-flex justify-content-center">
+               <span className="fs-1 text-dark bg-light"> N𝑜𝓉𝑒𝓈 𝒶𝓃𝒹 T𝑜𝒹𝑜𝓁𝒾𝓈𝓉</span>
+        </div>
       </div>
   );
 }
