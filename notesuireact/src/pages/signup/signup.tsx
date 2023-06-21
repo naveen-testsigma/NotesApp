@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Form, Row, Col, InputGroup, Button} from "react-bootstrap";
 import UserService from "../../service/userservice.service";
 import {Authsignup} from "../../models/authsignup";
+import Navbar from "../../navbar";
 
 const Signup = ()=>{
     const [emailId,setEmailId] = useState('');
@@ -36,6 +37,8 @@ const Signup = ()=>{
 
     }
     return(
+        <div>
+            <Navbar />
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validateCustomname">
@@ -86,7 +89,7 @@ const Signup = ()=>{
             </Row>
             <Button type="submit">Submit form</Button>
         </Form>
-
+        </div>
     );
 }
 
