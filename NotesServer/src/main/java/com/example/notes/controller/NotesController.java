@@ -49,7 +49,7 @@ public class NotesController {
     @GetMapping()
     List<Notes> index(@RequestParam("query") String data)
     {
-
+        System.out.println(data);
         return notesSpecificationBuilder.build(data);
     }
 }

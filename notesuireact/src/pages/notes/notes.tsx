@@ -104,6 +104,7 @@ const ViewNote = () => {
             type="text"
             onChange={(e)=> setNoteHeading(e.target.value)}
             placeholder="Title"
+            value={noteHeading}
           
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -116,6 +117,7 @@ const ViewNote = () => {
               type="text"
               placeholder="body"
               onChange={(e)=> setNoteBody(e.target.value)}
+              value={noteBody}
               aria-describedby="inputGroupPrepend"
               required
             />
