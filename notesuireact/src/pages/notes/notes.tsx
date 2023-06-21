@@ -92,105 +92,92 @@ const ViewNote = () => {
             setGetNotes(false);
             setSearchbox(false);
         }
-
-        const AddNote = () => {
-            return (
-                <Form noValidate validated={validated} onSubmit={handleaddSubmit}>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="12" controlId="validationCustom01">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            onChange={(e)=> setNoteHeading(e.target.value)}
-            placeholder="Title"
-            value={noteHeading}
-          
-          />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-      
-        <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-          <Form.Label>Body</Form.Label>
-          <InputGroup hasValidation>
-            <Form.Control
-              type="text"
-              placeholder="body"
-              onChange={(e)=> setNoteBody(e.target.value)}
-              value={noteBody}
-              aria-describedby="inputGroupPrepend"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
-      </Row>
-      <Button type="submit" variant="outline-success">Add</Button>
-    </Form>
-            );
-        }
-        const GetNotes = () => {
-            return (
-                <Row>
-                    {note?.map((notes: Note) => (
-                        <Col md={6} lg={4} sm={12} key={notes.id} className="mt-2">
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title className="d-flex justify-content-between">
-                                        <span>{notes.noteHeading}</span>
-                                        <span>
-                    <a href='#' className="text-warning p-2" onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href='#' className="text-danger" onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
-                  </span>
-                                    </Card.Title>
-                                    <Card.Text>{notes.noteBody}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-            );
-        }
     const addfunction = () => {
      setAddnotesActivate(true);
      setGetNotes(false);
      setSearchbox(false);
     };
-    const Searchbox =()=>{
-        return(
-            <Container className="mt-5">
-                <Row>
-                    <Col>
-                        <Form className="d-flex">
-                                <Form.Control
-                                    onChange={handleSearch}
-                                    value={search}
-                                    type="search"
-                                    className="me-2 rounded-pill"
-                                    aria-label="Search"
-                                />
-                                <a href='#' onClick={()=>addfunction()} className="text-success">
-                                    <i className="fa fa-plus" aria-hidden="true"></i>
-                                </a>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-                );
-    }
+
     return(
             <Container style={{border: "none"}}>
                 { searchbox &&
-                <Searchbox/>
+                    <Container className="mt-5">
+                        <Row>
+                            <Col>
+                                <Form className="d-flex">
+                                    <Form.Control
+                                        onChange={handleSearch}
+                                        value={search}
+                                        type="search"
+                                        className="me-2 rounded-pill"
+                                        aria-label="Search"
+                                    />
+                                    <a href='#' onClick={()=>addfunction()} className="text-success">
+                                        <i className="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Container>
+
                 }
                 {getNotesActivate &&
-                    <GetNotes/>
+                    <Row>
+                        {note?.map((notes: Note) => (
+                            <Col md={6} lg={4} sm={12} key={notes.id} className="mt-2">
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title className="d-flex justify-content-between">
+                                            <span>{notes.noteHeading}</span>
+                                            <span>
+                    <a href='#' className="text-warning p-2" onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href='#' className="text-danger" onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
+                  </span>
+                                        </Card.Title>
+                                        <Card.Text>{notes.noteBody}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+
                 }
                 {
                     addnotesActivate &&
-                    <AddNote/>
+                    <Form noValidate validated={validated} onSubmit={handleaddSubmit}>
+                        <Row className="mb-3">
+                            <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    onChange={(e)=> setNoteHeading(e.target.value)}
+                                    placeholder="Title"
+                                    value={noteHeading}
+
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+                                <Form.Label>Body</Form.Label>
+                                <InputGroup hasValidation>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="body"
+                                        onChange={(e)=> setNoteBody(e.target.value)}
+                                        value={noteBody}
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose a username.
+                                    </Form.Control.Feedback>
+                                </InputGroup>
+                            </Form.Group>
+                        </Row>
+                        <Button type="submit" variant="outline-success">Add</Button>
+                    </Form>
                 }
             </Container>
         );
