@@ -75,13 +75,8 @@ const ViewNote = () => {
             event.preventDefault();
             event.stopPropagation();
         }
-        else{
-            event.preventDefault();
             setValidated(true);
             addNotepass();
-        }
-
-
     };
         function deleteNote(note:any) {
             console.log(note.id + "in delete note");
@@ -101,40 +96,37 @@ const ViewNote = () => {
         const AddNote = () => {
             return (
                 <Form noValidate validated={validated} onSubmit={handleaddSubmit}>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                            <Form.Label>title</Form.Label>
-                            <InputGroup hasValidation>
-                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="title"
-                                    value={noteHeading}
-                                    onChange={(e)=> {setNoteHeading(e.target.value)}}
-                                    aria-describedby="inputGroupPrepend"
-
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Please choose a username.
-                                </Form.Control.Feedback>
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="validationCustom01">
-                            <Form.Label>body</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                placeholder="body"
-                                value={noteBody}
-                                onChange={(e)=>setNoteBody(e.target.value)}
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">enter password!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-                    <Button type="submit">add note</Button>
-                </Form>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="12" controlId="validationCustom01">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            onChange={(e)=> setNoteHeading(e.target.value)}
+            placeholder="Title"
+          
+          />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
+      
+        <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+          <Form.Label>Body</Form.Label>
+          <InputGroup hasValidation>
+            <Form.Control
+              type="text"
+              placeholder="body"
+              onChange={(e)=> setNoteBody(e.target.value)}
+              aria-describedby="inputGroupPrepend"
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+      </Row>
+      <Button type="submit" variant="outline-success">Add</Button>
+    </Form>
             );
         }
         const GetNotes = () => {
@@ -147,8 +139,8 @@ const ViewNote = () => {
                                     <Card.Title className="d-flex justify-content-between">
                                         <span>{notes.noteHeading}</span>
                                         <span>
-                    <a href='src#' className="text-warning p-2" onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href='src#' className="text-danger" onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
+                    <a href='#' className="text-warning p-2" onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href='#' className="text-danger" onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
                   </span>
                                     </Card.Title>
                                     <Card.Text>{notes.noteBody}</Card.Text>
@@ -177,7 +169,7 @@ const ViewNote = () => {
                                     className="me-2 rounded-pill"
                                     aria-label="Search"
                                 />
-                                <a href='src#' onClick={()=>addfunction()} className="text-success">
+                                <a href='#' onClick={()=>addfunction()} className="text-success">
                                     <i className="fa fa-plus" aria-hidden="true"></i>
                                 </a>
                         </Form>
