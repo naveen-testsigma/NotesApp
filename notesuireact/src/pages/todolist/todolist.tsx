@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react"
 import Cookies  from "js-cookie";
 import jwt_decode, { JwtPayload } from "jwt-decode";
+import { Link } from "react-router-dom";
+require("./todolist.css")
 const TodoList=()=>{
     const [todolist,setTodolist]=useState([] as any);
     const [userId,setUserId]=useState(null);
@@ -32,7 +34,7 @@ const TodoList=()=>{
         else
         {
             const JWT=Cookies.get('user');
-            axios.get("http://localhost:8080/todolist/search?query=id:"+userId+",title:"+event.target.value,{ headers: {"Authorization" : `Bearer ${JWT}`} }).then(res=>{
+            axios.get(`http://localhost:8080/todolist?query=title:${event.target.value},`,{ headers: {"Authorization" : `Bearer ${JWT}`} }).then(res=>{
                 setTodolist([]);
                 res.data.map((data:any)=>{
                     setTodolist((element: any)=>[...element,data]);
@@ -68,7 +70,7 @@ const TodoList=()=>{
     }
     const getTodoList=(userId:number)=>{
         const JWT=Cookies.get('user');
-        axios.get("http://localhost:8080/todolist/search?query=id:"+userId,{ headers: {"Authorization" : `Bearer ${JWT}`} }).then(res=>{
+        axios.get("http://localhost:8080/todolist?query=,",{ headers: {"Authorization" : `Bearer ${JWT}`} }).then(res=>{
             setTodolist([]);
             res.data.map((data:any)=>{
                 setTodolist((element: any)=>[...element,data]);
@@ -115,7 +117,7 @@ const TodoList=()=>{
     <button  className="btn border-0"><i className="bi bi-search" style={{fontSize: '1.5rem'}}></i></button>
   </div>
     <div   className="container border-dark border-3 rounded " style={{marginTop:'3rem'}}>
-  {todolist.length==0 &&  <h5 className="border-dark bg-danger rounded opacity-25 display-6" >not found ! </h5> }
+  {todolist.length===0 &&  <h5 className="border-dark bg-danger rounded opacity-25 display-6" >not found ! </h5> }
       
   </div>
   {addTask &&
@@ -171,8 +173,8 @@ const TodoList=()=>{
     <tr>
       <td className="d-flex justify-content-between">
         <span>  {data.todoData}</span>
-        <a ><i onClick={()=>updateTask(data)} >🖊️</i></a>
-        <a ><i onClick={()=>deleteTask(data)} >❌</i></a>
+        <a  style={{textDecoration:"none"}} href="" onClick={()=>updateTask(data)}>🖊️</a>
+        <a  style={{textDecoration:"none"}} href="" onClick={()=>deleteTask(data)} >❌</a>
       </td>
     </tr>
     </tbody>
