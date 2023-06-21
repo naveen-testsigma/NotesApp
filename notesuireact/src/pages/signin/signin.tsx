@@ -14,6 +14,7 @@ const Signin = ()=>{
 
     const handleSubmit = (event:any) => {
         event.preventDefault();
+        setValidated(true);
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -21,7 +22,6 @@ const Signin = ()=>{
         }
         else{
             event.preventDefault();
-            setValidated(true);
             Signinauth();
         }
 
@@ -33,7 +33,7 @@ const Signin = ()=>{
       authlogin.username = emailId;
       authlogin.password = password;
       UserService.signin('authenticate',authlogin).then((res) => {
-        alert("sigin successfull");
+        alert("signin successfull");
         navigate("/dashboard");
 
       })
@@ -53,7 +53,8 @@ const Signin = ()=>{
         <Form.Group as={Col} md="12" lg="12" controlId="validationCustomUsername">
           <Form.Label>Username</Form.Label>
           <InputGroup hasValidation>
-            <InputGroup.Text id="inputGroupPrepend" className="bg-primary">@</InputGroup.Text>
+            <InputGroup.Text id="inputGroupPrepend" className="bg-primary"><i className="fa fa-envelope"
+                                                                              aria-hidden="true"></i></InputGroup.Text>
             <Form.Control
               type="email"
               placeholder="Username"
@@ -70,14 +71,19 @@ const Signin = ()=>{
       <Row className="mb-3">
         <Form.Group as={Col} md="12" lg="12" controlId="validationCustom03">
           <Form.Label>Password</Form.Label>
+            <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend" className="bg-primary">
+                    <i className="fa fa-lock m-1" aria-hidden="true"></i>
+                </InputGroup.Text>
           <Form.Control type="password" placeholder="password" required onChange={(e)=>setPassword(e.target.value)} />
           <Form.Control.Feedback type="invalid">
             Please provide a valid password.
           </Form.Control.Feedback>
+            </InputGroup>
         </Form.Group>
       </Row>
       <div className="text-center">
-      <Button type="submit" variant="outline-primary">Submit form</Button>
+      <Button type="submit" variant="outline-dark"><i className="fa fa-sign-in" aria-hidden="true"></i> Sign-In</Button>
       </div>
     </Form>
         </div>

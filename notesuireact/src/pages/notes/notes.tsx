@@ -5,16 +5,19 @@ import Note  from "../../models/notes";
 import UserService from "../../service/userservice.service";
 import Cookies  from "js-cookie";
 import jwtDecode  from "jwt-decode";
+import notes from "../../models/notes";
 const ViewNote = () => {
     const [note, setNotes] = useState<Note[]>([]); // Specify the type for the note array
+    const [updateNote ,setUpdateNote] = useState();
     const [userId,setUserId]=useState(0);
-    const [noteupdate,setNoteupdate] = useState<Note>();
+    const [updatevalidated, setupdateValidated] = useState(false);
     const [id,setId] = useState(0);
     const [noteHeading, setNoteHeading] = useState('');
     const [searchbox,setSearchbox] = useState(true);
     const [search,setSearch]=useState("");
     const [noteBody, setNoteBody] = useState('');
     const [getNotesActivate, setGetNotes] = useState(true)
+    const [updatenotesActivate, setUpdatenotesActivate] = useState(false)
     const [addnotesActivate, setAddnotesActivate] = useState(false)
     const [deletetoggle,setDeltetoggle] = useState(true);
     const [validated, setValidated] = useState(false);
@@ -37,25 +40,28 @@ const ViewNote = () => {
             console.log("added succesfully");
         });
     }
-    function noteUpdate(note:any){
-        NoteService.updateNote(note).then(()=>{
+    function noteUpdate(){
+        // @ts-ignore
+        updateNote.noteBody = noteBody;
+        // @ts-ignore
+        updateNote.noteHeading = noteHeading;
+        // @ts-ignore
+        console.log(updateNote);
+        // @ts-ignore
+        NoteService.updateNote(updateNote).then(()=>{
             console.log("updated successfully");
-        })
-        setId(0);
+        });
+        setGetNotes(true);
+        setSearchbox(true);
+        setUpdatenotesActivate(false);
+
     }
     function addNotepass() {
     const note = new Note();
     note.noteHeading = noteHeading;
     note.noteBody = noteBody;
     note.userId = userId;
-        console.log("in add notes user " + id + " if update id" );
-        if(id==0){
             noteAdd(note);
-    }
-        else{
-            note.id = id;
-            noteUpdate(note);
-        }
         setGetNotes(true);
         setSearchbox(true);
         setAddnotesActivate(false);
@@ -69,14 +75,26 @@ const ViewNote = () => {
 
     }
     const handleaddSubmit = (event:any) => {
-        event.preventDefault();
+        setValidated(true);
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-            setValidated(true);
+        else {
             addNotepass();
+        }
+    };
+    const handleupdateSubmit = (event:any) => {
+        setupdateValidated(true);
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else {
+            noteUpdate();
+        }
     };
         function deleteNote(note:any) {
             console.log(note.id + "in delete note");
@@ -87,8 +105,10 @@ const ViewNote = () => {
         }
 
         function Updatenote(notes:any) {
-            setId (notes.id);
-            setAddnotesActivate(true);
+            setUpdateNote(notes);
+            setNoteHeading(notes.noteHeading)
+            setNoteBody(notes.noteBody);
+            setUpdatenotesActivate(true);
             setGetNotes(false);
             setSearchbox(false);
         }
@@ -178,6 +198,44 @@ const ViewNote = () => {
                         </Row>
                         <Button type="submit" variant="outline-success">Add</Button>
                     </Form>
+                }
+                {
+                    updatenotesActivate &&
+                    <Form noValidate validated={updatevalidated} onSubmit={handleupdateSubmit}>
+                        <Row className="mb-3">
+                            <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    onChange={(e)=> setNoteHeading(e.target.value)}
+                                    placeholder="Title"
+                                    value={noteHeading}
+
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </Form.Group>
+
+                            <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+                                <Form.Label>Body</Form.Label>
+                                <InputGroup hasValidation>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="body"
+                                        onChange={(e)=> setNoteBody(e.target.value)}
+                                        value={noteBody}
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose a username.
+                                    </Form.Control.Feedback>
+                                </InputGroup>
+                            </Form.Group>
+                        </Row>
+                        <Button type="submit" variant="outline-success">Update</Button>
+                    </Form>
+
                 }
             </Container>
         );
