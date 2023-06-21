@@ -1,5 +1,6 @@
 package com.example.notes.config;
 
+import com.example.notes.jwt.JwtAuthendicateFilter;
 import com.example.notes.jwt.JwtAuthenticationEntryPoint;
 import com.example.notes.jwt.JwtRequestFilter;
 
@@ -21,10 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@CrossOrigin(origins = "http://localhost:4200/**")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -33,6 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
+	@Bean
+	public JwtAuthendicateFilter jwtAuthendicateFilter() throws Exception {
+		JwtAuthendicateFilter filter = new JwtAuthendicateFilter("/authenticate");
+		filter.setAuthenticationManager(super.authenticationManagerBean());
+		return filter;
+	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -53,10 +57,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
+				.authorizeRequests().antMatchers( "/register").permitAll()
 						.anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterAfter(jwtAuthendicateFilter(),jwtRequestFilter.getClass());
+
 	}
 }

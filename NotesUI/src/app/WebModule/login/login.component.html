@@ -5,7 +5,7 @@
       <label for="username" class="p-3">
         Email
       </label>
-      <input #email="ngModel" type="text" minlength="4" required name="username" id="username" [(ngModel)]="login.emailId">
+      <input #email="ngModel" email="true" type="email" required name="username" id="username" [(ngModel)]="login.emailId">
 
     </div>
     <div class="text-danger text-muted" *ngIf="email.invalid && (email.dirty||email.touched)">username required!</div>

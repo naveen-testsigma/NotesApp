@@ -7,14 +7,16 @@ import java.sql.Date;
 
 import javax.persistence.*;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Table(name = "todo_list")
 public class TodoList {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     Long id;
+    @Column(name="user_id")
     Long userId;
+    @Column(name="todo_data")
     String todoData;
 
 }

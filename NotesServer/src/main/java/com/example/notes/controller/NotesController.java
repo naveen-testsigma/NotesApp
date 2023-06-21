@@ -1,57 +1,55 @@
 package com.example.notes.controller;
 
-import com.example.notes.criteria.Criteria;
-import com.example.notes.criteria.CriterialBuilder;
+import com.example.notes.builder.NotesSpecificationBuilder;
+import com.example.notes.entity.Notes;
 import com.example.notes.mapper.NotesMapper;
 import com.example.notes.repository.NotesRepository;
 import com.example.notes.request.NotesRequest;
-import com.example.notes.entity.Notes;
 import com.example.notes.service.NotesService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @RestController
 @RequestMapping("/notes")
-@CrossOrigin(origins = "http://localhost:4200")
 public class NotesController {
     @Autowired
     NotesService notesService;
     @Autowired
     NotesRepository notesRepository;
     @Autowired
-    CriterialBuilder criterialBuilder;
+    NotesSpecificationBuilder notesSpecificationBuilder;
     @Autowired
     NotesMapper notesMapper;
-    @PostMapping("/")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PostMapping()
     Notes postNotes(@RequestBody NotesRequest notesRequest)
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.postNotes(notes);
     }
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/{id}")
     String updateNotesById(@PathVariable("id") Long  id, @RequestBody NotesRequest notesRequest )
     {
         Notes notes=notesMapper.notesRequestToNotes(notesRequest);
         return notesService.updateNotesById(id,notes);
     }
-
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{notesId}")
     String deleteNotesById(@PathVariable("notesId") Long id)
     {
         return notesService.deleteNotesById(id);
     }
-    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping()
     List<Notes> index(@RequestParam("query") String data)
     {
-        List<Criteria> criteriaList=criterialBuilder.builder(data);
-        return notesService.index(criteriaList);
+        System.out.println(data);
+        return notesSpecificationBuilder.build(data);
     }
 }

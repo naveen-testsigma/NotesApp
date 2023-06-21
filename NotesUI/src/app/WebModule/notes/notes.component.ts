@@ -3,6 +3,7 @@ import {NotesService} from "../../service/notes.service";
 import {Notes} from "../../models/notes";
 import {Router} from "@angular/router";
 import {Search} from "../../models/search";
+import {ngbAlertFadingTransition} from "@ng-bootstrap/ng-bootstrap/alert/alert-transition";
 
 @Component({
   selector: 'app-notes',
@@ -55,9 +56,17 @@ export class NotesComponent implements OnInit{
       this.route.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
         this.route.navigate(['/dashboard/notes']);
       })
-    });
+    },
+      error =>{
+        if (error.status === 404) {
+          this.route.navigate(['error', '404 Not Found']);
+        } else if (error.status === 500) {
+          this.route.navigate(['error', '500 Internal Server Error']);
+        } else {
+          this.route.navigate(['error', 'Server Might Not Be running :(']);
+        }
+      });
   }
-
   update() {
     this.isVisible=false;
     this.notee1.noteBody="Update Here";
@@ -113,5 +122,6 @@ export class NotesComponent implements OnInit{
     this.isVisible = false;
     this.isSearch = false;
     this.adddisplay = true;
+    this.notFound = false;
   }
 }

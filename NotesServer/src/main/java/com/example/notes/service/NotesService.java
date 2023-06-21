@@ -30,14 +30,5 @@ public class NotesService {
        return  "Updated Successfully";
     }
 
-    public List<Notes> searchNotes(Long id,List<String> query) {
-        Specification spec=notesSpecificationBuilder.build(id,query);
-        return notesRepository.findAll(spec);
-    }
-
-    public List<Notes> index(List<Criteria> criteriaList) {
-        Specification spec= notesSpecificationBuilder.builder(criteriaList);
-        return notesRepository.findAll(spec);
-    }
 
 }
