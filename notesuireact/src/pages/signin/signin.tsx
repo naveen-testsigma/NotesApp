@@ -30,7 +30,7 @@ const Signin = ()=>{
 
     const Signinauth =()=>{
       const authlogin = new Authlogin();
-      authlogin.emailId = emailId;
+      authlogin.username = emailId;
       authlogin.password = password;
       UserService.signin('authenticate',authlogin).then((res) => {
         alert("sigin successfull");

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
-import { NoteService } from "./service/notes.service";
-import Note  from "./models/notes";
-import UserService from "./service/userservice.service";
+import { NoteService } from "../../service/notes.service";
+import Note  from "../../models/notes";
+import UserService from "../../service/userservice.service";
 import Cookies  from "js-cookie";
 import jwtDecode  from "jwt-decode";
 const ViewNote = () => {
@@ -109,9 +109,10 @@ const ViewNote = () => {
                                 <Form.Control
                                     type="text"
                                     placeholder="title"
-                                    onChange={(e)=> setNoteHeading(e.target.value)}
+                                    value={noteHeading}
+                                    onChange={(e)=> {setNoteHeading(e.target.value)}}
                                     aria-describedby="inputGroupPrepend"
-                                    required
+
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please choose a username.
@@ -125,6 +126,7 @@ const ViewNote = () => {
                                 required
                                 type="text"
                                 placeholder="body"
+                                value={noteBody}
                                 onChange={(e)=>setNoteBody(e.target.value)}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -145,8 +147,8 @@ const ViewNote = () => {
                                     <Card.Title className="d-flex justify-content-between">
                                         <span>{notes.noteHeading}</span>
                                         <span>
-                    <a href='#' className="text-warning p-2"onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href='#' className="text-danger"onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
+                    <a href='src#' className="text-warning p-2" onClick={()=>Updatenote(notes)}><i className="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href='src#' className="text-danger" onClick={()=>deleteNote(notes)}><i className="fa fa-trash" aria-hidden="true"></i></a>
                   </span>
                                     </Card.Title>
                                     <Card.Text>{notes.noteBody}</Card.Text>
@@ -175,7 +177,7 @@ const ViewNote = () => {
                                     className="me-2 rounded-pill"
                                     aria-label="Search"
                                 />
-                                <a href='#' onClick={()=>addfunction()} className="text-success">
+                                <a href='src#' onClick={()=>addfunction()} className="text-success">
                                     <i className="fa fa-plus" aria-hidden="true"></i>
                                 </a>
                         </Form>

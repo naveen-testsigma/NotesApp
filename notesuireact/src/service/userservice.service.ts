@@ -13,12 +13,7 @@ const getid = (query:any)=>{
 
 }
 const signin = (query:string, Authlogin: Authlogin) => {
-    return Api.post(`${nameSpace}${query}`,Authlogin)
-        .then((res)=>{
-            alert("sigin successfull");
-        })
-        .catch(e => {reject(e)
-        alert("password or email must be wrong")})
+    return Api.post(`${nameSpace}${query}`,Authlogin);
 }
 const signup = (query:string, Authsignup: Authsignup) => {
     return Api.post(`${nameSpace}${query}`,Authsignup)

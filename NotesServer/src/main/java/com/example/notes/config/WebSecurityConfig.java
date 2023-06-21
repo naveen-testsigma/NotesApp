@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtRequestFilter jwtRequestFilter;
 	@Bean
 	public JwtAuthendicateFilter jwtAuthendicateFilter() throws Exception {
-		JwtAuthendicateFilter filter = new JwtAuthendicateFilter("/**/*");
+		JwtAuthendicateFilter filter = new JwtAuthendicateFilter("/authenticate");
 		filter.setAuthenticationManager(super.authenticationManagerBean());
 		return filter;
 	}
