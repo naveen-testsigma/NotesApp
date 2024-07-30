@@ -9,5 +9,6 @@
   <div class="mouth"></div>
 </div>
 
-<h1>Oops! Something went wrong!</h1>
-<div class="btn">Return to Home</div>
+<h1>Oops! Something went wrong!<br>
+<span class="text-danger">{{errorMessage}}</span></h1>
+<div (click)="returnHome()"class="btn">Return to Home</div>

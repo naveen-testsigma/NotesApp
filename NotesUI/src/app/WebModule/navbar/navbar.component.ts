@@ -11,6 +11,7 @@ export class NavbarComponent{
 ifLoggedout: Boolean = false;
 ifLoggedin: Boolean = true;
   loggingbuttondisable: boolean = true;
+
 constructor(private routes:Router,private cookieservice:CookieService){
 if(this.cookieservice.get("user"))
 {
