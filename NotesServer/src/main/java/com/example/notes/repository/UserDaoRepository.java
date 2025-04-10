@@ -1,9 +1,9 @@
 package com.example.notes.repository;
 
-import com.example.notes.entity.UserAuth;
+import com.example.notes.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserDaoRepository extends CrudRepository<UserAuth, Integer> {
+public interface UserDaoRepository extends CrudRepository<User, Integer> {
 
-    UserAuth findByUsername(String username);
+    User findByEmailId(String username);
 }

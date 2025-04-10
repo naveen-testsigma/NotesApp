@@ -1,5 +1,6 @@
 package com.example.notes.builder;
 
+import com.example.notes.criteria.BaseSpecificationBuilder;
 import com.example.notes.criteria.Criteria;
 import com.example.notes.entity.Notes;
 import com.example.notes.entity.TodoList;
@@ -13,7 +14,7 @@ import java.util.List;
 import static ch.qos.logback.classic.Level.valueOf;
 
 @Component
-public class TodoListSpecificationBuilder {
+public class TodoListSpecificationBuilder extends BaseSpecificationBuilder {
     @Autowired
     TodoListSpecification todoListSpecification;
 

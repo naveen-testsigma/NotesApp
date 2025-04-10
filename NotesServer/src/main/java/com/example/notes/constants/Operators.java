@@ -1,5 +1,15 @@
 package com.example.notes.constants;
 
-public class Operators {
-    public static String COLON=":";
+ public enum Operators {
+    COLON (":");
+     private String value;
+     public String getValue()
+     {
+         return this.value;
+     }
+
+     private Operators(String value)
+     {
+         this.value = value;
+     }
 }

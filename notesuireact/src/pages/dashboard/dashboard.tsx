@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, ButtonGroup, Container} from "react-bootstrap";
-import ViewNote from "../../notes";
+import ViewNote from "../notes/notes";
 import TodoList from "../todolist/todolist";
 import Navbar from "../../navbar";
 
